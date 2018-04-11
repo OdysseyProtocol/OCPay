@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stormfives.admin.wallet.dao.UserNeoWalletMapper" >
+  <resultMap id="BaseResultMap" type="com.stormfives.admin.wallet.dao.entity.UserNeoWallet" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="neo_wallet_address" property="neoWalletAddress" jdbcType="VARCHAR" />
+    <result column="balance_qlc" property="balanceQlc" jdbcType="DECIMAL" />
+    <result column="balance_neo" property="balanceNeo" jdbcType="DECIMAL" />
+    <result column="balance_ont" property="balanceOnt" jdbcType="DECIMAL" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="eth_wallet_private_key" property="ethWalletPrivateKey" jdbcType="VARCHAR" />
+    <result column="eth_wallet_address" property="ethWalletAddress" jdbcType="VARCHAR" />
+    <result column="balance_eth" property="balanceEth" jdbcType="DECIMAL" />
+    <result column="bind_wallet_time" property="bindWalletTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, neo_wallet_address, balance_qlc, balance_neo, balance_ont, state, eth_wallet_private_key, 
+    eth_wallet_address, balance_eth, bind_wallet_time, update_time, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWalletExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_neo_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_neo_wallet
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_neo_wallet
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWalletExample" >
+    delete from user_neo_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWallet" >
+    insert into user_neo_wallet (userid, neo_wallet_address, balance_qlc, 
+      balance_neo, balance_ont, state, 
+      eth_wallet_private_key, eth_wallet_address, 
+      balance_eth, bind_wallet_time, update_time, 
+      create_time)
+    values (#{userid,jdbcType=INTEGER}, #{neoWalletAddress,jdbcType=VARCHAR}, #{balanceQlc,jdbcType=DECIMAL}, 
+      #{balanceNeo,jdbcType=DECIMAL}, #{balanceOnt,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
+      #{ethWalletPrivateKey,jdbcType=VARCHAR}, #{ethWalletAddress,jdbcType=VARCHAR}, 
+      #{balanceEth,jdbcType=DECIMAL}, #{bindWalletTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWallet" >
+    insert into user_neo_wallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="neoWalletAddress != null" >
+        neo_wallet_address,
+      </if>
+      <if test="balanceQlc != null" >
+        balance_qlc,
+      </if>
+      <if test="balanceNeo != null" >
+        balance_neo,
+      </if>
+      <if test="balanceOnt != null" >
+        balance_ont,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="ethWalletPrivateKey != null" >
+        eth_wallet_private_key,
+      </if>
+      <if test="ethWalletAddress != null" >
+        eth_wallet_address,
+      </if>
+      <if test="balanceEth != null" >
+        balance_eth,
+      </if>
+      <if test="bindWalletTime != null" >
+        bind_wallet_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="neoWalletAddress != null" >
+        #{neoWalletAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceQlc != null" >
+        #{balanceQlc,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceNeo != null" >
+        #{balanceNeo,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceOnt != null" >
+        #{balanceOnt,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ethWalletPrivateKey != null" >
+        #{ethWalletPrivateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="ethWalletAddress != null" >
+        #{ethWalletAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceEth != null" >
+        #{balanceEth,jdbcType=DECIMAL},
+      </if>
+      <if test="bindWalletTime != null" >
+        #{bindWalletTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWalletExample" resultType="java.lang.Integer" >
+    select count(*) from user_neo_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_neo_wallet
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.neoWalletAddress != null" >
+        neo_wallet_address = #{record.neoWalletAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balanceQlc != null" >
+        balance_qlc = #{record.balanceQlc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.balanceNeo != null" >
+        balance_neo = #{record.balanceNeo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.balanceOnt != null" >
+        balance_ont = #{record.balanceOnt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.ethWalletPrivateKey != null" >
+        eth_wallet_private_key = #{record.ethWalletPrivateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ethWalletAddress != null" >
+        eth_wallet_address = #{record.ethWalletAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balanceEth != null" >
+        balance_eth = #{record.balanceEth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bindWalletTime != null" >
+        bind_wallet_time = #{record.bindWalletTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_neo_wallet
+    set userid = #{record.userid,jdbcType=INTEGER},
+      neo_wallet_address = #{record.neoWalletAddress,jdbcType=VARCHAR},
+      balance_qlc = #{record.balanceQlc,jdbcType=DECIMAL},
+      balance_neo = #{record.balanceNeo,jdbcType=DECIMAL},
+      balance_ont = #{record.balanceOnt,jdbcType=DECIMAL},
+      state = #{record.state,jdbcType=INTEGER},
+      eth_wallet_private_key = #{record.ethWalletPrivateKey,jdbcType=VARCHAR},
+      eth_wallet_address = #{record.ethWalletAddress,jdbcType=VARCHAR},
+      balance_eth = #{record.balanceEth,jdbcType=DECIMAL},
+      bind_wallet_time = #{record.bindWalletTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWallet" >
+    update user_neo_wallet
+    <set >
+      <if test="neoWalletAddress != null" >
+        neo_wallet_address = #{neoWalletAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceQlc != null" >
+        balance_qlc = #{balanceQlc,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceNeo != null" >
+        balance_neo = #{balanceNeo,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceOnt != null" >
+        balance_ont = #{balanceOnt,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ethWalletPrivateKey != null" >
+        eth_wallet_private_key = #{ethWalletPrivateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="ethWalletAddress != null" >
+        eth_wallet_address = #{ethWalletAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceEth != null" >
+        balance_eth = #{balanceEth,jdbcType=DECIMAL},
+      </if>
+      <if test="bindWalletTime != null" >
+        bind_wallet_time = #{bindWalletTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stormfives.admin.wallet.dao.entity.UserNeoWallet" >
+    update user_neo_wallet
+    set neo_wallet_address = #{neoWalletAddress,jdbcType=VARCHAR},
+      balance_qlc = #{balanceQlc,jdbcType=DECIMAL},
+      balance_neo = #{balanceNeo,jdbcType=DECIMAL},
+      balance_ont = #{balanceOnt,jdbcType=DECIMAL},
+      state = #{state,jdbcType=INTEGER},
+      eth_wallet_private_key = #{ethWalletPrivateKey,jdbcType=VARCHAR},
+      eth_wallet_address = #{ethWalletAddress,jdbcType=VARCHAR},
+      balance_eth = #{balanceEth,jdbcType=DECIMAL},
+      bind_wallet_time = #{bindWalletTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

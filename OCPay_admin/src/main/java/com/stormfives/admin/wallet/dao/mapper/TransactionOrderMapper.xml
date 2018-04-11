@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stormfives.admin.wallet.dao.TransactionOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.stormfives.admin.wallet.dao.entity.TransactionOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="tx_hash" property="txHash" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="from_address" property="fromAddress" jdbcType="VARCHAR" />
+    <result column="to_address" property="toAddress" jdbcType="VARCHAR" />
+    <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
+    <result column="coin_num" property="coinNum" jdbcType="DECIMAL" />
+    <result column="exchange_num" property="exchangeNum" jdbcType="DECIMAL" />
+    <result column="trading_time" property="tradingTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="withdraw_address" property="withdrawAddress" jdbcType="VARCHAR" />
+    <result column="withdraw_status" property="withdrawStatus" jdbcType="INTEGER" />
+    <result column="apply_for_incamate_time" property="applyForIncamateTime" jdbcType="TIMESTAMP" />
+    <result column="remit_time" property="remitTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, tx_hash, order_status, created_time, from_address, to_address, coin_name, 
+    coin_num, exchange_num, trading_time, updated_time, withdraw_address, withdraw_status, 
+    apply_for_incamate_time, remit_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from transaction_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from transaction_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from transaction_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrderExample" >
+    delete from transaction_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrder" >
+    insert into transaction_order (id, user_id, tx_hash, 
+      order_status, created_time, from_address, 
+      to_address, coin_name, coin_num, 
+      exchange_num, trading_time, updated_time, 
+      withdraw_address, withdraw_status, apply_for_incamate_time, 
+      remit_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{txHash,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{fromAddress,jdbcType=VARCHAR}, 
+      #{toAddress,jdbcType=VARCHAR}, #{coinName,jdbcType=VARCHAR}, #{coinNum,jdbcType=DECIMAL}, 
+      #{exchangeNum,jdbcType=DECIMAL}, #{tradingTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{withdrawAddress,jdbcType=VARCHAR}, #{withdrawStatus,jdbcType=INTEGER}, #{applyForIncamateTime,jdbcType=TIMESTAMP}, 
+      #{remitTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrder" >
+    insert into transaction_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="txHash != null" >
+        tx_hash,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="fromAddress != null" >
+        from_address,
+      </if>
+      <if test="toAddress != null" >
+        to_address,
+      </if>
+      <if test="coinName != null" >
+        coin_name,
+      </if>
+      <if test="coinNum != null" >
+        coin_num,
+      </if>
+      <if test="exchangeNum != null" >
+        exchange_num,
+      </if>
+      <if test="tradingTime != null" >
+        trading_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="withdrawAddress != null" >
+        withdraw_address,
+      </if>
+      <if test="withdrawStatus != null" >
+        withdraw_status,
+      </if>
+      <if test="applyForIncamateTime != null" >
+        apply_for_incamate_time,
+      </if>
+      <if test="remitTime != null" >
+        remit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="txHash != null" >
+        #{txHash,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromAddress != null" >
+        #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null" >
+        #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null" >
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinNum != null" >
+        #{coinNum,jdbcType=DECIMAL},
+      </if>
+      <if test="exchangeNum != null" >
+        #{exchangeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="tradingTime != null" >
+        #{tradingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawAddress != null" >
+        #{withdrawAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawStatus != null" >
+        #{withdrawStatus,jdbcType=INTEGER},
+      </if>
+      <if test="applyForIncamateTime != null" >
+        #{applyForIncamateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remitTime != null" >
+        #{remitTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrderExample" resultType="java.lang.Integer" >
+    select count(*) from transaction_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update transaction_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.txHash != null" >
+        tx_hash = #{record.txHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fromAddress != null" >
+        from_address = #{record.fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAddress != null" >
+        to_address = #{record.toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coinName != null" >
+        coin_name = #{record.coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coinNum != null" >
+        coin_num = #{record.coinNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.exchangeNum != null" >
+        exchange_num = #{record.exchangeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tradingTime != null" >
+        trading_time = #{record.tradingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.withdrawAddress != null" >
+        withdraw_address = #{record.withdrawAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawStatus != null" >
+        withdraw_status = #{record.withdrawStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyForIncamateTime != null" >
+        apply_for_incamate_time = #{record.applyForIncamateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remitTime != null" >
+        remit_time = #{record.remitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update transaction_order
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      tx_hash = #{record.txHash,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      from_address = #{record.fromAddress,jdbcType=VARCHAR},
+      to_address = #{record.toAddress,jdbcType=VARCHAR},
+      coin_name = #{record.coinName,jdbcType=VARCHAR},
+      coin_num = #{record.coinNum,jdbcType=DECIMAL},
+      exchange_num = #{record.exchangeNum,jdbcType=DECIMAL},
+      trading_time = #{record.tradingTime,jdbcType=TIMESTAMP},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      withdraw_address = #{record.withdrawAddress,jdbcType=VARCHAR},
+      withdraw_status = #{record.withdrawStatus,jdbcType=INTEGER},
+      apply_for_incamate_time = #{record.applyForIncamateTime,jdbcType=TIMESTAMP},
+      remit_time = #{record.remitTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrder" >
+    update transaction_order
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="txHash != null" >
+        tx_hash = #{txHash,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromAddress != null" >
+        from_address = #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null" >
+        to_address = #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null" >
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinNum != null" >
+        coin_num = #{coinNum,jdbcType=DECIMAL},
+      </if>
+      <if test="exchangeNum != null" >
+        exchange_num = #{exchangeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="tradingTime != null" >
+        trading_time = #{tradingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawAddress != null" >
+        withdraw_address = #{withdrawAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawStatus != null" >
+        withdraw_status = #{withdrawStatus,jdbcType=INTEGER},
+      </if>
+      <if test="applyForIncamateTime != null" >
+        apply_for_incamate_time = #{applyForIncamateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remitTime != null" >
+        remit_time = #{remitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stormfives.admin.wallet.dao.entity.TransactionOrder" >
+    update transaction_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      tx_hash = #{txHash,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      from_address = #{fromAddress,jdbcType=VARCHAR},
+      to_address = #{toAddress,jdbcType=VARCHAR},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      coin_num = #{coinNum,jdbcType=DECIMAL},
+      exchange_num = #{exchangeNum,jdbcType=DECIMAL},
+      trading_time = #{tradingTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      withdraw_address = #{withdrawAddress,jdbcType=VARCHAR},
+      withdraw_status = #{withdrawStatus,jdbcType=INTEGER},
+      apply_for_incamate_time = #{applyForIncamateTime,jdbcType=TIMESTAMP},
+      remit_time = #{remitTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

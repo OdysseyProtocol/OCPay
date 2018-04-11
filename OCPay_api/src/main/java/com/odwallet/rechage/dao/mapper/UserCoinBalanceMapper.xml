@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.odwallet.rechage.dao.UserCoinBalanceMapper">
+    <resultMap id="BaseResultMap" type="com.odwallet.rechage.entity.UserCoinBalance">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userid" property="userid" jdbcType="INTEGER"/>
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER"/>
+        <result column="coin_id" property="coinId" jdbcType="INTEGER"/>
+        <result column="coin_name" property="coinName" jdbcType="VARCHAR"/>
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
+        <result column="coin_balance" property="coinBalance" jdbcType="DECIMAL"/>
+        <result column="show_balance" property="showBalance" jdbcType="DECIMAL"/>
+        <result column="last_trading_time" property="lastTradingTime" jdbcType="TIMESTAMP"/>
+        <result column="transfer_status" property="transferStatus" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="to_wallet_time" property="toWalletTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, userid, merchant_id, coin_id, coin_name, total_amount, coin_balance, show_balance,
+    last_trading_time, transfer_status, create_time,to_wallet_time
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.odwallet.rechage.entity.UserCoinBalanceExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from user_coin_balance
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user_coin_balance
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByUserIdAndMerchantInfoId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_coin_balance
+        where userid = #{userId,jdbcType=INTEGER} and merchant_id = #{merchantInfoId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_coin_balance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.odwallet.rechage.entity.UserCoinBalanceExample">
+        delete from user_coin_balance
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.odwallet.rechage.entity.UserCoinBalance">
+    insert into user_coin_balance (id, userid, merchant_id, 
+      coin_id, coin_name,total_amount, coin_balance,
+      show_balance, last_trading_time,
+      transfer_status, create_time,to_wallet_time)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, 
+      #{coinId,jdbcType=INTEGER}, #{coinName,jdbcType=VARCHAR},#{totalAmount,jdbcType=DECIMAL}, #{coinBalance,jdbcType=DECIMAL},
+      #{showBalance,jdbcType=DECIMAL}, #{lastTradingTime,jdbcType=TIMESTAMP},
+      #{transferStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},#{toWalletTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.odwallet.rechage.entity.UserCoinBalance">
+        insert into user_coin_balance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userid != null">
+                userid,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="coinId != null">
+                coin_id,
+            </if>
+            <if test="coinName != null">
+                coin_name,
+            </if>
+            <if test="totalAmount != null">
+                total_amount,
+            </if>
+            <if test="coinBalance != null">
+                coin_balance,
+            </if>
+            <if test="showBalance != null">
+                show_balance,
+            </if>
+            <if test="lastTradingTime != null">
+                last_trading_time,
+            </if>
+            <if test="transferStatus != null">
+                transfer_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="toWalletTime != null">
+                to_wallet_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="coinId != null">
+                #{coinId,jdbcType=INTEGER},
+            </if>
+            <if test="coinName != null">
+                #{coinName,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="coinBalance != null">
+                #{coinBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="showBalance != null">
+                #{showBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="lastTradingTime != null">
+                #{lastTradingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="transferStatus != null">
+                #{transferStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="toWalletTime != null">
+                #{toWalletTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.odwallet.rechage.entity.UserCoinBalanceExample"
+            resultType="java.lang.Integer">
+        select count(*) from user_coin_balance
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update user_coin_balance
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.userid != null">
+                userid = #{record.userid,jdbcType=INTEGER},
+            </if>
+            <if test="record.merchantId != null">
+                merchant_id = #{record.merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="record.coinId != null">
+                coin_id = #{record.coinId,jdbcType=INTEGER},
+            </if>
+            <if test="record.coinName != null">
+                coin_name = #{record.coinName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.totalAmount != null">
+                total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.coinBalance != null">
+                coin_balance = #{record.coinBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="record.showBalance != null">
+                show_balance = #{record.showBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="record.lastTradingTime != null">
+                last_trading_time = #{record.lastTradingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.transferStatus != null">
+                transfer_status = #{record.transferStatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.toWalletTime != null">
+                to_wallet_time = #{record.toWalletTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update user_coin_balance
+        set id = #{record.id,jdbcType=INTEGER},
+        userid = #{record.userid,jdbcType=INTEGER},
+        merchant_id = #{record.merchantId,jdbcType=INTEGER},
+        coin_id = #{record.coinId,jdbcType=INTEGER},
+        coin_name = #{record.coinName,jdbcType=VARCHAR},
+        total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+        coin_balance = #{record.coinBalance,jdbcType=DECIMAL},
+        show_balance = #{record.showBalance,jdbcType=DECIMAL},
+        last_trading_time = #{record.lastTradingTime,jdbcType=TIMESTAMP},
+        transfer_status = #{record.transferStatus,jdbcType=TINYINT},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        to_wallet_time = #{record.toWalletTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.odwallet.rechage.entity.UserCoinBalance">
+        update user_coin_balance
+        <set>
+            <if test="userid != null">
+                userid = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="coinId != null">
+                coin_id = #{coinId,jdbcType=INTEGER},
+            </if>
+            <if test="coinName != null">
+                coin_name = #{coinName,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="coinBalance != null">
+                coin_balance = #{coinBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="showBalance != null">
+                show_balance = #{showBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="lastTradingTime != null">
+                last_trading_time = #{lastTradingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="transferStatus != null">
+                transfer_status = #{transferStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="toWalletTime != null">
+                to_wallet_time = #{toWalletTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.odwallet.rechage.entity.UserCoinBalance">
+    update user_coin_balance
+    set userid = #{userid,jdbcType=INTEGER},
+      merchant_id = #{merchantId,jdbcType=INTEGER},
+      coin_id = #{coinId,jdbcType=INTEGER},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      coin_balance = #{coinBalance,jdbcType=DECIMAL},
+      show_balance = #{showBalance,jdbcType=DECIMAL},
+      last_trading_time = #{lastTradingTime,jdbcType=TIMESTAMP},
+      transfer_status = #{transferStatus,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      to_wallet_time = #{toWalletTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

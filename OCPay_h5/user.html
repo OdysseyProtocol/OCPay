@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人中心</title>
+</head>
+<body>
+    
+</body>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css">
+<link rel="stylesheet" href="css/login.css">
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $(function(){
+        var url="http://192.168.2.14:9007";
+        var instance = axios.create({
+            headers: {'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`}
+        });
+        // axios.interceptors.request.use(function(config){
+        //     config.headers.Authorization = `Bearer ${sessionStorage.getItem('accessToken')}`;
+        //     return config;
+        // })
+        instance.get(`${url}/api/wallet/user-info`,{}).then(function(data){
+            console.log(data.data)
+        })
+        $.ajax({
+            type: 'POST',
+            url:"http://192.168.2.14:9007/api/wallet/user-info",
+            beforeSend: function(request) {                
+               request.setRequestHeader("Authorization", `Bearer 0ef7326164721cb05b03d37837fdce26`);
+            },
+            success:function(data){
+                console.log(data)
+            }
+        })
+    })
+</script>
+</html>

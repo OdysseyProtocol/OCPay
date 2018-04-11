@@ -1,0 +1,9 @@
+{
+    "admin":[{
+        "id": 1,
+        "username": "admin",
+        "password": "1234567",
+        "avatar": "http://oz159p910.bkt.clouddn.com/6aaf10d4524388b90e0046709a4e234a.jpg",
+        "name": "张某某"
+      }]
+}

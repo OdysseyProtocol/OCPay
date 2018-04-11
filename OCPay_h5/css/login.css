@@ -1,0 +1,66 @@
+.login{
+    width: 30%;
+    margin: 0 auto;
+    padding-top: 20px; 
+}
+.login h3{
+    text-align: center;
+    padding: 20px 0;
+}
+.register{
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 20px; 
+}
+.register h3{
+    text-align: center;
+    padding: 20px 0;
+}
+.error{
+    color:red;
+    height: 20px;
+    font-size: 12px;
+    padding-left: 5px;
+}
+#signupForm p{
+    height: 60px;
+    padding-bottom:0; 
+    margin: 0;
+    overflow: hidden;
+}
+#signupForm label:first-child{
+    width: 150px;
+    text-align: right;
+    padding-right:3px; 
+}
+#signupForm input{
+    width: 250px;
+    height: 35px;
+    outline: none;
+    padding: 0 3px;
+    font-size: 14px;
+}
+#signupForm input:focus{
+    border: 1px solid #3385ff;
+}
+.submit{
+    margin: 0 auto;
+   display: block;
+}
+#submit{
+    margin: 0 auto;
+   display: block;
+}
+.images{
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    text-align: center;
+    line-height: 40px;
+    display: block;
+    border: 1px solid #eee;
+    cursor: pointer;
+    float: right;
+    margin-right: 300px;
+
+}

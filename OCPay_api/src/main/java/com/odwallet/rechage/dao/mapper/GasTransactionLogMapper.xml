@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.odwallet.rechage.dao.GasTransactionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.odwallet.rechage.entity.GasTransactionLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="from_address" property="fromAddress" jdbcType="VARCHAR" />
+    <result column="to_address" property="toAddress" jdbcType="VARCHAR" />
+    <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
+    <result column="coin_num" property="coinNum" jdbcType="DECIMAL" />
+    <result column="gas_fee" property="gasFee" jdbcType="DECIMAL" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="order_tx_hash" property="orderTxHash" jdbcType="VARCHAR" />
+    <result column="nonce" property="nonce" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userid, merchant_id,from_address, to_address, coin_name, coin_num, gas_fee, created_at, order_tx_hash, nonce
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.odwallet.rechage.entity.GasTransactionLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gas_transaction_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gas_transaction_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gas_transaction_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.odwallet.rechage.entity.GasTransactionLogExample" >
+    delete from gas_transaction_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.odwallet.rechage.entity.GasTransactionLog" >
+    insert into gas_transaction_log (id, userid, merchant_id,from_address, to_address,
+      coin_name, coin_num, gas_fee, 
+      created_at, order_tx_hash,nonce)
+    values (#{id,jdbcType=INTEGER},#{userid,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{fromAddress,jdbcType=VARCHAR}, #{toAddress,jdbcType=VARCHAR},
+      #{coinName,jdbcType=VARCHAR}, #{coinNum,jdbcType=DECIMAL}, #{gasFee,jdbcType=DECIMAL}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{orderTxHash,jdbcType=VARCHAR}) ,#{nonce})
+  </insert>
+  <insert id="insertSelective" parameterType="com.odwallet.rechage.entity.GasTransactionLog" >
+    insert into gas_transaction_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="fromAddress != null" >
+        from_address,
+      </if>
+      <if test="toAddress != null" >
+        to_address,
+      </if>
+      <if test="coinName != null" >
+        coin_name,
+      </if>
+      <if test="coinNum != null" >
+        coin_num,
+      </if>
+      <if test="gasFee != null" >
+        gas_fee,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="orderTxHash != null" >
+        order_tx_hash,
+      </if>
+      <if test="nonce != null" >
+        nonce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="fromAddress != null" >
+        #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null" >
+        #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null" >
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinNum != null" >
+        #{coinNum,jdbcType=DECIMAL},
+      </if>
+      <if test="gasFee != null" >
+        #{gasFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTxHash != null" >
+        #{orderTxHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nonce != null" >
+        #{nonce},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.odwallet.rechage.entity.GasTransactionLogExample" resultType="java.lang.Integer" >
+    select count(*) from gas_transaction_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gas_transaction_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromAddress != null" >
+        from_address = #{record.fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAddress != null" >
+        to_address = #{record.toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coinName != null" >
+        coin_name = #{record.coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coinNum != null" >
+        coin_num = #{record.coinNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gasFee != null" >
+        gas_fee = #{record.gasFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderTxHash != null" >
+        order_tx_hash = #{record.orderTxHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nonce != null" >
+        nonce = #{record.nonce},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gas_transaction_log
+    set id = #{record.id,jdbcType=INTEGER},
+    userid = #{record.userid,jdbcType=INTEGER},
+    merchant_id = #{record.merchantId,jdbcType=INTEGER},
+      from_address = #{record.fromAddress,jdbcType=VARCHAR},
+      to_address = #{record.toAddress,jdbcType=VARCHAR},
+      coin_name = #{record.coinName,jdbcType=VARCHAR},
+      coin_num = #{record.coinNum,jdbcType=DECIMAL},
+      gas_fee = #{record.gasFee,jdbcType=DECIMAL},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      order_tx_hash = #{record.orderTxHash,jdbcType=VARCHAR},
+      nonce = #{record.nonce}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odwallet.rechage.entity.GasTransactionLog" >
+    update gas_transaction_log
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="fromAddress != null" >
+        from_address = #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null" >
+        to_address = #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null" >
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinNum != null" >
+        coin_num = #{coinNum,jdbcType=DECIMAL},
+      </if>
+      <if test="gasFee != null" >
+        gas_fee = #{gasFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTxHash != null" >
+        order_tx_hash = #{orderTxHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nonce != null" >
+        nonce = #{nonce},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odwallet.rechage.entity.GasTransactionLog" >
+    update gas_transaction_log
+    set userid = #{userid,jdbcType=INTEGER},
+      merchant_id = #{merchantId,jdbcType=INTEGER},
+    from_address = #{fromAddress,jdbcType=VARCHAR},
+      to_address = #{toAddress,jdbcType=VARCHAR},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      coin_num = #{coinNum,jdbcType=DECIMAL},
+      gas_fee = #{gasFee,jdbcType=DECIMAL},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      order_tx_hash = #{orderTxHash,jdbcType=VARCHAR},
+      nonce = #{nonce}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

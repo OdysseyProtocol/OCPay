@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.odwallet.rechage.dao.ScheduleBlockNumLogMapper" >
+  <resultMap id="BaseResultMap" type="com.odwallet.rechage.entity.ScheduleBlockNumLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="start_block_num" property="startBlockNum" jdbcType="BIGINT" />
+    <result column="end_block_num" property="endBlockNum" jdbcType="BIGINT" />
+    <result column="coin_id" property="coinId" jdbcType="INTEGER" />
+    <result column="last_scan_time" property="lastScanTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, start_block_num, end_block_num, coin_id, last_scan_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from schedule_block_num_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule_block_num_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schedule_block_num_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLogExample" >
+    delete from schedule_block_num_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLog" >
+    insert into schedule_block_num_log (id, start_block_num, end_block_num, 
+      coin_id, last_scan_time)
+    values (#{id,jdbcType=INTEGER}, #{startBlockNum,jdbcType=BIGINT}, #{endBlockNum,jdbcType=BIGINT}, 
+      #{coinId,jdbcType=INTEGER}, #{lastScanTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLog" >
+    insert into schedule_block_num_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="startBlockNum != null" >
+        start_block_num,
+      </if>
+      <if test="endBlockNum != null" >
+        end_block_num,
+      </if>
+      <if test="coinId != null" >
+        coin_id,
+      </if>
+      <if test="lastScanTime != null" >
+        last_scan_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="startBlockNum != null" >
+        #{startBlockNum,jdbcType=BIGINT},
+      </if>
+      <if test="endBlockNum != null" >
+        #{endBlockNum,jdbcType=BIGINT},
+      </if>
+      <if test="coinId != null" >
+        #{coinId,jdbcType=INTEGER},
+      </if>
+      <if test="lastScanTime != null" >
+        #{lastScanTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLogExample" resultType="java.lang.Integer" >
+    select count(*) from schedule_block_num_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update schedule_block_num_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.startBlockNum != null" >
+        start_block_num = #{record.startBlockNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.endBlockNum != null" >
+        end_block_num = #{record.endBlockNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.coinId != null" >
+        coin_id = #{record.coinId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastScanTime != null" >
+        last_scan_time = #{record.lastScanTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update schedule_block_num_log
+    set id = #{record.id,jdbcType=INTEGER},
+      start_block_num = #{record.startBlockNum,jdbcType=BIGINT},
+      end_block_num = #{record.endBlockNum,jdbcType=BIGINT},
+      coin_id = #{record.coinId,jdbcType=INTEGER},
+      last_scan_time = #{record.lastScanTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLog" >
+    update schedule_block_num_log
+    <set >
+      <if test="startBlockNum != null" >
+        start_block_num = #{startBlockNum,jdbcType=BIGINT},
+      </if>
+      <if test="endBlockNum != null" >
+        end_block_num = #{endBlockNum,jdbcType=BIGINT},
+      </if>
+      <if test="coinId != null" >
+        coin_id = #{coinId,jdbcType=INTEGER},
+      </if>
+      <if test="lastScanTime != null" >
+        last_scan_time = #{lastScanTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odwallet.rechage.entity.ScheduleBlockNumLog" >
+    update schedule_block_num_log
+    set start_block_num = #{startBlockNum,jdbcType=BIGINT},
+      end_block_num = #{endBlockNum,jdbcType=BIGINT},
+      coin_id = #{coinId,jdbcType=INTEGER},
+      last_scan_time = #{lastScanTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

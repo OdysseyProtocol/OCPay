@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>登陆</title>	
+</head>
+<body>
+	<div id="app">
+		<div class="register">
+				<h3>登陆</h3>
+				<form class="cmxform" id="signupForm"  >
+							<p>
+									<label for="email">邮箱地址</label>
+									<input id="email" name="email" type="email" placeholder="请输入邮箱地址">
+							</p>
+						  
+							<p>
+									<label for="passWord">密码</label>
+									<input id="passWord" name="passWord" type="password" placeholder="请输入密码">
+							</p>
+						
+
+						  <span class="tishi"></span>
+						  
+						  <p>
+							<input id="submit" type="button" value="提交">
+						  </p>
+					  </form>
+		</div>
+		
+	</div>
+</body>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css">
+<link rel="stylesheet" href="css/login.css">
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+$().ready(function() {
+		// 在键盘按下并释放及提交后验证提交表单
+		var url="http://wallet-neo-dev.stormfives.com";
+		function valContent(){
+				return $("#signupForm").validate({
+					rules: {
+					
+						passWord: {
+							required: true,
+							minlength: 5
+						},
+					
+						email: {
+							required: true,
+							email: true
+						},
+						
+					},
+					messages: {
+					
+						passWord: {
+							required: "请输入密码",
+							minlength: "密码长度不能小于 5 个字母"
+						},
+						
+						email: "请输入一个正确的邮箱",
+					
+						},
+						onkeyup:false,  
+						focusCleanup:true,  
+						success:"valid", 
+					
+				}).form();
+		};
+		$("#submit").click(function(){
+			if(valContent()){
+				axios.post(`${url}/api/wallet/user-login`,
+							{
+								"email":$("#email").val(),
+  							"passWord":$("#passWord").val()
+							}
+				).then(function(data){
+					console.log(data.data)
+					if(data.data.success){
+						sessionStorage.setItem('accessToken', data.data.data.accessToken);
+						window.location.href='/user.html'
+					}else{
+						$(".tishi").html(data.data.data.error)
+					}
+					
+					
+				})
+			}
+		})	
+    
+});
+</script>
+</html>

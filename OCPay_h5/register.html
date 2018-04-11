@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>注册</title>	
+</head>
+<body>
+	<div id="app">
+		<div class="register">
+				<h3>注册</h3>
+				<form class="cmxform" id="signupForm"  >
+							<p>
+									<label for="email">邮箱地址</label>
+									<input id="email" name="email" type="email" placeholder="请输入邮箱地址">
+							</p>
+						  
+							<p>
+									<label for="password">密码</label>
+									<input id="password" name="password" type="password" placeholder="请输入密码">
+							</p>
+							<p>
+									<label for="confirm_password">确认密码</label>
+									<input id="confirm_password" name="confirm_password" type="password" placeholder="请再次输入密码">
+							</p>
+							<p>
+									<label for="firstname">名字</label>
+									<input id="firstname" name="firstname" type="text" placeholder="请输入您的名字">
+						  </p>
+						  <p>
+									<label for="lastname">姓氏</label>
+									<input id="lastname" name="lastname" type="text" placeholder="请输入您的姓氏">
+							</p>
+							<p>
+								<label for="date2">出生日期</label>
+								<input type="text" id="date2" name="date2" data-options="{'type':'YYYY-MM-DD','beginYear':1900,'endYear':2088}" >
+
+							</p>
+							<p>
+								<label for="countryName">国家名</label>
+								<input id="countryName" name="countryName" type="text" placeholder="请输入您所在的国家名">
+
+							</p>
+						  
+						  
+						  <p>
+									<label for="first_photo">身份证正面</label>
+									<span class="images">+</span>
+									<input  type="file" style="display:none;" name='first_photo' id="first_photo">
+							</p>
+							<p>
+									<label for="second_photo">身份证反面</label>
+									<input  type="file" name='second_photo' id="second_photo">
+							</p>
+							<p>
+										<label for="photo">头像</label>
+										<input  type="file" name='photo' id="photo">
+							</p>
+							<p>
+								<label for="phone">电话</label>
+								<input id="phone" name="phone" type="number" placeholder="请输入您的电话">
+							</p>
+						  
+						  
+						  
+						  <p>
+							<input class="submit" id="submit1" type="button" value="提交">
+						  </p>
+					  </form>
+		</div>
+		
+	</div>
+</body>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css">
+<link rel="stylesheet" href="css/login.css">
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/jquery.date.js"></script>
+<script>
+
+$().ready(function() {
+	var url="http://wallet-neo-dev.stormfives.com";
+	$.date('#date2');
+
+// 在键盘按下并释放及提交后验证提交表单
+$("#submit1").click(function(){
+					var param={
+							"email":$("#email").val(),
+							"passWord":$("#password").val(),
+							"countryName":$("#countryName").val(),
+							"firstName":$("#firstname").val(),
+							"lastName":$("#lastName").val(),
+							"imgWithId":"http://img.stormfives.s3-ap-southeast-1.amazonaws.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180308160733.jpg",
+							"imgId":"http://img.stormfives.s3-ap-southeast-1.amazonaws.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180308160733.jpg", 
+							"birth":$("#date2").val(),
+							"phone":$("#phone").val(),
+							"region":"sahgnahi",
+							"zip":"233246",
+							"receiveAddress":"jiading",
+							"purchase":"123456"
+					}
+			if(valContent1()){
+					console.log("success")
+					axios.post(`${url}/api/wallet/save-user`,param).then(function(data){
+						console.log(data)
+						if(data.data.success){
+							window.location.href='/login.html'
+						}
+					})
+
+			}else{
+				console.log("error")
+			}
+	
+})
+function valContent1(){
+		return $("#signupForm").validate({
+	    rules: {
+	      firstname: "required",
+	      lastname: "required",
+				countryName:"required",
+	      username: {
+	        required: true,
+	        minlength: 2
+	      },
+				phone:"required",
+	      password: {
+	        required: true,
+	        minlength: 5
+	      },
+	      confirm_password: {
+	        required: true,
+	        minlength: 5,
+	        equalTo: "#password"
+	      },
+	      email: {
+	        required: true,
+	        email: true
+	      },
+	      
+					date2: "required",
+	    },
+	    messages: {
+	      firstname: "请输入您的名字",
+				date2:"请输入您的生日",
+	      lastname: "请输入您的姓氏",
+				phone: "请输入您的电话号码",
+				countryName: "请输入您所在的国家名",
+	      username: {
+	        required: "请输入用户名",
+	        minlength: "用户名必需由两个字母组成"
+	      },
+	      password: {
+	        required: "请输入密码",
+	        minlength: "密码长度不能小于 5 个字母"
+	      },
+	      
+	      confirm_password: {
+	        required: "请输入密码",
+	        minlength: "密码长度不能小于 5 个字母",
+	        equalTo: "两次密码输入不一致"
+	      },
+	      email:{
+					required:"请输入邮箱",
+					email:"请输入正确的邮箱地址"
+
+				},
+	     
+      },
+			onkeyup:false,  
+			focusCleanup:true,  
+			success:"valid", 
+        
+    }).form();
+	};
+
+    // var fileM=document.querySelector("#photo");
+    var form=document.getElementById("signupForm");
+        // console.log(form)
+        var fd =new FormData();
+    $("#first_photo").change(function(){
+        fd.append("photo1",$(this).get(0).files[0])
+        console.log($(this).get(0).files[0])
+        
+					axios.post(`${url}/api/wallet/fileupload`,fd).then(function(data){
+						console.log(data)
+					})
+				
+    })
+		$(".images").click(function(){
+			$("#first_photo").click()
+		})
+    // function ajaxSubmit(){
+    //     console.log( $("#signupForm").submit())
+       
+    // }
+});
+</script>
+</html>

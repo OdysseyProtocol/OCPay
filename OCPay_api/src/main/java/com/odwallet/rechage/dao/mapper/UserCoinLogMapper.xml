@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.odwallet.rechage.dao.UserCoinLogMapper" >
+  <resultMap id="BaseResultMap" type="com.odwallet.rechage.entity.UserCoinLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="change_type" property="changeType" jdbcType="INTEGER" />
+    <result column="change_num" property="changeNum" jdbcType="DECIMAL" />
+    <result column="coin_id" property="coinId" jdbcType="INTEGER" />
+    <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="order_tx_hash" property="orderTxHash" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, merchant_id, userid, change_type, change_num, coin_id, coin_name, create_time, 
+    order_tx_hash
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.odwallet.rechage.entity.UserCoinLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_coin_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_coin_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_coin_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.odwallet.rechage.entity.UserCoinLog" >
+    insert into user_coin_log (id, merchant_id, userid, 
+      change_type, change_num, coin_id, 
+      coin_name, create_time, order_tx_hash
+      )
+    values (#{id,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{changeType,jdbcType=INTEGER}, #{changeNum,jdbcType=DECIMAL}, #{coinId,jdbcType=INTEGER}, 
+      #{coinName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{orderTxHash,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.odwallet.rechage.entity.UserCoinLog" >
+    insert into user_coin_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="changeType != null" >
+        change_type,
+      </if>
+      <if test="changeNum != null" >
+        change_num,
+      </if>
+      <if test="coinId != null" >
+        coin_id,
+      </if>
+      <if test="coinName != null" >
+        coin_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="orderTxHash != null" >
+        order_tx_hash,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="changeType != null" >
+        #{changeType,jdbcType=INTEGER},
+      </if>
+      <if test="changeNum != null" >
+        #{changeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="coinId != null" >
+        #{coinId,jdbcType=INTEGER},
+      </if>
+      <if test="coinName != null" >
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTxHash != null" >
+        #{orderTxHash,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_coin_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeType != null" >
+        change_type = #{record.changeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeNum != null" >
+        change_num = #{record.changeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.coinId != null" >
+        coin_id = #{record.coinId,jdbcType=INTEGER},
+      </if>
+      <if test="record.coinName != null" >
+        coin_name = #{record.coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderTxHash != null" >
+        order_tx_hash = #{record.orderTxHash,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_coin_log
+    set id = #{record.id,jdbcType=INTEGER},
+      merchant_id = #{record.merchantId,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      change_type = #{record.changeType,jdbcType=INTEGER},
+      change_num = #{record.changeNum,jdbcType=DECIMAL},
+      coin_id = #{record.coinId,jdbcType=INTEGER},
+      coin_name = #{record.coinName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      order_tx_hash = #{record.orderTxHash,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odwallet.rechage.entity.UserCoinLog" >
+    update user_coin_log
+    <set >
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="changeType != null" >
+        change_type = #{changeType,jdbcType=INTEGER},
+      </if>
+      <if test="changeNum != null" >
+        change_num = #{changeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="coinId != null" >
+        coin_id = #{coinId,jdbcType=INTEGER},
+      </if>
+      <if test="coinName != null" >
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTxHash != null" >
+        order_tx_hash = #{orderTxHash,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odwallet.rechage.entity.UserCoinLog" >
+    update user_coin_log
+    set merchant_id = #{merchantId,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      change_type = #{changeType,jdbcType=INTEGER},
+      change_num = #{changeNum,jdbcType=DECIMAL},
+      coin_id = #{coinId,jdbcType=INTEGER},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      order_tx_hash = #{orderTxHash,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
