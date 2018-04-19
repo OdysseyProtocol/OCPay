@@ -15,7 +15,7 @@ import org.greenrobot.greendao.annotation.Unique;
 public class WalletInfo {
 
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
 
     private String userId;
 
@@ -25,20 +25,22 @@ public class WalletInfo {
     @NotNull
     private String walletAddress;
 
-    @NotNull
-    private String walletFile;
+    private boolean isBackup;
 
-    private String mnemonic;
+    private String passwordTip;
 
-    @Generated(hash = 495254212)
-    public WalletInfo(long id, String userId, String walletName, @NotNull String walletAddress, @NotNull String walletFile,
-            String mnemonic) {
+    private int walletType;
+
+    @Generated(hash = 1153502703)
+    public WalletInfo(Long id, String userId, String walletName, @NotNull String walletAddress, boolean isBackup, String passwordTip,
+            int walletType) {
         this.id = id;
         this.userId = userId;
         this.walletName = walletName;
         this.walletAddress = walletAddress;
-        this.walletFile = walletFile;
-        this.mnemonic = mnemonic;
+        this.isBackup = isBackup;
+        this.passwordTip = passwordTip;
+        this.walletType = walletType;
     }
 
 
@@ -47,13 +49,10 @@ public class WalletInfo {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return userId;
@@ -79,19 +78,43 @@ public class WalletInfo {
         this.walletAddress = walletAddress;
     }
 
-    public String getWalletFile() {
-        return walletFile;
+
+    public String getPasswordTip() {
+        return passwordTip;
     }
 
-    public void setWalletFile(String walletFile) {
-        this.walletFile = walletFile;
+    public void setPasswordTip(String passwordTip) {
+        this.passwordTip = passwordTip;
     }
 
-    public String getMnemonic() {
-        return mnemonic;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setMnemonic(String mnemonic) {
-        this.mnemonic = mnemonic;
+
+    public boolean isBackup() {
+        return isBackup;
+    }
+
+    public void setBackup(boolean backup) {
+        isBackup = backup;
+    }
+
+    public int getWalletType() {
+        return walletType;
+    }
+
+    public void setWalletType(int walletType) {
+        this.walletType = walletType;
+    }
+
+
+    public boolean getIsBackup() {
+        return this.isBackup;
+    }
+
+
+    public void setIsBackup(boolean isBackup) {
+        this.isBackup = isBackup;
     }
 }

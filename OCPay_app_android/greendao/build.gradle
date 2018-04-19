@@ -24,13 +24,10 @@ android {
 
 }
 
-
- 
-
-////设置greendao路径，以及版本号
+//设置greendao路径，以及版本号
 greendao {
     schemaVersion 1
-    daoPackage 'com.stormfives.owallet.greendao.gen'
+    daoPackage 'com.ocpay.wallet.greendao.gen'
     targetGenDir 'src/main/java'
 }
 

@@ -22,7 +22,7 @@ public class WalletInfoDaoUtils {
      * @param foolBean
      * @return
      */
-    public static boolean insertFool(WalletInfo foolBean, Context mContext) {
+    public static boolean insertWalletInfo(WalletInfo foolBean, Context mContext) {
         long result = getInstance(mContext).getDaoSeesion().insert(foolBean);
         return result > 0;
     }
@@ -32,7 +32,7 @@ public class WalletInfoDaoUtils {
      *
      * @param foolBean
      */
-    public static void dealFool(WalletInfo foolBean, Context mContext) {
+    public static void dealWalletInfo(WalletInfo foolBean, Context mContext) {
         getInstance(mContext).getDaoSeesion().delete(foolBean);
     }
 

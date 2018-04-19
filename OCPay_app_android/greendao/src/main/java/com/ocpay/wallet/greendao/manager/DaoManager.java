@@ -14,7 +14,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 public class DaoManager {
     private static final String TAG = DaoManager.class.getSimpleName();
-    private static final String DB_NAME = "mu_zi";
+    private static final String DB_NAME = "OCPWallet";
     private Context context;
 
     //多线程中要被共享的使用volatile关键字修饰

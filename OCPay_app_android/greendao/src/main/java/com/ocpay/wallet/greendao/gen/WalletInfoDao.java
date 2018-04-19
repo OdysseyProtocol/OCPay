@@ -24,12 +24,13 @@ public class WalletInfoDao extends AbstractDao<WalletInfo, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
         public final static Property WalletName = new Property(2, String.class, "walletName", false, "WALLET_NAME");
         public final static Property WalletAddress = new Property(3, String.class, "walletAddress", false, "WALLET_ADDRESS");
-        public final static Property WalletFile = new Property(4, String.class, "walletFile", false, "WALLET_FILE");
-        public final static Property Mnemonic = new Property(5, String.class, "mnemonic", false, "MNEMONIC");
+        public final static Property IsBackup = new Property(4, boolean.class, "isBackup", false, "IS_BACKUP");
+        public final static Property PasswordTip = new Property(5, String.class, "passwordTip", false, "PASSWORD_TIP");
+        public final static Property WalletType = new Property(6, int.class, "walletType", false, "WALLET_TYPE");
     }
 
 
@@ -45,12 +46,13 @@ public class WalletInfoDao extends AbstractDao<WalletInfo, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"WALLET_INFO\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"USER_ID\" TEXT," + // 1: userId
                 "\"WALLET_NAME\" TEXT UNIQUE ," + // 2: walletName
                 "\"WALLET_ADDRESS\" TEXT NOT NULL ," + // 3: walletAddress
-                "\"WALLET_FILE\" TEXT NOT NULL ," + // 4: walletFile
-                "\"MNEMONIC\" TEXT);"); // 5: mnemonic
+                "\"IS_BACKUP\" INTEGER NOT NULL ," + // 4: isBackup
+                "\"PASSWORD_TIP\" TEXT," + // 5: passwordTip
+                "\"WALLET_TYPE\" INTEGER NOT NULL );"); // 6: walletType
     }
 
     /** Drops the underlying database table. */
@@ -62,7 +64,11 @@ public class WalletInfoDao extends AbstractDao<WalletInfo, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, WalletInfo entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String userId = entity.getUserId();
         if (userId != null) {
@@ -74,18 +80,23 @@ public class WalletInfoDao extends AbstractDao<WalletInfo, Long> {
             stmt.bindString(3, walletName);
         }
         stmt.bindString(4, entity.getWalletAddress());
-        stmt.bindString(5, entity.getWalletFile());
+        stmt.bindLong(5, entity.getIsBackup() ? 1L: 0L);
  
-        String mnemonic = entity.getMnemonic();
-        if (mnemonic != null) {
-            stmt.bindString(6, mnemonic);
+        String passwordTip = entity.getPasswordTip();
+        if (passwordTip != null) {
+            stmt.bindString(6, passwordTip);
         }
+        stmt.bindLong(7, entity.getWalletType());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, WalletInfo entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String userId = entity.getUserId();
         if (userId != null) {
@@ -97,40 +108,43 @@ public class WalletInfoDao extends AbstractDao<WalletInfo, Long> {
             stmt.bindString(3, walletName);
         }
         stmt.bindString(4, entity.getWalletAddress());
-        stmt.bindString(5, entity.getWalletFile());
+        stmt.bindLong(5, entity.getIsBackup() ? 1L: 0L);
  
-        String mnemonic = entity.getMnemonic();
-        if (mnemonic != null) {
-            stmt.bindString(6, mnemonic);
+        String passwordTip = entity.getPasswordTip();
+        if (passwordTip != null) {
+            stmt.bindString(6, passwordTip);
         }
+        stmt.bindLong(7, entity.getWalletType());
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public WalletInfo readEntity(Cursor cursor, int offset) {
         WalletInfo entity = new WalletInfo( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // walletName
             cursor.getString(offset + 3), // walletAddress
-            cursor.getString(offset + 4), // walletFile
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // mnemonic
+            cursor.getShort(offset + 4) != 0, // isBackup
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // passwordTip
+            cursor.getInt(offset + 6) // walletType
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, WalletInfo entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setWalletName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setWalletAddress(cursor.getString(offset + 3));
-        entity.setWalletFile(cursor.getString(offset + 4));
-        entity.setMnemonic(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setIsBackup(cursor.getShort(offset + 4) != 0);
+        entity.setPasswordTip(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setWalletType(cursor.getInt(offset + 6));
      }
     
     @Override
@@ -150,7 +164,7 @@ public class WalletInfoDao extends AbstractDao<WalletInfo, Long> {
 
     @Override
     public boolean hasKey(WalletInfo entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override
