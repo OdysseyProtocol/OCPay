@@ -17,4 +17,26 @@
         <!--<item name="android:windowAnimationStyle">@style/default_animation_down</item>-->
     </style>
 
+
+    <!--菜单item-->
+    <style name="HeadFunctionTextStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/color_text_main</item>
+    </style>
+
+
+    <style name="HeadFunctionIconStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">19dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+
 </resources>

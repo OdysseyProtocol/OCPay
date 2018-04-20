@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3b3d4e</color>
+    <color name="colorPrimary">#4E646C</color>
     <color name="colorPrimaryDark">#0f3b3d4e</color>
     <color name="colorAccent">#666666</color>
+
 
     <color name="owallet_theme_foreground_bg">#3b3d4e</color>
 
@@ -11,5 +12,16 @@
     <color name="bottom_bar_text_color_pressed">#ececec</color>
     <color name="bottom_bar_text_color_normal">#71748a</color>
 
+
+    <color name="green">#484</color>
+    <color name="dddd">#844</color>
+    <color name="white">#fff</color>
+
+
+    <color name="color_fragment_home_elephant">#233741</color>
+    <color name="color_text_subhead">#A4AFB4</color>
+    <color name="color_text_main">#38525f</color>
+    <color name="concrete">#F2F2F2</color>
+    <!--<color name="concrete">#000</color>-->
 
 </resources>
