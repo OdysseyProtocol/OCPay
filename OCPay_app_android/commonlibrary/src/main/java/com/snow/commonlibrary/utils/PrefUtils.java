@@ -1,4 +1,4 @@
-package com.snow.commonlibrary;
+package com.snow.commonlibrary.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
