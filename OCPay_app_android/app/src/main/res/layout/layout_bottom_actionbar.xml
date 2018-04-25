@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dip"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:id="@+id/layout_btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:src="@mipmap/ic_home"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_home"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/bottom_bar_home"
+                android:textColor="@color/color_bar_bottom_text"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_btn_market"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:src="@mipmap/ic_markets" />
+
+            <TextView
+                android:id="@+id/tv_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_market"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/bottom_bar_markets"
+                android:textColor="@color/color_bar_bottom_text"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_btn_nearby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_nearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:src="@mipmap/ic_nearby"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_nearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_nearby"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/bottom_bar_nearby"
+                android:textColor="@color/color_bar_bottom_text"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_btn_airdrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_airdrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:src="@mipmap/ic_airdrop"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_airdrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_airdrop"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/bottom_bar_airdrop"
+                android:textColor="@color/color_bar_bottom_text"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_btn_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:src="@mipmap/ic_me"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_me"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/bottom_bar_me"
+                android:textColor="@color/color_bar_bottom_text"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

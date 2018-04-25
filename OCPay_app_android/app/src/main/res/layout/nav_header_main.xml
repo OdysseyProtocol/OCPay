@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rl_wallet_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_generate_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_bar_create_wallet" />
+
+            <Button
+                android:id="@+id/btn_import_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/import_wallet" />
+
+            <!--<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/ll_header_bg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/nav_header_height"-->
+            <!--android:background="@drawable/ic_nav_bg_drawerlayout"-->
+            <!--android:gravity="bottom"-->
+            <!--android:orientation="vertical"-->
+            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark">-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#4000"-->
+            <!--android:gravity="bottom"-->
+            <!--android:orientation="vertical"-->
+            <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+            <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+            <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+            <!--android:paddingTop="@dimen/activity_vertical_margin">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_avatar"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:scaleType="centerCrop" />-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingTop="@dimen/nav_header_vertical_spacing">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_username"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="夕阳无限好"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="17sp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_level"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="6dp"-->
+            <!--android:background="@drawable/shape_bg_level"-->
+            <!--android:text="Lv.10"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="10sp"-->
+            <!--android:textStyle="italic|bold" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

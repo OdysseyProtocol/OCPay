@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_home_head_up">
+
+            <LinearLayout
+                android:id="@+id/ll_home_head"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/riv_head_portrait"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="9dp"
+                    android:src="@mipmap/ic_launcher_round" />
+
+
+                <TextView
+                    android:id="@+id/tv_wallet_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="WALLET NAME"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_slide_menu"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="25dp"
+                    android:padding="8dp"
+                    android:src="@mipmap/icon_head_nav" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+</layout>

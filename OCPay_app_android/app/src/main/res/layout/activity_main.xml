@@ -20,7 +20,7 @@
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
+            android:layout_gravity="end"
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:fitsSystemWindows="true" />

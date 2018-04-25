@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_concrete_background">
+
+            <EditText
+                android:id="@+id/et_mnemonic"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="1dp"
+                android:background="@color/white"
+                android:gravity="top"
+                android:hint="mnemonic"
+                android:padding="2dp"
+                android:textAlignment="gravity"
+                android:textDirection="firstStrong" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="m/44'/60'/0'/0/0" />
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="pwd" />
+
+        <EditText
+            android:id="@+id/et_check_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="re_pwd" />
+
+        <EditText
+            android:id="@+id/et_pwd_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="pwd_tip" />
+
+
+        <Button
+            android:id="@+id/btn_action_import"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="start import" />
+
+    </LinearLayout>
+
+</layout>
+

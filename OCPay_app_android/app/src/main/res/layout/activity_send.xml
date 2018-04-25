@@ -1,0 +1,132 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/iv_btn_address_book"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:background="@null" />
+
+        </LinearLayout>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="amount" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="remark" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="13dp"
+            android:max="40"
+            android:progress="10" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="cheaper" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/gasText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="12"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Gwei"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text=" faster" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/expend_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="自定义gas price" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="自定义gas" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="十六进制数据" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高级模式" />
+
+
+    </LinearLayout>
+</layout>

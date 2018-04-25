@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tv_wallet_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+
+
+        <ImageView
+            android:id="@+id/qr_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp" />
+
+        <Button
+            android:id="@+id/btn_address_to_clipboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Address To Clipboard" />
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.ocpay.wallet.viewmodel.WalletCreateVM" />
+
+        <variable
+            name="walletCreateVM"
+            type="com.ocpay.wallet.viewmodel.WalletCreateVM" />
+
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activities.WalletCreateActivity">
+
+
+        <EditText
+            android:id="@+id/et_wallet_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="wallet name"
+            android:text="@={walletCreateVM.walletName}" />
+
+        <EditText
+            android:id="@+id/et_wallet_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:text="@={walletCreateVM.password}" />
+
+
+        <EditText
+            android:id="@+id/et_wallet_check_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password  check"
+            android:inputType="textPassword"
+            android:text="@={walletCreateVM.confirmPassword}" />
+
+
+        <EditText
+            android:id="@+id/et_wallet_pwd_tp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password tip"
+            android:text="@={walletCreateVM.passwordTip}" />
+
+
+        <Button
+            android:id="@+id/btn_generate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="generate" />
+
+
+    </LinearLayout>
+
+
+</layout>
