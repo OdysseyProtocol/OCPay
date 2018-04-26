@@ -1,6 +1,6 @@
 # Summary
 
 
-- HomeView
+- Home View
 
-![home_page](home_page.jpg)
+![home_page](home_page.jpg) 
