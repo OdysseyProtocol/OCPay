@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="pickerview_cancel">Return</string>
+    <string name="pickerview_submit">Ok</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+    <string name="picker_done">OK</string>
+    <string name="picker_clear">Clear</string>
+    <string name="switching_wallet">Switching Wallet</string>
+</resources>

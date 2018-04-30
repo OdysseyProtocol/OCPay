@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_clear"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/pickerview_topbar_paddingleft"
+        android:paddingRight="@dimen/pickerview_topbar_paddingright"
+        android:textColor="#FF38525F"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/btnSubmit"
+        android:layout_toRightOf="@+id/btnCancel"
+        android:gravity="center"
+        android:text="@string/switching_wallet"
+        android:textColor="#FF38525F"
+        android:textSize="14sp"
+        android:textStyle="bold"
+
+        />
+
+    <Button
+        android:id="@id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignBaseline="@+id/tvTitle"
+        android:layout_alignBottom="@+id/tvTitle"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/picker_done"
+        android:textColor="#FF38525F"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/btnSubmit"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/pickerview_topbar_paddingright"
+        android:paddingRight="@dimen/pickerview_topbar_paddingleft"
+        android:text="@string/picker_clear"
+        android:textColor="@drawable/selector_pickerview_btn"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFF3F3F3" />
+
+</RelativeLayout>
