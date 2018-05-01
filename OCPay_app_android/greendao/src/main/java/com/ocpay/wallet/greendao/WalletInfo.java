@@ -7,12 +7,14 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.io.Serializable;
+
 /**
  * Created by y on 2017/11/10.
  */
 
 @Entity
-public class WalletInfo {
+public class WalletInfo implements Serializable {
 
     @Id(autoincrement = true)
     private Long id;
@@ -31,9 +33,11 @@ public class WalletInfo {
 
     private int walletType;
 
+    private static final long serialVersionUID = 536871008L;
+
     @Generated(hash = 1153502703)
     public WalletInfo(Long id, String userId, String walletName, @NotNull String walletAddress, boolean isBackup, String passwordTip,
-            int walletType) {
+                      int walletType) {
         this.id = id;
         this.userId = userId;
         this.walletName = walletName;
@@ -71,6 +75,9 @@ public class WalletInfo {
     }
 
     public String getWalletAddress() {
+        if (!walletAddress.startsWith("0x")) {
+            return "0x" + walletAddress;
+        }
         return walletAddress;
     }
 
@@ -117,4 +124,6 @@ public class WalletInfo {
     public void setIsBackup(boolean isBackup) {
         this.isBackup = isBackup;
     }
+
+
 }

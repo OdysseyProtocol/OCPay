@@ -26,4 +26,11 @@
     <color name="color_bar_bottom_text_press">#282828</color>
     <color name="color_transparent">#00000000</color>
 
+
+    <color name="color_qr_head_bg">#1F3540</color>
+    <color name="color_wallet_item_selected">#F3F3F3</color>
+    <color name="color_item_line">#E1E5E9</color>
+    <color name="color_edit_hint">#B5BDC8</color>
+
+
 </resources>

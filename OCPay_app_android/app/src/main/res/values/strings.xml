@@ -12,8 +12,55 @@
     <string name="bottom_bar_me">ME</string>
     <string name="bottom_bar_home">HOME</string>
     <string name="nav_bar_create_wallet">Create Wallet</string>
-    <string name="import_wallet">Import Wallet</string>
 
     <string name="address_copied_to_clipboard">Copied to Clipboard</string>
+    <string name="copy_qr_code_address">Copy QR code payment address</string>
+
+
+    <string name="activity_qr_code">Receipt QR code</string>
+    <string name="activity_qr_share">Share</string>
+    <string name="import_wallet">Import Wallet</string>
+    <string name="import_wallet_mnemonic">Mnemonic</string>
+    <string name="import_wallet_official_wallet">Official wallet</string>
+    <string name="import_wallet_private_key">Private key</string>
+    <string name="import_wallet_observed">Observed</string>
+    <string name="activity_title_create_wallet">Create Your Wallet</string>
+    <string name="hint_edit_password">Password</string>
+    <string name="hint_repeat_password">Repeat Password</string>
+    <string name="hint_password_hint_optional">Password hint(optional)</string>
+    <string name="service_privacy">Service &amp; Privacy Policy</string>
+    <string name="start_import">start import</string>
+    <string name="what_is_a_mnemonic">What is a Mnemonic?</string>
+    <string name="hint_keystore_password">KeyStore Password</string>
+    <string name="what_keystore">What is a Keystore ?</string>
+    <string name="what_private_key">What is a Private Key ?</string>
+    <string name="what_offline_signature">How to use cold wallet offline signature ?</string>
+    <string name="hint_keystore">keystore</string>
+    <string name="hint_private_key">Plaintext private key</string>
+    <string name="hint_wallet_address">wallet address</string>
+    <string name="note_about_cold_wallet">Note: A cold wallet with a signature is required to watch the wallet send the transaction. You can use another idle mobile phone, open the flight mode as a cold wallet, import the wallet private key, and cooperate with the offline signature.</string>
+    <string name="note_about_observe_wallet">Observe the wallet does not need to import the private key, only import the wallet address for daily viewing of accounts, transactions and acceptance of notifications. The private key of large funds is recommended to use cold wallet or hardware wallet management to avoid disclosure of theft</string>
+    <string name="edit_wallet_name">wallet name</string>
+    <string name="btn_create_wallet">Create Wallet</string>
+    <string name="note_create_walet_one">The password is used to protect the private key and transaction authorization, the strength is very important</string>
+    <string name="note_create_wallet_two">Ocn does not store passwords, nor does it help you to retrieve them. Please remember to remember</string>
+    <string name="action_next_step">Next step</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="note_backup_confirm">Please click the mnemonic word in order to confirm your backup mnemonic words correctly.</string>
+    <string name="fingerprint_login">Fingerprint login</string>
+    <string name="create_your_ocpay">Create your OCPay</string>
+    <string name="wallet_file_not_exists">Wallet File not exists</string>
+    <string name="activity_wallet_manager">Wallet Manager</string>
+    <string name="backup_wallet_tip">The last step: immediate backup of your payment platform</string>
+    <string name="backup_wallet_tip_content_p1">Block chain wallet is different from traditional website account. It is a de centralized accounting system for cryptography. </string>
+    <string name="backup_wallet_tip_content_p2"> You must keep your wallet\'s private key and transaction password, any thought that it will lead to loss of assets.</string>
+    <string name="backup_wallet_tip_content_p3"> We suggest that we do double backup first, then enter the small test, and finally start to use it happily.</string>
+    <string name="view_tutorial">View the tutorial</string>
+    <string name="backup_wallet_mnemonic">Backup payment platform</string>
+    <string name="wallet_detail">Wallet Detail</string>
+    <string name="modify_current_password">Current Password</string>
+    <string name="modify_new_password">New Password</string>
+    <string name="modify_repeat_new_password">Repeat New Password</string>
+    <string name="activity_modify_title">Change The Password</string>
 
 </resources>

@@ -8,24 +8,70 @@
         android:orientation="vertical">
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:gravity="start"
+            android:padding="2dp"
+            android:text="@string/note_about_observe_wallet"
+            android:textColor="#FF38525F"
+            android:textSize="12sp" />
+
         <EditText
             android:id="@+id/et_address"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_wallet_address" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
+        <TextView
+            android:id="@+id/tv_action_import"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_corner_btn_copy_qr"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="@string/start_import"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+
+
+        <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:hint="address" />
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:background="#FFF3F3F3"
+            android:gravity="start"
+            android:padding="16dp"
+            android:text="@string/note_about_cold_wallet"
+            android:textColor="#FF38525F"
+            android:textSize="12sp" />
 
-
-        <Button
-            android:id="@+id/btn_action_import"
+        <TextView
+            android:id="@+id/tv_about_offline_signature"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="start import" />
-
+            android:layout_height="17dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/what_offline_signature"
+            android:textAllCaps="false"
+            android:textColor="#FF38525F"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </layout>

@@ -1,1 +1,1 @@
-include ':app',  ':greendao',':commonlibrary'
+include ':app',  ':greendao',':commonlibrary',':pickerview'

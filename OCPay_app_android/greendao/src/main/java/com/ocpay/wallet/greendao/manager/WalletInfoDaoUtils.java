@@ -4,6 +4,9 @@ package com.ocpay.wallet.greendao.manager;
 import android.content.Context;
 
 import com.ocpay.wallet.greendao.WalletInfo;
+import com.ocpay.wallet.greendao.gen.WalletInfoDao;
+
+import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
 
@@ -52,5 +55,29 @@ public class WalletInfoDaoUtils {
      */
     public static List<WalletInfo> sqlAll(Context mContext) {
         return getInstance(mContext).getDaoSeesion().loadAll(WalletInfo.class);
+    }
+
+
+//    public static List<WalletInfo> sqlBuilder(Context mContext, WalletInfo info) {
+//
+//        QueryBuilder<WalletInfo> walletInfoQueryBuilder = getInstance(mContext).getDaoSeesion().queryBuilder(WalletInfo.class);
+//    }
+
+    /**
+     * @param mContext
+     * @return
+     */
+    public static WalletInfo sqlByAddress(Context mContext, String walletAddress) {
+        Query<WalletInfo> query = getInstance(mContext)
+                .getInstance(mContext)
+                .getDaoSeesion()
+                .queryBuilder(WalletInfo.class)
+                .where(WalletInfoDao.Properties.WalletAddress.eq(walletAddress))
+                .build();
+
+        if (query.list() != null && query.list().size() >= 0) {
+            return query.list().get(0);
+        }
+        return null;
     }
 }

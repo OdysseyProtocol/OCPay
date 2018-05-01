@@ -1,44 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#19404F"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar" />
 
-
-        <TextView
-            android:id="@+id/tv_wallet_address"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="6dp">
 
-        <EditText
-            android:id="@+id/et_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="115dp"
+                    android:background="@color/color_qr_head_bg"
+                    android:orientation="vertical">
+
+                    <com.ocpay.wallet.view.customview.CircleImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@mipmap/ic_airdrop"
+                        android:scaleType="centerInside"
+                        app:roundHeight="25dp"
+                        app:roundWidth="25dp" />
 
 
-        <ImageView
-            android:id="@+id/qr_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="0dp" />
+                    <TextView
+                        android:id="@+id/tv_wallet_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="0X9DCfjklsjfksjdklfjskdljfklsjdlfksdjklfjskldfjklsdjfklsf"
+                        android:textAlignment="textStart"
+                        android:textColor="#a4afb4ab" />
+                </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_address_to_clipboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Address To Clipboard" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
+                    <EditText
+                        android:id="@+id/et_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:textColor="#FF38525F"
+                        android:textSize="30sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:background="#E1E5E9" />
+
+                    <RelativeLayout
+                        android:layout_width="260dp"
+                        android:layout_height="260dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="18dp"
+                        android:background="#F3F3F3 ">
+
+                        <ImageView
+                            android:id="@+id/qr_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btn_address_to_clipboard"
+                        android:layout_width="260dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="40dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/shape_corner_btn_copy_qr"
+                        android:text="@string/copy_qr_code_address"
+                        android:textColor="#fff"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
-
 </layout>

@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <item name="textAllCaps">false</item>
     </style>
 
 
@@ -38,5 +39,65 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+
+    <style name="AppTheme.PopupOverlay" parent="@style/ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+
+    <style name="WalletImportEditView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+        <item name="android:textColor">@color/color_text_main</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/shape_corner_dialog</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:shadowColor">@color/color_transparent</item>
+    </style>
+
+
+    <style name="MnemonicBackupBtn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+
+        <item name="android:background">@drawable/shape_corner_btn_copy_qr</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">13sp</item>
+
+
+    </style>
 
 </resources>

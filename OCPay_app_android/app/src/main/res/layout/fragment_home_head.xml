@@ -17,7 +17,7 @@
                 android:layout_height="49dp"
                 android:orientation="horizontal">
 
-                <com.makeramen.roundedimageview.RoundedImageView
+                <com.ocpay.wallet.view.customview.CircleImageView
                     android:id="@+id/riv_head_portrait"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -25,6 +25,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="9dp"
+                    app:riv_corner_radius="16dp"
                     android:src="@mipmap/ic_launcher_round" />
 
 

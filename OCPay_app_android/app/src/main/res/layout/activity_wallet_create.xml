@@ -17,48 +17,161 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical"
         tools:context=".activities.WalletCreateActivity">
 
 
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#FF38525F"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_circle_gray" />
+
+
+                <TextView
+                    android:layout_width="319dp"
+                    android:layout_height="24dp"
+                    android:text="@string/note_create_walet_one"
+                    android:textColor="#FFA4AFB4"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_circle_gray" />
+
+
+                <TextView
+                    android:layout_width="319dp"
+                    android:layout_height="24dp"
+                    android:text="@string/note_create_wallet_two"
+                    android:textColor="#FFA4AFB4"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
         <EditText
             android:id="@+id/et_wallet_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="wallet name"
+            style="@style/WalletImportEditView"
+            android:hint="@string/edit_wallet_name"
+            android:inputType="text"
             android:text="@={walletCreateVM.walletName}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
 
         <EditText
             android:id="@+id/et_wallet_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="password"
-            android:inputType="textPassword"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_edit_password"
             android:text="@={walletCreateVM.password}" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
 
 
         <EditText
             android:id="@+id/et_wallet_check_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="password  check"
-            android:inputType="textPassword"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_repeat_password"
             android:text="@={walletCreateVM.confirmPassword}" />
 
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
         <EditText
             android:id="@+id/et_wallet_pwd_tp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="password tip"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_password_hint_optional"
+            android:inputType="text"
             android:text="@={walletCreateVM.passwordTip}" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
 
-        <Button
-            android:id="@+id/btn_generate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="generate" />
+        <include
+            android:id="@+id/include_privacy"
+            layout="@layout/layout_privacy_policy" />
+
+
+        <TextView
+            android:id="@+id/tv_generate"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/shape_btn_grave"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="@string/btn_create_wallet"
+            android:textAllCaps="false"
+            android:textColor="#A4AFB4"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_import_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/import_wallet"
+            android:textAllCaps="false"
+            android:textColor="#FF38525F"
+            android:textSize="13sp" />
 
 
     </LinearLayout>

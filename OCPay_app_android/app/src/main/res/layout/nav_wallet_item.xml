@@ -10,19 +10,28 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/ll_wallet_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:layout_height="56dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.ocpay.wallet.view.customview.CircleImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:background="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/tv_wallet_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
             android:text="@{walletInfo.walletName}"
-            android:textColor="@color/ad_white"
-            android:textSize="14sp" />
+            android:textColor="@color/color_text_main"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </layout>

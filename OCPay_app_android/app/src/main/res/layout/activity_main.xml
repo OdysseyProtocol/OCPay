@@ -12,16 +12,15 @@
         <include
             android:id="@+id/include"
             layout="@layout/app_bar_main"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
-            android:layout_width="match_parent"
+            android:layout_width="210dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:clickable="true"
             android:fitsSystemWindows="true" />
 

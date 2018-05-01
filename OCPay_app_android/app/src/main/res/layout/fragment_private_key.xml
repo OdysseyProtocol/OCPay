@@ -18,49 +18,85 @@
             <EditText
                 android:id="@+id/et_private_key"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_margin="1dp"
                 android:background="@color/white"
                 android:gravity="top"
-                android:hint="private key"
-                android:padding="2dp"
+                android:hint="@string/hint_private_key"
+                android:padding="12dp"
                 android:textAlignment="gravity"
-                android:textDirection="firstStrong" />
+                android:textColor="@color/color_text_main"
+                android:textColorHint="@color/color_edit_hint"
+                android:textDirection="firstStrong"
+                android:textSize="14sp" />
         </RelativeLayout>
 
 
         <EditText
             android:id="@+id/et_pwd"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_edit_password" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="pwd" />
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
 
         <EditText
             android:id="@+id/et_check_pwd"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_repeat_password" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="re_pwd" />
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
 
         <EditText
             android:id="@+id/et_pwd_tip"
+            style="@style/WalletImportEditView"
+            android:hint="@string/hint_password_hint_optional" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="pwd_tip" />
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_privacy_policy" />
 
 
-        <Button
-            android:id="@+id/btn_action_import"
+        <TextView
+            android:id="@+id/tv_action_import"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="start import" />
+            android:layout_height="40dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/shape_btn_grave"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="@string/start_import"
+            android:textAllCaps="false"
+            android:textColor="#A4AFB4"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_about_private_key"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/what_private_key"
+            android:textAllCaps="false"
+            android:textColor="#FF38525F"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </layout>

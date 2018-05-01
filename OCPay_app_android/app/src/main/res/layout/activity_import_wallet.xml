@@ -1,17 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_action_bar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="#E1E5E9" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="#E1E5E9" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_import_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/color_transparent"
+                android:textSize="13sp"
+                app:tabBackground="@null"
+                app:tabIndicatorColor="#1A3D4E"
+                app:tabSelectedTextColor="@color/color_text_main"
+                app:tabTextColor="@color/color_text_subhead" />
+
+
+        </FrameLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/owallet_theme_foreground_bg" />
+            android:background="@color/white" />
 
     </LinearLayout>
 
