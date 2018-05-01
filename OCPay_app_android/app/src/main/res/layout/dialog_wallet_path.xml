@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nv_result_safety"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+                <include
+                    android:id="@+id/include_imtoken"
+                    layout="@layout/item_wallet_path" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFE1E5E9" />
+                <include
+                    android:id="@+id/include_metamask"
+                    layout="@layout/item_wallet_path" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFE1E5E9" />
+
+                <include
+                    android:id="@+id/include_ledger"
+                    layout="@layout/item_wallet_path" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFE1E5E9" />
+
+
+                <include
+                    android:id="@+id/include_custom"
+                    layout="@layout/item_wallet_path" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFE1E5E9" />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

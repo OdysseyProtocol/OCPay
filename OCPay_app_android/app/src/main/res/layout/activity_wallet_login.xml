@@ -1,0 +1,85 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.ocpay.wallet.view.customview.CircleImageView
+            android:id="@+id/iv_wallet_head"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="90dp"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_login_wallet_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:id="@+id/tv_login_wallet_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0XDDC0222FB…75E42DERS"
+                android:textColor="#FF33535F"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_wallet_password"
+            style="@style/WalletImportEditView"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:hint="@string/hint_edit_password" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/color_item_line" />
+
+
+        <TextView
+            android:id="@+id/tv_create_wallet"
+            style="@style/MnemonicBackupBtn"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/shape_corner_btn_mian_100"
+            android:text="@string/create_your_ocpay" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_fingerprint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/fingerprint_login"
+                android:textColor="#FFA4AFB4"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

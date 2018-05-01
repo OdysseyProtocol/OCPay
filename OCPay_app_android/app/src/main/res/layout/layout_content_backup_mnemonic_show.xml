@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_mnemonic_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:text="Copy your wallet notes"
+            android:textColor="#FF38525F"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="8dp"
+            android:text="Mnemonics are used to restore the wallet or reset the wallet password, copy it to paper accurately, and store it only in a safe place that you know."
+            android:textColor="#FFA4AFB4"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/tv_mnemonic_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="30dp"
+            android:background="#FFF3F3F3"
+            android:padding="16dp"
+            android:textColor="#FF38525F"
+            android:textSize="16sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_action_next"
+                style="@style/MnemonicBackupBtn"
+                android:text="@string/action_next_step" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</layout>
+
+

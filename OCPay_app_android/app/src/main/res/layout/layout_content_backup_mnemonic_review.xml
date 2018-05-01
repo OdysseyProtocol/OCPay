@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_mnemonic_review"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:text="Confirm your wallet word"
+            android:textColor="#FF38525F"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/note_backup_confirm"
+            android:textColor="#FFA4AFB4"
+            android:textSize="12sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_mnemonic_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="25dp"
+            android:background="#FFF3F3F3"
+            android:visibility="gone" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_mnemonic_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="25dp"
+            android:background="#FFFF"
+            android:visibility="gone" />
+
+        <com.ocpay.wallet.view.FlowLayout
+            android:id="@+id/fl_mnemonic_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="25dp"
+            android:background="#FFF3F3F3"
+            android:padding="15dp"
+            app:flChildSpacing="9dp"
+            app:flChildSpacingForLastRow="align"
+            app:flRowSpacing="8dp" />
+
+
+        <com.ocpay.wallet.view.FlowLayout
+            android:id="@+id/fl_mnemonic_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="25dp"
+            android:background="#FFF"
+            app:flChildSpacing="9dp"
+            app:flChildSpacingForLastRow="align"
+            app:flRowSpacing="8dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_action_confirm"
+                style="@style/MnemonicBackupBtn"
+                android:text="@string/action_confirm" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</layout>
+
+

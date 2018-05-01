@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_item_line" />
+
+        <EditText
+            android:id="@+id/et_current_pwd"
+            style="@style/WalletImportEditView"
+            android:layout_marginTop="20dp"
+            android:hint="@string/modify_current_password" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
+        <EditText
+            android:id="@+id/et_pwd"
+            style="@style/WalletImportEditView"
+            android:hint="@string/modify_new_password" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
+        <EditText
+            android:id="@+id/et_check_pwd"
+            style="@style/WalletImportEditView"
+            android:hint="@string/modify_repeat_new_password" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_item_line" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:text="Forget the password? Import a mnemonic or private key to reset the password."
+            android:textColor="#FFA4AFB4"
+            android:textSize="9sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:text=" Immediately import"
+            android:textColor="@color/color_text_main"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+</layout>
+
