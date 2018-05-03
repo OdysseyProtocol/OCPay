@@ -13,7 +13,7 @@ import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
 
 import static com.ocpay.wallet.Constans.WALLET.WALLET_ADDRESS;
-import static com.ocpay.wallet.Constans.WALLET.Wallet_NAME;
+import static com.ocpay.wallet.Constans.WALLET.WALLET_NAME;
 import static com.snow.commonlibrary.utils.ShareUtils.toShare;
 
 public class WalletDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -25,7 +25,7 @@ public class WalletDetailActivity extends BaseActivity implements View.OnClickLi
 
     public static void startWalletDetailActivity(Activity activity, String walletAddress, String walletName) {
         Intent intent = new Intent(activity, WalletDetailActivity.class);
-        intent.putExtra(Wallet_NAME, walletName);
+        intent.putExtra(WALLET_NAME, walletName);
         intent.putExtra(WALLET_ADDRESS, walletAddress);
         activity.startActivity(intent);
 
@@ -55,7 +55,7 @@ public class WalletDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         walletAddress = getIntent().getStringExtra(WALLET_ADDRESS);
-        walletName = getIntent().getStringExtra(Wallet_NAME);
+        walletName = getIntent().getStringExtra(WALLET_NAME);
         WalletInfo walletInfo = WalletInfoDaoUtils.sqlByAddress(this, walletAddress);
         binding.tvWalletAddress.setText(walletInfo.getWalletAddress());
         binding.etWalletName.setText(walletInfo.getWalletName());

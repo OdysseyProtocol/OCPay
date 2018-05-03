@@ -19,7 +19,7 @@ import com.ocpay.wallet.utils.eth.bean.OCPWalletFile;
 import com.ocpay.wallet.utils.wallet.WalletStorage;
 
 import static com.ocpay.wallet.Constans.WALLET.WALLET_ADDRESS;
-import static com.ocpay.wallet.Constans.WALLET.Wallet_NAME;
+import static com.ocpay.wallet.Constans.WALLET.WALLET_NAME;
 
 public class WalletModifyPwdActivity extends BaseActivity implements View.OnClickListener {
 
@@ -30,7 +30,7 @@ public class WalletModifyPwdActivity extends BaseActivity implements View.OnClic
 
     public static void startWalletModifyActivity(Activity activity, String walletAddress, String walletName) {
         Intent intent = new Intent(activity, WalletModifyPwdActivity.class);
-        intent.putExtra(Wallet_NAME, walletName);
+        intent.putExtra(WALLET_NAME, walletName);
         intent.putExtra(WALLET_ADDRESS, walletAddress);
         activity.startActivity(intent);
 

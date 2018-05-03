@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 closeDrawer();
                 break;
             case R.id.ll_import_wallet:
-                WalletManageActivity.startWalletMgActivity(this);
+                TokenTransactionsActivity.startTokenTransactionActivity(this, "", "");
                 closeDrawer();
                 break;
         }

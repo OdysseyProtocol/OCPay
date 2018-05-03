@@ -71,8 +71,8 @@ public class OWalletAPI {
 //     * @param endBlockNumber
 //     * @return
 //     */
-//    public static List<TransactionsResponse.CustomTransaction> getTransactionList(String address, String startBlockNumber, String endBlockNumber) throws Exception {
-//        return OWalletTransaction.getTransactionList(address, startBlockNumber, endBlockNumber);
+//    public static List<TransactionsResponse.CustomTransaction> getEthTransactionList(String address, String startBlockNumber, String endBlockNumber) throws Exception {
+//        return OWalletTransaction.getEthTransactionList(address, startBlockNumber, endBlockNumber);
 //    }
 //
 //

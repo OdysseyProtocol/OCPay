@@ -6,6 +6,8 @@ import android.support.multidex.MultiDex;
 
 import com.ocpay.wallet.http.HttpUtils;
 
+import java.math.BigInteger;
+
 /**
  * Created by y on 2018/4/16.
  */
@@ -13,12 +15,15 @@ import com.ocpay.wallet.http.HttpUtils;
 public class MyApp extends Application {
 
 
+    static public BigInteger ethBlockNumber;
+
     static private Context mContext;
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        ethBlockNumber = new BigInteger("0");
     }
 
     @Override
@@ -32,5 +37,15 @@ public class MyApp extends Application {
     public static Context getContext() {
         return mContext;
 
+    }
+
+
+    public static BigInteger getEthBlockNumber() {
+
+        return ethBlockNumber;
+    }
+
+    public static void setEthBlockNumber(BigInteger ethBlockNumber) {
+        MyApp.ethBlockNumber = ethBlockNumber;
     }
 }

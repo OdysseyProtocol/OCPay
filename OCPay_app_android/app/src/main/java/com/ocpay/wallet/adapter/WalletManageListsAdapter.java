@@ -35,8 +35,11 @@ public class WalletManageListsAdapter extends BaseAdapter<WalletInfo, WalletMana
     @NonNull
     @Override
     public WalletManageItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(mCtx);
+
         WalletManageItemBinding walletItemBinding = DataBindingUtil.inflate(inflater, R.layout.wallet_manage_item, parent, false);
+
         return new WalletManageItemHolder(walletItemBinding);
     }
 

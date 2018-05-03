@@ -15,7 +15,7 @@ public class Constans {
         public static String TOKEN_NAME = "token_name";
         public static String WALLET_ADDRESS = "wallet_address";
         public static String ADDRESS_FROM = "wallet_from";
-        public static String Wallet_NAME = "wallet_name";
+        public static String WALLET_NAME = "wallet_name";
 
 
         public static String WALLET_SAVE_PATH = MyApp.getContext().getExternalCacheDir().getAbsolutePath();
@@ -67,6 +67,9 @@ public class Constans {
         public final static int ACTION_IMPORT_WALLET_WATCH = 7;
 
 
+        public final static int ACTION_UPDATE_TRANSACTION_LIST = 8;
+
+
     }
 
     public static class REGULAR {
@@ -78,11 +81,11 @@ public class Constans {
     }
 
 
-    public static class TEST{
-
+    public static class TEST {
         public final static String WALLET_ADDRESS = "0x7E8247C7d145dEBe8a8C2D2a2Ab450992AA884c9";
-
-
+        public final static String OCN_TOKEN_ADDRESS = "0xd1bcbe82f40a9d7fbcbd28cca6043d72d66d8e9d";
     }
+
+
 
 }

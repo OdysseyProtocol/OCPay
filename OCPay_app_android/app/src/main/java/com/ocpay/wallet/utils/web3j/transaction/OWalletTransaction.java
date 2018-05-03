@@ -1,5 +1,14 @@
 package com.ocpay.wallet.utils.web3j.transaction;
 
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.generated.Uint256;
+
+import java.util.Arrays;
+
 /**
  * Created by y on 2018/3/5.
  */
@@ -55,6 +64,25 @@ public class OWalletTransaction {
 //        }
 //        throw new RuntimeException("get token fail");
 //    }
+
+
+
+
+    /**
+     * balanceOf
+     *
+     * @param address
+     * @return
+     */
+    public static String getBalanceOfTokenData(String address) {
+        Function function = new Function("balanceOf",
+                Arrays.<Type>asList(new Address(address)),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
+                }));
+        return FunctionEncoder.encode(function);
+
+    }
+
 //
 //
 //    /**
@@ -172,7 +200,7 @@ public class OWalletTransaction {
 //     * @param endBlockNumber   eg:99999999
 //     * @return
 //     */
-//    public static List<TransactionsResponse.CustomTransaction> getTransactionList(String address, String startBlockNumber, String endBlockNumber) throws Exception {
+//    public static List<TransactionsResponse.CustomTransaction> getEthTransactionList(String address, String startBlockNumber, String endBlockNumber) throws Exception {
 //        if (address == null || "".equals(address)) {
 //            return null;
 //        }

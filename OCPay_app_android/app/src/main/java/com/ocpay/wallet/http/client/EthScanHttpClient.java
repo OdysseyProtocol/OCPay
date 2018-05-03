@@ -1,5 +1,9 @@
 package com.ocpay.wallet.http.client;
 
+import com.ocpay.wallet.utils.web3j.response.EthBalanceResponse;
+import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
+import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -28,33 +32,43 @@ public interface EthScanHttpClient {
      * @return
      */
     @GET("api?module=account&action=balance&tag=latest")
-    Observable<Object> getEthBalance(@Query("address") String address);
+    Observable<EthBalanceResponse> getEthBalance(@Query("address") String address);
 
 
-//    /**
-//     * eth
-//     * https://api-ropsten.etherscan.io/api?module=account&action=balance&address=0x7E8247C7d145dEBe8a8C2D2a2Ab450992AA884c9&tag=latest&apikey=YourApiKeyToken
-//     * @param address
-//     * @return
-//     */
-//    public static String getBalanceUrl(String address) {
-//        return Url + "module=account&action=balance&address=" + address + "&apikey=" + APIKey.EtherScan_API_KEY;
-//    }
-//
-//
-//    /**
-//     * get balance of token
-//     *
-//     * @param to
-//     * @param data
-//     * @throws IOException
-//     */
-//    public static String eth_call(String to, String data) {
-//
-//        return Url + "module=proxy&action=eth_call&to=" + to + "&data=" + data + "&tag=latest&apikey=" + APIKey.EtherScan_API_KEY;
-//
-//
-//    }
+    @GET("api?module=proxy&action=eth_call&tag=latest")
+    Observable<TokenBalanceResponse> getTokenBalance(@Query("to") String address, @Query("data") String data);
+
+
+    /**
+     * about eth transaction list
+     *
+     * @param address
+     * @param startblock
+     * @param endBlockNumber
+     * @return
+     */
+    @GET("api?module=account&action=txlist&sort=asc")
+    Observable<Object> getEthTransactionList(@Query("address") String address, @Query("startblock") String startblock, @Query("endblock") String endBlockNumber);
+
+
+    /**
+     * https://api-ropsten.etherscan.io/api?module=logs&action=getLogs
+     * &fromBlock=2916984
+     * &toBlock=latest
+     * &address=0xd1bcbe82f40a9d7fbcbd28cca6043d72d66d8e9d
+     * &topic2=0x0000000000000000000000007e8247c7d145debe8a8c2d2a2ab450992aa884c9
+     * &topic1=0x0000000000000000000000007e8247c7d145debe8a8c2d2a2ab450992aa884c9
+     * &topic1_2_opr=or
+     */
+    @GET("api?module=logs&action=getLogs&topic1_2_opr=or")
+    Observable<EventLogTransactionResponse> getTokenTransactionList(@Query("address") String contractAddress, @Query("topic1") String topic1, @Query("topic2") String topic2, @Query("fromBlock") String fromBlock, @Query("toBlock") String toBlock);
+
+
+    /**
+     * https://api-ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=YourApiKeyToken
+     */
+    @GET("api?module=proxy&action=eth_blockNumber")
+    Observable<Object> getEthBlockNumber();
 
 
 }

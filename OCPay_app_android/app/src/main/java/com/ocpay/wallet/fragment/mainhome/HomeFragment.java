@@ -25,6 +25,9 @@ import com.ocpay.wallet.fragment.BaseFragment;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.http.client.HttpClient;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.eth.OCPWalletUtils;
+import com.ocpay.wallet.utils.web3j.response.EthBalanceResponse;
+import com.ocpay.wallet.utils.web3j.transaction.OWalletTransaction;
 import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.utils.PrefUtils;
 
@@ -41,6 +44,7 @@ import static com.ocpay.wallet.Constans.CONFIG.HIDE_ASSET;
 import static com.ocpay.wallet.Constans.HOME.GENERALIZE;
 import static com.ocpay.wallet.Constans.HOME.MERCHANT;
 import static com.ocpay.wallet.Constans.HOME.WHEEL_AD;
+import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
 import static com.ocpay.wallet.Constans.TEST.WALLET_ADDRESS;
 import static com.ocpay.wallet.activities.QRReaderActivity.QR_CODE_MODE_PARSE;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.foldWalletAddress;
@@ -69,7 +73,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         initRxBus();
         updateInfo(walletInfo);
         initListener();
-        showBalance();
+        getTransactionList();
+        getTokenTrList();
     }
 
     private void initListener() {
@@ -112,41 +117,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         bindingView.rlView.setAdapter(mainAdapter);
 
 
-    }
-
-    public void showBalance() {
-        HttpClient.Builder
-                .getEthScanServer()
-                .getEthBalance(WALLET_ADDRESS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<Object>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                addDisposable(d);
-                                MyLog.i("onSubscribe");
-                            }
-
-                            @Override
-                            public void onNext(Object o) {
-                                MyLog.i("onNext" + o.toString());
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                MyLog.i("onError" + e.getMessage());
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                MyLog.i("onComplete");
-
-                            }
-                        }
-                );
     }
 
 
@@ -244,5 +214,186 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         int iconRes = isHide ? R.mipmap.icon_show_asset : R.mipmap.icon_show_asset;
         bindingView.include.ivHideAsset.setImageResource(iconRes);
         PrefUtils.putBoolean(MyApp.getContext(), HIDE_ASSET, !isHide);
+    }
+
+
+    public void showBalance() {
+        HttpClient.Builder
+                .getEthScanServer()
+                .getEthBalance(WALLET_ADDRESS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<EthBalanceResponse>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                addDisposable(d);
+                                MyLog.i("onSubscribe");
+                            }
+
+                            @Override
+                            public void onNext(EthBalanceResponse o) {
+                                MyLog.i("onNext" + o.toString());
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                MyLog.i("onError" + e.getMessage());
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                MyLog.i("onComplete");
+
+                            }
+                        }
+                );
+    }
+
+    public void getTokenBalanceOf() {
+
+        String data = OWalletTransaction.getBalanceOfTokenData(WALLET_ADDRESS);
+        HttpClient.Builder
+                .getEthScanServer()
+                .getTokenBalance(OCN_TOKEN_ADDRESS, data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                addDisposable(d);
+                                MyLog.i("onSubscribe");
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                MyLog.i("onNext" + o.toString());
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                MyLog.i("onError" + e.getMessage());
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                MyLog.i("onComplete");
+
+                            }
+                        }
+                );
+    }
+
+    public void getTransactionList() {
+
+        HttpClient.Builder
+                .getEthScanServer()
+                .getEthTransactionList(WALLET_ADDRESS, "5000", "9999999")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                addDisposable(d);
+                                MyLog.i("onSubscribe");
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                MyLog.i("onNext" + o.toString());
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                MyLog.i("onError" + e.getMessage());
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                MyLog.i("onComplete");
+
+                            }
+                        }
+                );
+    }
+
+
+    public void getBlockNumber() {
+        HttpClient.Builder
+                .getEthScanServer()
+                .getEthBlockNumber()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                addDisposable(d);
+                                MyLog.i("onSubscribe");
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                MyLog.i("onNext" + o.toString());
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                MyLog.i("onError" + e.getMessage());
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                MyLog.i("onComplete");
+
+                            }
+                        }
+                );
+    }
+
+
+    public void getTokenTrList() {
+        String walletAddress = OCPWalletUtils.getWalletAddress32b(WALLET_ADDRESS);
+        HttpClient.Builder
+                .getEthScanServer()
+                .getTokenTransactionList(OCN_TOKEN_ADDRESS, walletAddress, walletAddress, "1000", "last")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                MyLog.i("onSubscribe");
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                MyLog.i("onNext" + o.toString());
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                MyLog.i("onError" + e.getMessage());
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                MyLog.i("onComplete");
+
+                            }
+                        }
+                );
     }
 }

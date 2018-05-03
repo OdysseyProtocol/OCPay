@@ -573,4 +573,59 @@ public class OCPWalletUtils {
         return wallet;
     }
 
+
+    public static String getWalletAddress32b(String walletAddress) {
+        if (walletAddress.startsWith("0x")) {
+            walletAddress = walletAddress.replace("0x", "0x000000000000000000000000");
+        } else {
+            walletAddress = "0x000000000000000000000000" + walletAddress;
+        }
+        return walletAddress;
+    }
+
+
+    public static String walletAddressSub(String walletAddress) {
+        if (walletAddress.startsWith("0x")) {
+            return walletAddress.replace("0x000000000000000000000000", "0x").toString();
+        }
+        return walletAddress;
+    }
+
+
+    /**
+     * parse input
+     *
+     * @param input
+     * @return
+     */
+    public static BigDecimal getSTAmount(String input) {
+        if (input.startsWith("0x")) {
+            input = input.replace("0x", "");
+        }
+        String hexAmount = input.substring(input.length() - 64, input.length());
+
+        return getAmountByP1(hexAmount);
+    }
+
+
+    /**
+     * parse data about Event Log Transaction
+     *
+     * @param input
+     * @return
+     */
+    public static BigDecimal getAmountByP1(String input) {
+        if (input.startsWith("0x")) {
+            input = input.replace("0x", "");
+        }
+        BigDecimal amount = new BigDecimal(new BigInteger(input, 16).toString());
+        BigDecimal bigDecimal = amount.divide(new BigDecimal(1000000000000000000d), 18, BigDecimal.ROUND_UP);
+        return bigDecimal;
+    }
+
+
+
+
+
+
 }
