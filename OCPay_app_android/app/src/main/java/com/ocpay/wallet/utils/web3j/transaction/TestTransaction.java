@@ -147,7 +147,7 @@ public class TestTransaction {
         System.out.println(" ————-----------------------1-----------------------------");
 
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(credentials1.getAddress(), DefaultBlockParameterName.LATEST).send();
-//        EthEstimateGas gas = web3j.ethEstimateGas(new org.web3j.protocol.core.methods.request.Transaction(credentials1.getAddress(), ethGetTransactionCount.getTransactionCount(), gasPrice, new BigInteger("210000"), testPrivateContra, new BigInteger("0"), "")).send();
+//        EthEstimateGas gas = web3j.ethEstimateGas(new org.web3j.protocol.core.methods.request.EthTransaction(credentials1.getAddress(), ethGetTransactionCount.getTransactionCount(), gasPrice, new BigInteger("210000"), testPrivateContra, new BigInteger("0"), "")).send();
 //        System.out.println(" ————------------------2----------------------------------");
 
 

@@ -1,11 +1,13 @@
 package com.ocpay.wallet.activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ocpay.wallet.Constans;
@@ -16,9 +18,12 @@ import com.ocpay.wallet.databinding.ActivityTokenDetailsBinding;
 import com.ocpay.wallet.http.client.HttpClient;
 import com.ocpay.wallet.http.rx.RxBus;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
+import com.ocpay.wallet.utils.web3j.response.EthTransaction;
 import com.ocpay.wallet.utils.web3j.response.EthTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
+import com.ocpay.wallet.utils.web3j.response.EventTransaction;
 import com.snow.commonlibrary.log.MyLog;
+import com.snow.commonlibrary.recycleview.BaseAdapter;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,7 +37,7 @@ import static com.ocpay.wallet.Constans.TEST.WALLET_ADDRESS;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
 import static com.ocpay.wallet.Constans.WALLET.WALLET_NAME;
 
-public class TokenTransactionsActivity extends BaseActivity implements View.OnClickListener {
+public class TokenTransactionsActivity extends BaseActivity implements View.OnClickListener, BaseAdapter.OnItemClickListener {
 
 
     private ActivityTokenDetailsBinding binding;
@@ -86,7 +91,7 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
                         public void accept(EventLogTransactionResponse ethTransactionResponse) throws Exception {
                             dismissLoading();
                             MyLog.i("ß --------ß");
-                            transferAdapter.addAll(ethTransactionResponse.getResult());
+                            transferAdapter.setData(ethTransactionResponse.getResult());
                             transferAdapter.notifyDataSetChanged();
                         }
                     });
@@ -105,7 +110,8 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
         transferAdapter = new TokenTransferAdapter(this);
 
         binding.rlTokenTransactions.setLayoutManager(new LinearLayoutManager(TokenTransactionsActivity.this));
-        binding.rlTokenTransactions. setAdapter(transferAdapter);
+        binding.rlTokenTransactions.setAdapter(transferAdapter);
+        transferAdapter.setOnItemClickListener(this);
 
 //
 //        binding.rlWalletManageList.setLayoutManager(new LinearLayoutManager(TokenTransactionsActivity.this));
@@ -123,6 +129,19 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
 //        });
     }
 
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        MyLog.i("onAttachedToWindow");
+    }
+
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        MyLog.i("onAttachFragment");
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -141,7 +160,7 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
 
 
     public void getTokenTrList() {
-        String walletAddress = OCPWalletUtils.getWalletAddress32b(WALLET_ADDRESS);
+        String walletAddress = OCPWalletUtils.walletAddress32b(WALLET_ADDRESS);
         HttpClient.Builder
                 .getEthScanServer()
                 .getTokenTransactionList(OCN_TOKEN_ADDRESS, walletAddress, walletAddress, "1000", "last")
@@ -174,5 +193,22 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
                             }
                         }
                 );
+    }
+
+    @Override
+    public void onItemClicked(RecyclerView.Adapter adapter, Object data, int position) {
+
+        EthTransaction ethTransaction = null;
+        EventTransaction eventTransaction = null;
+        if (data instanceof EthTransaction) {
+            ethTransaction = (EthTransaction) data;
+        }
+        if (data instanceof EventTransaction) {
+            eventTransaction = (EventTransaction) data;
+        }
+
+        TransactionDetailActivity.startTxDetailActivity(this, ethTransaction, eventTransaction);
+
+
     }
 }

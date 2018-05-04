@@ -33,28 +33,24 @@ import java.util.concurrent.ExecutionException;
 
 //import org.web3j.crypto.RawTransaction;
 
-/**
- * 合约的交互
- */
-public class WillContract {
+
+public class OCPContract {
 
     /**
      * web3j
      */
     private final Web3j web3j;
-    /**
-     * 当前缓存的油价
-     */
+
     private static volatile BigInteger cachedGasPrice;
 
     /**
-     * 连接到一个rpc节点
+     *
      *
      * @param url
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public WillContract(String url) throws ExecutionException, InterruptedException {
+    public OCPContract(String url) throws ExecutionException, InterruptedException {
         web3j = Web3jFactory.build(new HttpService(url));
         Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().sendAsync().get();
         String clientVersion = web3ClientVersion.getWeb3ClientVersion();
@@ -63,7 +59,7 @@ public class WillContract {
     /**
      * nonce
      *
-     * @param address 地址
+     * @param address
      * @return
      */
     public BigInteger nonce(String address) {
@@ -77,7 +73,7 @@ public class WillContract {
     }
 
     /**
-     * 刷新汽油价格
+     *
      *
      * @return
      * @throws IOException
@@ -90,7 +86,7 @@ public class WillContract {
     }
 
     /**
-     * 缓存的价格
+     *
      *
      * @return
      */
@@ -99,7 +95,7 @@ public class WillContract {
     }
 
     /**
-     * 账户余额(以太币)
+     *
      *
      * @param address 地址
      * @return
@@ -111,18 +107,23 @@ public class WillContract {
     }
 
     /**
-     * balanceOf函数
+     * balanceOf
      *
      * @param address
      * @return
      */
-    public static Function balanceOf(String address) {
-        return    new Function("balanceOf",
+    public static String getBalanceOfContractData(String address) {
+        Function function = new Function("balanceOf",
                 Arrays.<Type>asList(new Address(address)),
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
                 }));
+        return FunctionEncoder.encode(function);
 
     }
+
+
+
+
 
     /**
      * 合约函数call

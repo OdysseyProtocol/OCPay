@@ -574,7 +574,7 @@ public class OCPWalletUtils {
     }
 
 
-    public static String getWalletAddress32b(String walletAddress) {
+    public static String walletAddress32b(String walletAddress) {
         if (walletAddress.startsWith("0x")) {
             walletAddress = walletAddress.replace("0x", "0x000000000000000000000000");
         } else {
@@ -584,7 +584,7 @@ public class OCPWalletUtils {
     }
 
 
-    public static String walletAddressSub(String walletAddress) {
+    public static String subWalletAddress(String walletAddress) {
         if (walletAddress.startsWith("0x")) {
             return walletAddress.replace("0x000000000000000000000000", "0x").toString();
         }
@@ -609,7 +609,7 @@ public class OCPWalletUtils {
 
 
     /**
-     * parse data about Event Log Transaction
+     * parse data about Event Log EthTransaction
      *
      * @param input
      * @return

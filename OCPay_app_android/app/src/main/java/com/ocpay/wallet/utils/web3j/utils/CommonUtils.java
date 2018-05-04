@@ -63,8 +63,9 @@ public class CommonUtils {
     public static BigInteger Hex2Decimal(String x) {
         if (x.startsWith("0x")) {
             x = x.replace("0x", "");
+            return new BigInteger(x, 16);
         }
-        return new BigInteger(x, 16);
+        return new BigInteger(x);
     }
 
 

@@ -109,7 +109,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="40dp"
                         android:layout_marginTop="18dp"
-                        android:background="@drawable/shape_corner_btn_copy_qr"
+                        android:background="@drawable/shape_corner_btn_main_r6"
                         android:text="@string/copy_qr_code_address"
                         android:textColor="#fff"
                         android:textSize="13sp" />

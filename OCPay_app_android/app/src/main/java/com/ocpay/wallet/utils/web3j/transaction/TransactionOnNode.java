@@ -83,7 +83,7 @@
 //        String encodedFunction = FunctionEncoder.encode(function);
 //        try {
 //            EthCall ethCall = web3j.ethCall(
-//                    org.web3j.protocol.core.methods.request.Transaction.createEthCallTransaction(
+//                    org.web3j.protocol.core.methods.request.EthTransaction.createEthCallTransaction(
 //                            transactionManager.getFromAddress(), contractAddress, encodedFunction),
 //                    DefaultBlockParameterName.LATEST)
 //                    .send();
@@ -222,9 +222,9 @@
 //     */
 //    public void subscribeContractAddress(Web3j web3j, List<String> contractAddress) {
 ////        logger.warn("start subscribeContractAddress");
-////        web3j.transactionObservable().map(tx -> tx).filter(new Func1<Transaction, Boolean>() {
+////        web3j.transactionObservable().map(tx -> tx).filter(new Func1<EthTransaction, Boolean>() {
 ////            @Override
-////            public Boolean call(Transaction transaction) {
+////            public Boolean call(EthTransaction transaction) {
 ////                return contractAddress.contains(transaction.getTo());
 ////            }
 ////        }).forEach(tx -> {
@@ -277,7 +277,7 @@
 //     * @throws IOException
 //     */
 //    public static BigInteger getAmountUsedGas(Web3j web3j, String fromAddress, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String addressTo, String amount, String data) throws IOException {
-//        EthEstimateGas gas = web3j.ethEstimateGas(new org.web3j.protocol.core.methods.request.Transaction(fromAddress, nonce, gasPrice, gasLimit, addressTo, new BigInteger(amount), data)).send();
+//        EthEstimateGas gas = web3j.ethEstimateGas(new org.web3j.protocol.core.methods.request.EthTransaction(fromAddress, nonce, gasPrice, gasLimit, addressTo, new BigInteger(amount), data)).send();
 //        return (gas == null) ? null : gas.getAmountUsed();
 //    }
 //
@@ -306,7 +306,7 @@
 //    public static BigInteger getEthTransactionGasLimit(Web3j web3j, String from, BigInteger nonce, BigInteger gasPrice) throws IOException {
 //
 //        EthEstimateGas ethEstimateGas = web3j.ethEstimateGas(
-//                org.web3j.protocol.core.methods.request.Transaction.createContractTransaction(
+//                org.web3j.protocol.core.methods.request.EthTransaction.createContractTransaction(
 //                        from, nonce,
 //                        gasPrice, "")).send();
 //        return (ethEstimateGas == null) ? null : ethEstimateGas.getAmountUsed();
@@ -323,7 +323,7 @@
 //     */
 //    public static BigInteger getContractTransactionGasLimit(Web3j web3j, String from, BigInteger nonce, BigInteger gasPrice) throws IOException {
 //        EthEstimateGas gasContract = web3j.ethEstimateGas(
-//                org.web3j.protocol.core.methods.request.Transaction.createContractTransaction(
+//                org.web3j.protocol.core.methods.request.EthTransaction.createContractTransaction(
 //                        from, nonce,
 //                        gasPrice, "")).send();
 //        return (gasContract == null) ? null : gasContract.getAmountUsed();

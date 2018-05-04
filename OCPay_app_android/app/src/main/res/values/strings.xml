@@ -62,5 +62,8 @@
     <string name="modify_new_password">New Password</string>
     <string name="modify_repeat_new_password">Repeat New Password</string>
     <string name="activity_modify_title">Change The Password</string>
+    <string name="transfer_next_step">Next Step</string>
+    <string name="activity_title_transaction_detail">Transaction Detail</string>
+    <string name="activity_title_tx_query">Transaction Number Query</string>
 
 </resources>

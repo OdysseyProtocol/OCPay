@@ -32,5 +32,9 @@
     <color name="color_item_line">#E1E5E9</color>
     <color name="color_edit_hint">#B5BDC8</color>
 
+    <color name="color_transfer_text_green">#2EC424</color>
+    <color name="color_transfer_text_red">#D6556D</color>
+    <color name="color_transfer_text_blue">#2870C3</color>
+    #2EC424
 
 </resources>

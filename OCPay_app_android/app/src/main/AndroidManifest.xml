@@ -7,13 +7,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".MyApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -27,7 +28,57 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.WalletCreateActivity"></activity>
+        <activity
+            android:name=".activities.WalletCreateActivity"
+            android:theme="@style/OThemeNoBar" />
+
+        <activity android:name=".activities.ShareActivity" />
+        <activity
+            android:name=".activities.WalletImportActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.GatheringActivity"
+            android:theme="@style/OThemeNoBar" />
+
+        <activity
+            android:name=".activities.QRReaderActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.SendActivity"
+            android:theme="@style/OThemeNoBar" />
+
+
+        <activity
+            android:name=".activities.BackupMnemonicActivity"
+            android:theme="@style/OThemeNoBar" />
+
+
+        <activity
+            android:name=".activities.WalletLoginActivity"
+            android:theme="@style/OThemeNoBar" />
+
+        <activity
+            android:name=".activities.WalletManageActivity"
+            android:theme="@style/OThemeNoBar" />
+
+        <activity
+            android:name=".activities.WalletDetailActivity"
+            android:theme="@style/OThemeNoBar" />
+
+        <activity
+            android:name=".activities.WalletModifyPwdActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.TokenTransactionsActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.TransactionDetailActivity"
+            android:theme="@style/OThemeNoBar" />
+
+
+        <activity
+            android:name=".activities.SimpleWebViewActivity"
+            android:theme="@style/OThemeNoBar" />
     </application>
 
 </manifest>

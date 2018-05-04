@@ -363,7 +363,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
 
     public void getTokenTrList() {
-        String walletAddress = OCPWalletUtils.getWalletAddress32b(WALLET_ADDRESS);
+        String walletAddress = OCPWalletUtils.walletAddress32b(WALLET_ADDRESS);
         HttpClient.Builder
                 .getEthScanServer()
                 .getTokenTransactionList(OCN_TOKEN_ADDRESS, walletAddress, walletAddress, "1000", "last")

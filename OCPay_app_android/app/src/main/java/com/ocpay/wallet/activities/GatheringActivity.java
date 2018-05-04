@@ -1,12 +1,8 @@
 package com.ocpay.wallet.activities;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -15,19 +11,18 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.databinding.ActivityGatheringBinding;
-import com.ocpay.wallet.utils.qr.Contents;
-import com.ocpay.wallet.utils.qr.QREncoder;
+import com.ocpay.wallet.utils.qr.QRCodeUtils;
 import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
+import com.snow.commonlibrary.utils.ViewUtils;
 
 import static com.ocpay.wallet.Constans.REGULAR.REGULAR_FLOAT;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
 import static com.ocpay.wallet.Constans.WALLET.WALLET_ADDRESS;
+import static com.snow.commonlibrary.utils.ShareUtils.toClipboardData;
 import static com.snow.commonlibrary.utils.ShareUtils.toShare;
 
 /**
@@ -112,20 +107,8 @@ public class GatheringActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void updateQRCode(String code) {
-        float scale = getResources().getDisplayMetrics().density;
-        int qrCodeDimention = (int) (260 * scale + 0.5f);
-
-        QREncoder qrCodeEncoder = new QREncoder(code, null,
-                Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString(), qrCodeDimention);
-
-        MyLog.i("--" + qrCodeDimention);
-        Bitmap bitmap = null;
-        try {
-            bitmap = qrCodeEncoder.encodeAsBitmap();
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
-        shareBinding.qrCode.setImageBitmap(bitmap);
+        int qrCodeDimension = ViewUtils.dp2px(MyApp.getContext(), 260);
+        QRCodeUtils.updateQRCode(shareBinding.qrCode, qrCodeDimension, code);
     }
 
 
@@ -148,9 +131,7 @@ public class GatheringActivity extends BaseActivity implements View.OnClickListe
 
 
     private void addressToClipboard() {
-        ClipboardManager clipboard = (ClipboardManager) getApplication().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("", walletAddress);
-        clipboard.setPrimaryClip(clip);
+        toClipboardData(MyApp.getContext(), "", walletAddress);
         Toast.makeText(MyApp.getContext(), R.string.address_copied_to_clipboard, Toast.LENGTH_SHORT).show();
     }
 }

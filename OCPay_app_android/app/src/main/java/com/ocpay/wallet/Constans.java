@@ -20,6 +20,10 @@ public class Constans {
 
         public static String WALLET_SAVE_PATH = MyApp.getContext().getExternalCacheDir().getAbsolutePath();
 
+
+        public static String TX_EVENT_LOG = "tx_event_log";
+        public static String TX_ETH = "tx_eth";
+
         //Metamask
         public static String PATH_Metamask = "m/44'/60'/0'/0/0 Jaxx,Metamask(ETH)";
         //Ledger
@@ -36,6 +40,8 @@ public class Constans {
         public final static String API__ETHSCAN = "https://api.etherscan.io/";
         public final static String API_ROPSTEN_ETHSCAN = "https://ropsten.etherscan.io/";
         public final static String API_ETHSCAN = API_ROPSTEN_ETHSCAN;
+        public final static String API_TXHAH = API_ETHSCAN + "tx/";
+
 
     }
 
@@ -85,7 +91,6 @@ public class Constans {
         public final static String WALLET_ADDRESS = "0x7E8247C7d145dEBe8a8C2D2a2Ab450992AA884c9";
         public final static String OCN_TOKEN_ADDRESS = "0xd1bcbe82f40a9d7fbcbd28cca6043d72d66d8e9d";
     }
-
 
 
 }

@@ -23,7 +23,7 @@ public class MyApp extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
-        ethBlockNumber = new BigInteger("0");
+        ethBlockNumber = new BigInteger("99999999");
     }
 
     @Override
