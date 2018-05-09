@@ -15,6 +15,8 @@ import com.ocpay.wallet.utils.eth.util.CustomMnemonicUtils;
 import com.ocpay.wallet.utils.eth.util.bip44.HdKeyNode;
 import com.ocpay.wallet.utils.eth.util.bip44.hdpath.HdKeyPath;
 import com.ocpay.wallet.utils.wallet.WalletStorage;
+import com.ocpay.wallet.utils.web3j.api.EtherScanApi;
+import com.ocpay.wallet.utils.web3j.utils.RawTransactionUtils;
 import com.snow.commonlibrary.utils.PrefUtils;
 
 import org.spongycastle.util.encoders.Hex;
@@ -22,9 +24,11 @@ import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Keys;
+import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.Wallet;
 import org.web3j.crypto.WalletFile;
 import org.web3j.protocol.ObjectMapperFactory;
+import org.web3j.protocol.core.methods.request.RawTransaction;
 import org.web3j.utils.Numeric;
 
 import java.io.File;
@@ -624,8 +628,94 @@ public class OCPWalletUtils {
     }
 
 
+    /**
+     * @param ethAmount eg:"0.05";//(实际额为0.05 Eth)
+     * @param toAddress eg:"0x7e8247c7d145debe8a8c2d2a2ab450992aa884c9";
+     * @param gas_price eg:"30000000000";
+     * @param gas_limit eg:"200000"
+     * @param data      default ""
+     * @param ecKeyPair
+     * @return txHex
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public String transactionEth(ECKeyPair ecKeyPair, String ethAmount, String toAddress, String gas_price, String gas_limit, String data, BigInteger nonce) throws IOException, InterruptedException {
+        Credentials credentials = Credentials.create(ecKeyPair);
+        String walletAddress = credentials.getAddress();
 
+//        BigInteger nonce = new BigInteger(responseToken.result.substring(2), 16);
+//        nonce = this.transactionOnNode.getWalletAddressNonce(nonce, walletAddress);
+        RawTransaction tx = RawTransactionUtils.getTransaction(nonce, null, ethAmount, gas_price, gas_limit, data, toAddress);
+        byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);
+        String hex = "0x" + Hex.toHexString(signed);
+//        String url = forwardTransaction();
+        //进行交易需要先获得nonce,该账号的交易次数
+//        String transactionResp = RequestUtils.sendGet(url);
+//        transactionResp = transactionResp.replace("/n", "");
+//        EtherScanResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        });
+//        if (txHashResponse.result == null || "".equals(txHashResponse.result)) {
+//            logger.warn("txHash is null on EtherScan \n " +
+//                    "getnonce url: " + getNonceForAddress(walletAddress) + "\n" +
+//                    "getnonce responseResult: " + responseResult + "\n" +
+//                    "nonce: " + nonce + "\n" +
+//                    "transaction url:" + url + "\n" +
+//                    "transaction resp: " + transactionResp
+//
+//            );
+//        }
+//
+//        return txHashResponse.result;
 
+        return null;
+
+    }
+//
+//    /**
+//     * @param ecKeyPair
+//     * @param OCNAmount
+//     * @param toAddress
+//     * @param gas_price
+//     * @param gas_limit
+//     * @param data
+//     * @param ERC20Address
+//     * @return
+//     * @throws IOException
+//     * @throws InterruptedException
+//     */
+//
+//    public String transactionOnContract(ECKeyPair ecKeyPair, String OCNAmount, String toAddress, String gas_price, String gas_limit, String data, String ERC20Address) throws IOException, InterruptedException {
+//        Credentials credentials = Credentials.create(ecKeyPair);
+//        String walletAddress = credentials.getAddress();
+//        String responseResult = RequestUtils.sendGet(getNonceForAddress(walletAddress));
+//        responseResult = responseResult.replace("/n", "");
+//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        });
+//        BigInteger nonce = new BigInteger(responseToken.result.substring(2), 16);
+//
+//        nonce = this.transactionOnNode.getWalletAddressNonce(nonce, walletAddress);
+//
+//        RawTransaction tx = RawTransactionUtils.getTransaction(nonce, ERC20Address, OCNAmount, gas_price, gas_limit, data, toAddress);
+//        byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);
+//        String url = forwardTransaction("0x" + Hex.toHexString(signed));
+//        String transactionResp = RequestUtils.sendGet(url);
+//        transactionResp = transactionResp.replace("/n", "");
+//        EtherScanResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        });
+//        if (txHashResponse.result == null || "".equals(txHashResponse.result)) {
+//            logger.warn("通过ETHSCAN转账失败， \n " +
+//                    "getnonce url: " + getNonceForAddress(walletAddress) + "\n" +
+//                    "getnonce responseResult: " + responseResult + "\n" +
+//                    "nonce: " + nonce + "\n" +
+//                    "transaction url:" + url + "\n" +
+//                    "transaction resp: " + transactionResp
+//
+//            );
+//        }
+//
+//        return txHashResponse.result;
+//
+//    }
 
 
 }

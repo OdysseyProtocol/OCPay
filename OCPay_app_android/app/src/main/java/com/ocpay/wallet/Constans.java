@@ -76,6 +76,14 @@ public class Constans {
         public final static int ACTION_UPDATE_TRANSACTION_LIST = 8;
 
 
+        public final static int ACTION_SEND_TRANSFER_ADDRESS = 9;
+
+
+        public final static int ACTION_TRANSACTION_CONFIRM_KEYSTORE = 10;
+        public final static int ACTION_TRANSACTION_GET_NONCE = 11;
+        public final static int ACTION_TRANSACTION_SEND_TX = 12;
+
+
     }
 
     public static class REGULAR {
@@ -84,12 +92,20 @@ public class Constans {
 
         public final static String REGULAR_MNEMONIC = "^([a-zA-Z]+ )+[a-zA-Z]+$";
 
+        public final static String REGULAR_ETH_ADDRESS = "^0x([a-zA-Z0-9]{40})$";
     }
 
 
     public static class TEST {
         public final static String WALLET_ADDRESS = "0x7E8247C7d145dEBe8a8C2D2a2Ab450992AA884c9";
         public final static String OCN_TOKEN_ADDRESS = "0xd1bcbe82f40a9d7fbcbd28cca6043d72d66d8e9d";
+    }
+
+    public static class TRANSFER {
+        public final static String DEFAULT_GAS_PRICE = "5000000000";
+        public final static String DEFAULT_GAS_LIMIT = "21000";
+
+
     }
 
 

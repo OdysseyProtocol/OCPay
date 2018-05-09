@@ -121,7 +121,7 @@ public class WalletImportActivity extends BaseActivity implements ViewPager.OnPa
                 finish();
                 break;
             case R.id.toolbar_menu_icon:
-                QRReaderActivity.startQRReaderActvity(WalletImportActivity.this, getQRRequestId(), QR_CODE_MODE_READER);
+                QRReaderActivity.startQRReaderActivity(WalletImportActivity.this, getQRRequestId(), QR_CODE_MODE_READER);
                 break;
         }
     }

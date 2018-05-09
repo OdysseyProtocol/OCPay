@@ -65,5 +65,6 @@
     <string name="transfer_next_step">Next Step</string>
     <string name="activity_title_transaction_detail">Transaction Detail</string>
     <string name="activity_title_tx_query">Transaction Number Query</string>
+    <string name="activity_transfer">Transfer</string>
 
 </resources>

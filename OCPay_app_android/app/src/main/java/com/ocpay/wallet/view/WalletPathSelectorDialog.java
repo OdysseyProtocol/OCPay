@@ -16,6 +16,7 @@ import com.ocpay.wallet.databinding.DialogWalletPathBinding;
  * Created by y on 2016/6/15.
  */
 public class WalletPathSelectorDialog extends AlertDialog {
+
     public static final String TAG = "WalletPathSelectorDialog";
 
     public static final int Custom = 4;

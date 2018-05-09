@@ -39,7 +39,7 @@ public class QRReaderActivity extends BaseActivity
     private ContentDecoderBinding contentDecoderBinding;
 
 
-    public static void startQRReaderActvity(Activity context, int requestCode, int requestMode) {
+    public static void startQRReaderActivity(Activity context, int requestCode, int requestMode) {
         Intent intent = new Intent(context, QRReaderActivity.class);
         intent.putExtra(QR_REQEUST_CODE, requestCode);
         intent.putExtra(QR_REQEUST_MODE, requestMode);
