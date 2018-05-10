@@ -1,6 +1,8 @@
 package com.ocpay.wallet.utils.web3j.utils;
 
 
+import com.snow.commonlibrary.utils.StringUtil;
+
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -93,7 +95,7 @@ public class RawTransactionUtils {
      * @throws IOException
      */
     public static RawTransaction getTransaction(BigInteger nonce, String contractAddress, String amount, String gas_price, String gas_limit, String data1, String toAddress) throws InterruptedException, IOException {
-        if (contractAddress == null) {
+        if (StringUtil.isEmpty(contractAddress)) {
             return getRawTransactionForEth(nonce, gas_price, gas_limit, toAddress, amount, data1);
         } else {
             return getRawTransactionForToken(nonce, contractAddress, amount, gas_price, gas_limit, data1, toAddress);

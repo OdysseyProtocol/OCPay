@@ -1,7 +1,7 @@
 package com.ocpay.wallet.http.client;
 
 import com.ocpay.wallet.utils.web3j.response.EthBalanceResponse;
-import com.ocpay.wallet.utils.web3j.response.EtherScanResponse;
+import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
 
@@ -80,7 +80,7 @@ public interface EthScanHttpClient {
      * @return
      */
     @GET("api?module=proxy&action=eth_gasPrice")
-    Observable<EtherScanResponse> getGasPrice();
+    Observable<EtherScanJsonrpcResponse> getGasPrice();
 
     /**
      * https://api-ropsten.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=0x2910543af39aba0cd09dbb2d50200b3e800a63d2&tag=latest&apikey=YourApiKeyToken
@@ -89,20 +89,11 @@ public interface EthScanHttpClient {
      * @return
      */
     @GET("api?module=proxy&action=eth_getTransactionCount")
-    Observable<Object> getNonce(@Query("address") String address);
-
+    Observable<EtherScanJsonrpcResponse> getNonce(@Query("address") String address);
 
 
     @GET("api?module=proxy&action=eth_sendRawTransaction")
-    Observable<Object> forwardTransaction(@Query("hex") String hex);
-
-
-
-
-
-
-
-
+    Observable<Object> sendTransaction(@Query("hex") String hex);
 
 
 }

@@ -176,4 +176,13 @@ public class WalletPathSelectorDialog extends AlertDialog {
     public void setListener(OnPathSelectorListener listener) {
         this.listener = listener;
     }
+
+    public void destroy() {
+        if (dialog != null) {
+            if (dialog.isShowing()) dialog.dismiss();
+            activity = null;
+            dialog = null;
+            listener =null;
+        }
+    }
 }

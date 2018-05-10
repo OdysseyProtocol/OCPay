@@ -16,17 +16,30 @@ import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.databinding.ActivitySendBinding;
+import com.ocpay.wallet.http.client.EthScanHttpClientIml;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.eth.OCPWalletUtils;
+import com.ocpay.wallet.utils.eth.bean.OCPWalletFile;
+import com.ocpay.wallet.utils.wallet.WalletStorage;
+import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
 import com.ocpay.wallet.view.PasswordConfirmDialog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
+
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Wallet;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 
 import static com.ocpay.wallet.Constans.RXBUS.ACTION_SEND_TRANSFER_ADDRESS;
+import static com.ocpay.wallet.Constans.RXBUS.ACTION_TRANSACTION_SEND_TX;
+import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
 import static com.ocpay.wallet.Constans.TRANSFER.DEFAULT_GAS_PRICE;
 import static com.ocpay.wallet.Constans.WALLET.ADDRESS_FROM;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
@@ -55,6 +68,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
     private BigInteger customGas;
     private BigInteger customGasPrice;
     private BigInteger customRealGasPrice;
+    private String walletAddress;
 
 
     public static void startSendActivity(Activity activity, String fromAddress, String tokenName) {
@@ -73,6 +87,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         binding = DataBindingUtil.setContentView(SendActivity.this, R.layout.activity_send);
 
         tokenName = getIntent().getStringExtra(TOKEN_NAME);
+        walletAddress = getIntent().getStringExtra(ADDRESS_FROM);
 
         isSimpleMode = true;
 
@@ -82,49 +97,69 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
 
         initRxBus();
 
+        initTestData();
+
+
+    }
+
+    private void initTestData() {
+
+        //0x570bdbCb9d434c51e6F1CC9c796E9c4F3F0C09da
+        binding.etSendWalletAddress.setText("0x570bdbCb9d434c51e6F1CC9c796E9c4F3F0C09da");
+        binding.tvTransferAmount.setText("1");
 
     }
 
     private void initRxBus() {
 
-        Disposable txConfirm = RxBus.getInstance()
-                .toObservable(Constans.RXBUS.ACTION_TRANSACTION_CONFIRM_KEYSTORE, String.class)
+        Observable<String> pwdObservable = RxBus.getInstance().toObservable(Constans.RXBUS.ACTION_TRANSACTION_CONFIRM_KEYSTORE, String.class);
+        Observable<EtherScanJsonrpcResponse> nonceObservable = RxBus.getInstance()
+                .toObservable(Constans.RXBUS.ACTION_TRANSACTION_GET_NONCE, EtherScanJsonrpcResponse.class);
+        Disposable disposableSign = Observable
+                .zip(pwdObservable, nonceObservable, new BiFunction<String, EtherScanJsonrpcResponse, String>() {
+                    @Override
+                    public String apply(String s, EtherScanJsonrpcResponse etherScanJsonrpcResponse) throws Exception {
+                        OCPWalletFile ocpWallet = null;
+                        ECKeyPair ecKeyPair = null;
+                        try {
+                            ocpWallet = WalletStorage.getInstance().getOCPWallet(walletAddress);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(SendActivity.this, "Can't find keystore", Toast.LENGTH_SHORT).show();
+                        }
+                        if (ocpWallet == null) {
+                            Toast.makeText(SendActivity.this, "Can't find keystore", Toast.LENGTH_SHORT).show();
+
+                        }
+                        try {
+                            ecKeyPair = Wallet.decrypt(s, ocpWallet.getWalletFile());
+                        } catch (CipherException e) {
+                            e.printStackTrace();
+                        }
+
+                        String signHex = OCPWalletUtils.signTransacion(ecKeyPair, binding.tvTransferAmount.getText().toString().trim(),
+                                Constans.currentWallet.getWalletAddress(),
+                                gasPrice.toString(),
+                                gasLimit.toString(),
+                                "",
+                                getErc20Address(),
+                                etherScanJsonrpcResponse.getDicemalFromDex()
+                        );
+                        return signHex;
+                    }
+                })
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        showLoading(false);
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-
-
-
-                            }
-                        }).start();
-
-
+                        EthScanHttpClientIml.sendTransaction(ACTION_TRANSACTION_SEND_TX, s);
                     }
                 });
-        addDisposable(txConfirm);
-        Disposable txGetNonce = RxBus.getInstance()
-                .toObservable(Constans.RXBUS.ACTION_TRANSACTION_GET_NONCE, String.class)
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-
-
-//                        EthScanHttpClientIml.getn();
-
-                    }
-                });
-        addDisposable(txGetNonce);
-
+        addDisposable(disposableSign);
         Disposable txSendTx = RxBus.getInstance()
-                .toObservable(Constans.RXBUS.ACTION_TRANSACTION_SEND_TX, String.class)
-                .subscribe(new Consumer<String>() {
+                .toObservable(Constans.RXBUS.ACTION_TRANSACTION_SEND_TX, Object.class)
+                .subscribe(new Consumer<Object>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(Object s) throws Exception {
 
                     }
                 });
@@ -278,4 +313,11 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
+    public String getErc20Address() {
+
+        if ("ETH".equals(tokenName)) {
+            return "";
+        }
+        return OCN_TOKEN_ADDRESS;
+    }
 }

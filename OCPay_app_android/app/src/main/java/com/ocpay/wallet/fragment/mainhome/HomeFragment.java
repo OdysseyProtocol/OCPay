@@ -91,6 +91,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
     public void updateInfo(WalletInfo walletInfo) {
         if (walletInfo == null) return;
+        Constans.currentWallet = walletInfo;
         bindingView.includeHead.tvWalletName.setText(walletInfo.getWalletName());
         bindingView.include.tvWalletAddress.setText(foldWalletAddress(walletInfo.getWalletAddress()));
     }

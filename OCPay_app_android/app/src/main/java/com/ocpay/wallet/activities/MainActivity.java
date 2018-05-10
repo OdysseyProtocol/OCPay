@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         layoutParams.height = ViewPager.LayoutParams.MATCH_PARENT;
         layoutParams.width = ViewPager.LayoutParams.MATCH_PARENT;
         vpContent.setLayoutParams(layoutParams);
-        vpContent.setOffscreenPageLimit(2);
+        vpContent.setOffscreenPageLimit(4);
         vpContent.addOnPageChangeListener(this);
         vpContent.setCurrentItem(0);
         vpContent.setCanScroll(false);
@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 closeDrawer();
                 break;
             case R.id.ll_import_wallet:
-                TokenTransactionsActivity.startTokenTransactionActivity(this, "", "");
+                WalletImportActivity.startActivity(this);
                 closeDrawer();
                 break;
         }

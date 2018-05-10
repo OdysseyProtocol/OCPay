@@ -29,7 +29,7 @@ public class OWalletTransaction {
 //    public static String balanceOfETH(String walletAddress) {
 //        String responseResult = RequestUtils.sendGet(EtherScanApi.getBalanceUrl(walletAddress));
 //        responseResult = responseResult.replace("/n", "");
-//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        String balanceOfETH = new BigDecimal(responseToken.result).divide(new BigDecimal(1000000000000000000d), 7, BigDecimal.ROUND_UP).toPlainString();
 //        return balanceOfETH;
@@ -51,7 +51,7 @@ public class OWalletTransaction {
 //        String responseResult = RequestUtils.sendGet(url);
 //        responseResult = responseResult.replace("/n", "");
 //
-//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        String result = responseToken.result;
 //        if (!"".equals(result) && result.startsWith("0x")) {
@@ -101,7 +101,7 @@ public class OWalletTransaction {
 //        String walletAddress = credentials.getAddress();
 //        String responseResult = RequestUtils.sendGet(getNonceForAddress(walletAddress));
 //        responseResult = responseResult.replace("/n", "");
-//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        BigInteger nonce = new BigInteger(responseToken.result.substring(2), 16);
 //        nonce = this.transactionOnNode.getWalletAddressNonce(nonce, walletAddress);
@@ -111,7 +111,7 @@ public class OWalletTransaction {
 //        //进行交易需要先获得nonce,该账号的交易次数
 //        String transactionResp = RequestUtils.sendGet(url);
 //        transactionResp = transactionResp.replace("/n", "");
-//        EtherScanResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        if (txHashResponse.result == null || "".equals(txHashResponse.result)) {
 //            MyLog.w("txHash is null on EtherScan \n " +
@@ -146,7 +146,7 @@ public class OWalletTransaction {
 //        String walletAddress = credentials.getAddress();
 //        String responseResult = RequestUtils.sendGet(getNonceForAddress(walletAddress));
 //        responseResult = responseResult.replace("/n", "");
-//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        BigInteger nonce = new BigInteger(responseToken.result.substring(2), 16);
 //
@@ -157,7 +157,7 @@ public class OWalletTransaction {
 //        String url = forwardTransaction("0x" + Hex.toHexString(signed));
 //        String transactionResp = RequestUtils.sendGet(url);
 //        transactionResp = transactionResp.replace("/n", "");
-//        EtherScanResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        if (txHashResponse.result == null || "".equals(txHashResponse.result)) {
 //             MyLog.w("通过ETHSCAN转账失败， \n " +
@@ -229,7 +229,7 @@ public class OWalletTransaction {
 //        String responseResult = RequestUtils.sendGet(scanUrl);
 //        logger.info("getEthRecentBlockNumber URL="+ scanUrl);
 //        responseResult = responseResult.replace("/n", "");
-//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        if (responseToken == null) {
 //            return null;

@@ -204,13 +204,12 @@ public class MnemonicFragment extends BaseFragment<FragmentMnemonicBinding> impl
 
     @Override
     public void onDestroy() {
-        if (mDialog != null) {
-            if (mDialog.isShowing()) {
-                mDialog.dismiss();
-            }
-            mDialog.setListener(null);
-            mDialog = null;
-        }
+        mDialog.destroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

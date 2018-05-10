@@ -1,5 +1,7 @@
 package com.ocpay.wallet;
 
+import com.ocpay.wallet.greendao.WalletInfo;
+
 /**
  * Created by y on 2018/4/16.
  */
@@ -108,5 +110,7 @@ public class Constans {
 
     }
 
+
+    public static WalletInfo currentWallet;
 
 }

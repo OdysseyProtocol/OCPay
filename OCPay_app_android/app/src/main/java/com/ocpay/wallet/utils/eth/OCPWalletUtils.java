@@ -43,93 +43,54 @@ import java.util.List;
 
 
 /**
- * 钱包
  */
 public class OCPWalletUtils {
 
-    /**
-     * 身份凭证
-     */
+
     private Credentials credentials;
-    /**
-     * 钱包文件密码
-     */
+
     private String walletPass;
-    /**
-     * 钱包文件
-     */
+
     private WalletFile walletFile;
-    /**
-     * 助记词
-     */
+
     private String mnemonic;
-    /**
-     * 助记词密码
-     */
+
     private String passphrase;
-    /**
-     * 路径
-     */
+
     private String path;
 
-    /**
-     * 不许调用
-     */
+
     private OCPWalletUtils() {
 
     }
 
-    /**
-     * 构造(根据私钥构建)
-     *
-     * @param privateKey 私钥
-     */
+
     public OCPWalletUtils(String privateKey) {
         Credentials credentials = Credentials.create(privateKey);
     }
 
-    /**
-     * @param passPhrase    密码
-     * @param walletContent 钱包文件内容
-     * @throws CipherException
-     */
+
     public OCPWalletUtils(String passPhrase, byte[] walletContent) throws CipherException {
         walletFile = createWalletFileByKeystore(walletContent);
         credentials = Credentials.create(Wallet.decrypt(passPhrase, walletFile));
         walletPass = passPhrase;
     }
 
-    /**
-     * @param password      钱包密码
-     * @param walletContent 钱包文件内容
-     * @throws CipherException
-     */
+
     public OCPWalletUtils(String password, String walletContent) throws CipherException {
         walletFile = createWalletFileByKeystore(walletContent);
         credentials = Credentials.create(Wallet.decrypt(password, walletFile));
         walletPass = password;
     }
 
-    /**
-     * 钱包构造
-     *
-     * @param passPhrase 密码
-     * @param file       钱包文件
-     * @throws CipherException
-     */
+
     public OCPWalletUtils(String passPhrase, File file) throws CipherException {
         walletFile = createWalletFileByKeystore(file);
         credentials = Credentials.create(Wallet.decrypt(passPhrase, walletFile));
         walletPass = passPhrase;
     }
 
-    /**
-     * 创建一个新的钱包(没有助记词的官方钱包)
-     *
-     * @param password wallet file的密码
-     * @return
-     * @throws Exception
-     */
+
     public static OCPWalletUtils create(String password) throws Exception {
         OCPWalletUtils wa = new OCPWalletUtils();
         ECKeyPair ecKeyPair = Keys.createEcKeyPair();
@@ -139,15 +100,7 @@ public class OCPWalletUtils {
         return wa;
     }
 
-    /**
-     * 创建新钱包（生成助记词）
-     *
-     * @param password 助记词密码，也作为即将生成的wallet file的密码；如果助记词密码为空则不再生成wallet file
-     *                 imtoken助记词密码为null
-     * @param path     路径
-     * @return
-     * @throws CipherException
-     */
+
     public static OCPWalletFile createWithMnemonic(String password, String path, Context context, boolean isImTokenCriterion) throws CipherException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException {
         byte[] initialEntropy = new byte[16];
         SecureRandom secureRandom = SecureRandomUtils.secureRandom();
@@ -184,7 +137,7 @@ public class OCPWalletUtils {
     /**
      * 载入一个钱包
      *
-     * @param password 助记词密码，也作为即将生成的wallet file的密码；如果助记词密码为空则不再生成wallet file
+     * @param password  wallet file的密码；如果助记词密码为空则不再生成wallet file
      *                 imtoken助记词密码为null
      * @param mnemonic 助记词
      * @param path     路径 m/44'/60'/0'／0／0   m/purpse'/coin_type'/account'/change/address_index
@@ -639,20 +592,17 @@ public class OCPWalletUtils {
      * @throws IOException
      * @throws InterruptedException
      */
-    public String transactionEth(ECKeyPair ecKeyPair, String ethAmount, String toAddress, String gas_price, String gas_limit, String data, BigInteger nonce) throws IOException, InterruptedException {
+    public static String transactionEth(ECKeyPair ecKeyPair, String ethAmount, String toAddress, String gas_price, String gas_limit, String data, BigInteger nonce) throws IOException, InterruptedException {
         Credentials credentials = Credentials.create(ecKeyPair);
-        String walletAddress = credentials.getAddress();
-
-//        BigInteger nonce = new BigInteger(responseToken.result.substring(2), 16);
-//        nonce = this.transactionOnNode.getWalletAddressNonce(nonce, walletAddress);
         RawTransaction tx = RawTransactionUtils.getTransaction(nonce, null, ethAmount, gas_price, gas_limit, data, toAddress);
         byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);
-        String hex = "0x" + Hex.toHexString(signed);
+        String signHex = "0x" + Hex.toHexString(signed);
+        return signHex;
 //        String url = forwardTransaction();
         //进行交易需要先获得nonce,该账号的交易次数
 //        String transactionResp = RequestUtils.sendGet(url);
 //        transactionResp = transactionResp.replace("/n", "");
-//        EtherScanResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
+//        EtherScanJsonrpcResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanJsonrpcResponse>() {
 //        });
 //        if (txHashResponse.result == null || "".equals(txHashResponse.result)) {
 //            logger.warn("txHash is null on EtherScan \n " +
@@ -667,10 +617,11 @@ public class OCPWalletUtils {
 //
 //        return txHashResponse.result;
 
-        return null;
+//        return null;
 
     }
-//
+
+    //
 //    /**
 //     * @param ecKeyPair
 //     * @param OCNAmount
@@ -684,38 +635,12 @@ public class OCPWalletUtils {
 //     * @throws InterruptedException
 //     */
 //
-//    public String transactionOnContract(ECKeyPair ecKeyPair, String OCNAmount, String toAddress, String gas_price, String gas_limit, String data, String ERC20Address) throws IOException, InterruptedException {
-//        Credentials credentials = Credentials.create(ecKeyPair);
-//        String walletAddress = credentials.getAddress();
-//        String responseResult = RequestUtils.sendGet(getNonceForAddress(walletAddress));
-//        responseResult = responseResult.replace("/n", "");
-//        EtherScanResponse responseToken = JSON.parseObject(responseResult, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
-//        });
-//        BigInteger nonce = new BigInteger(responseToken.result.substring(2), 16);
-//
-//        nonce = this.transactionOnNode.getWalletAddressNonce(nonce, walletAddress);
-//
-//        RawTransaction tx = RawTransactionUtils.getTransaction(nonce, ERC20Address, OCNAmount, gas_price, gas_limit, data, toAddress);
-//        byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);
-//        String url = forwardTransaction("0x" + Hex.toHexString(signed));
-//        String transactionResp = RequestUtils.sendGet(url);
-//        transactionResp = transactionResp.replace("/n", "");
-//        EtherScanResponse txHashResponse = JSON.parseObject(transactionResp, new com.alibaba.fastjson.TypeReference<EtherScanResponse>() {
-//        });
-//        if (txHashResponse.result == null || "".equals(txHashResponse.result)) {
-//            logger.warn("通过ETHSCAN转账失败， \n " +
-//                    "getnonce url: " + getNonceForAddress(walletAddress) + "\n" +
-//                    "getnonce responseResult: " + responseResult + "\n" +
-//                    "nonce: " + nonce + "\n" +
-//                    "transaction url:" + url + "\n" +
-//                    "transaction resp: " + transactionResp
-//
-//            );
-//        }
-//
-//        return txHashResponse.result;
-//
-//    }
+    public static String signTransacion(ECKeyPair ecKeyPair, String OCNAmount, String toAddress, String gas_price, String gas_limit, String data, String ERC20Address, BigInteger nonce) throws IOException, InterruptedException {
+        Credentials credentials = Credentials.create(ecKeyPair);
+        RawTransaction tx = RawTransactionUtils.getTransaction(nonce, ERC20Address, OCNAmount, gas_price, gas_limit, data, toAddress);
+        byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);
+        return "0x" + Hex.toHexString(signed);
+    }
 
 
 }
