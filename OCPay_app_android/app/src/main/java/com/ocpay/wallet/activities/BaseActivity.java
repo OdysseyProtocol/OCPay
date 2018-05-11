@@ -3,7 +3,7 @@ package com.ocpay.wallet.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
-import com.ocpay.wallet.view.LoadingDialog;
+import com.ocpay.wallet.widget.LoadingDialog;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

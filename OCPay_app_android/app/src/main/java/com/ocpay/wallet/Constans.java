@@ -59,7 +59,12 @@ public class Constans {
 
     public static class CONFIG {
         public final static String HIDE_ASSET = "hide_asset";
+        public static String NOTIFICATION = "notification";
+    }
 
+
+    public static class PREFKEY {
+        public final static String PREF_KEY_CONTACTS = "pref_key_contacts";
 
     }
 
@@ -84,6 +89,12 @@ public class Constans {
         public final static int ACTION_TRANSACTION_CONFIRM_KEYSTORE = 10;
         public final static int ACTION_TRANSACTION_GET_NONCE = 11;
         public final static int ACTION_TRANSACTION_SEND_TX = 12;
+
+
+        public final static int ACTION_CONTACTS_ADDRESS = 13;
+        public final static int ACTION_CONTACTS_UPDATE = 14;
+
+
 
 
     }

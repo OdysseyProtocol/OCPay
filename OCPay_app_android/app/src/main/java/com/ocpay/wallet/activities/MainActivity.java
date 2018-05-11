@@ -30,8 +30,8 @@ import com.ocpay.wallet.fragment.mainhome.NearbyFragment;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
 import com.ocpay.wallet.http.rx.RxBus;
-import com.ocpay.wallet.view.ScrollViewPager;
-import com.ocpay.wallet.view.customview.BottomActionBar;
+import com.ocpay.wallet.widget.ScrollViewPager;
+import com.ocpay.wallet.widget.customview.BottomActionBar;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
 import com.snow.commonlibrary.utils.PrefUtils;
 

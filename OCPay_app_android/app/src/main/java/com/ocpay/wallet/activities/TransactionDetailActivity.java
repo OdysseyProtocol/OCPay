@@ -1,0 +1,123 @@
+package com.ocpay.wallet.activities;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.view.View;
+
+import com.ocpay.wallet.Constans;
+import com.ocpay.wallet.R;
+import com.ocpay.wallet.databinding.ActivityTransactionDetailBinding;
+import com.ocpay.wallet.utils.qr.QRCodeUtils;
+import com.ocpay.wallet.utils.web3j.response.EthTransaction;
+import com.ocpay.wallet.utils.web3j.response.EventTransaction;
+import com.snow.commonlibrary.log.MyLog;
+import com.snow.commonlibrary.utils.ShareUtils;
+
+import static com.ocpay.wallet.Constans.WALLET.TX_ETH;
+import static com.ocpay.wallet.Constans.WALLET.TX_EVENT_LOG;
+
+/**
+ * Created by y on 2018/4/20.
+ */
+
+public class TransactionDetailActivity extends BaseActivity implements View.OnClickListener {
+
+    private ActivityTransactionDetailBinding binding;
+    private EventTransaction eventTransaction;
+    private EthTransaction ethTransaction;
+    private String txHash;
+    private String txUrl;
+
+
+    public static void startTxDetailActivity(Activity activity, EthTransaction ethTransaction, EventTransaction eventTransaction) {
+
+        Intent intent = new Intent(activity, TransactionDetailActivity.class);
+        if (ethTransaction != null) {
+            intent.putExtra(TX_ETH, ethTransaction);
+        }
+
+        if (eventTransaction != null) {
+            intent.putExtra(TX_EVENT_LOG, eventTransaction);
+        }
+        activity.startActivity(intent);
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_transaction_detail);
+        initData();
+        initView();
+        initListener();
+        initQRCode();
+
+    }
+
+    private void initQRCode() {
+        txUrl = Constans.HTTP.API_TXHAH + txHash;
+        MyLog.i("url:" + txUrl);
+        int dimension = binding.ivQrCodeTxUrl.getWidth();
+        QRCodeUtils.updateQRCode(binding.ivQrCodeTxUrl, dimension, txUrl);
+
+
+    }
+
+
+    private void initData() {
+        eventTransaction = (EventTransaction) getIntent().getSerializableExtra(Constans.WALLET.TX_EVENT_LOG);
+        ethTransaction = (EthTransaction) getIntent().getSerializableExtra(Constans.WALLET.TX_ETH);
+    }
+
+    private void initView() {
+        initEventTransaction(eventTransaction);
+        initEthTransaction(ethTransaction);
+
+    }
+
+    private void initListener() {
+        binding.tvClipTxUrl.setOnClickListener(this);
+        binding.tvTransferTxhash.setOnClickListener(this);
+    }
+
+    private void initEthTransaction(EthTransaction ethTransaction) {
+        if (ethTransaction == null) return;
+        txHash = ethTransaction.getHash();
+    }
+
+    private void initEventTransaction(EventTransaction eventTransaction) {
+        if (eventTransaction == null) return;
+        txHash = eventTransaction.getTransactionHash();
+        binding.tvTransferAmount.setText(eventTransaction.getTransferAmount());
+        binding.tvTransferFee.setText(eventTransaction.getFee().toString());
+        binding.tvTransferFrom.setText(eventTransaction.getTransferFrom());
+        binding.tvTransferTo.setText(eventTransaction.getRansferTo());
+        binding.tvTransferTxhash.setText(eventTransaction.getTransactionHash());
+        binding.tvTransferBlockHigh.setText(eventTransaction.getBlockNumber().toString());
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.tv_clip_tx_url:
+                ShareUtils.toClipboardData(this, "", txUrl);
+                break;
+            case R.id.tv_transfer_txhash:
+                SimpleWebViewActivity.startWebViewActivity(txUrl, this);
+                break;
+
+
+        }
+
+    }
+
+
+}

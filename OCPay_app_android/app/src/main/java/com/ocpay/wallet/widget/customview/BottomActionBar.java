@@ -1,4 +1,4 @@
-package com.ocpay.wallet.view.customview;
+package com.ocpay.wallet.widget.customview;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

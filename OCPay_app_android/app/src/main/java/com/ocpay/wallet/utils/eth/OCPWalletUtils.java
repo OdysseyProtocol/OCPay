@@ -18,6 +18,7 @@ import com.ocpay.wallet.utils.wallet.WalletStorage;
 import com.ocpay.wallet.utils.web3j.api.EtherScanApi;
 import com.ocpay.wallet.utils.web3j.utils.RawTransactionUtils;
 import com.snow.commonlibrary.utils.PrefUtils;
+import com.snow.commonlibrary.utils.RegularExpressionUtils;
 
 import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.CipherException;
@@ -640,6 +641,13 @@ public class OCPWalletUtils {
         RawTransaction tx = RawTransactionUtils.getTransaction(nonce, ERC20Address, OCNAmount, gas_price, gas_limit, data, toAddress);
         byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);
         return "0x" + Hex.toHexString(signed);
+    }
+
+
+
+    public static boolean isEthAddress(String address){
+        return  RegularExpressionUtils.valid(address, Constans.REGULAR.REGULAR_ETH_ADDRESS);
+
     }
 
 

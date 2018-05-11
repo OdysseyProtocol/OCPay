@@ -21,7 +21,7 @@ import com.ocpay.wallet.http.rx.RxBus;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.eth.bean.OCPWalletFile;
 import com.ocpay.wallet.utils.wallet.WalletStorage;
-import com.ocpay.wallet.view.WalletPathSelectorDialog;
+import com.ocpay.wallet.widget.WalletPathSelectorDialog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
 
 import org.web3j.crypto.CipherException;

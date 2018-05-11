@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.databinding.ActivityBackupMnemonicBinding;
-import com.ocpay.wallet.view.FlowLayout;
-import com.ocpay.wallet.view.LabelText;
+import com.ocpay.wallet.widget.FlowLayout;
+import com.ocpay.wallet.widget.LabelText;
 import com.snow.commonlibrary.log.MyLog;
 
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import java.util.Random;
 
 import static com.ocpay.wallet.Constans.WALLET.ADDRESS_FROM;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
-import static com.ocpay.wallet.view.LabelText.MODE_ADDED;
-import static com.ocpay.wallet.view.LabelText.MODE_UN_SELECT;
+import static com.ocpay.wallet.widget.LabelText.MODE_ADDED;
+import static com.ocpay.wallet.widget.LabelText.MODE_UN_SELECT;
 
 public class BackupMnemonicActivity extends BaseActivity implements View.OnClickListener {
 

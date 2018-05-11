@@ -22,7 +22,7 @@ import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.eth.bean.OCPWalletFile;
 import com.ocpay.wallet.utils.wallet.WalletStorage;
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
-import com.ocpay.wallet.view.PasswordConfirmDialog;
+import com.ocpay.wallet.widget.PasswordConfirmDialog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
 
 import org.web3j.crypto.CipherException;

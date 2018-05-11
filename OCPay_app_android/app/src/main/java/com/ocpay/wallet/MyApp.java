@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex;
 import com.ocpay.wallet.http.HttpUtils;
 
 import java.math.BigInteger;
+import java.util.Locale;
 
 /**
  * Created by y on 2018/4/16.
@@ -23,6 +24,7 @@ public class MyApp extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        Locale.setDefault(Locale.ENGLISH);
         ethBlockNumber = new BigInteger("99999999");
     }
 

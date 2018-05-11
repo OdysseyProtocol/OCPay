@@ -1,4 +1,4 @@
-package com.ocpay.wallet.view;
+package com.ocpay.wallet.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

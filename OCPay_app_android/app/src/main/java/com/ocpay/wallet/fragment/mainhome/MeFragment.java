@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ocpay.wallet.R;
+import com.ocpay.wallet.activities.ContactsActivity;
+import com.ocpay.wallet.activities.NotificationActivity;
 import com.ocpay.wallet.activities.WalletImportActivity;
 import com.ocpay.wallet.activities.WalletManageActivity;
 import com.ocpay.wallet.adapter.SettingsAdapter;
@@ -21,7 +23,7 @@ import java.util.List;
 import static com.ocpay.wallet.bean.SettingsBean.TYPE.ABOUT_US;
 import static com.ocpay.wallet.bean.SettingsBean.TYPE.CONTACT;
 import static com.ocpay.wallet.bean.SettingsBean.TYPE.HELP;
-import static com.ocpay.wallet.bean.SettingsBean.TYPE.MESSAGE;
+import static com.ocpay.wallet.bean.SettingsBean.TYPE.NOTIFICATION;
 import static com.ocpay.wallet.bean.SettingsBean.TYPE.SYSTEM;
 import static com.ocpay.wallet.bean.SettingsBean.TYPE.USER;
 
@@ -71,17 +73,19 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
     }
 
     private void actionSetting(SettingsBean.TYPE type) {
-
+        if (getActivity() == null) return;
         switch (type) {
             case HELP:
                 break;
             case USER:
                 break;
             case CONTACT:
+                ContactsActivity.startContactsActivity(getActivity());
                 break;
             case SYSTEM:
                 break;
-            case MESSAGE:
+            case NOTIFICATION:
+                NotificationActivity.startNotificationActivity(getActivity());
                 break;
             case ABOUT_US:
                 break;
@@ -100,7 +104,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
 
     private void initData() {
         settingsList = new ArrayList<>();
-        settingsList.add(new SettingsBean(MESSAGE, R.mipmap.ic_settings_message, getString(R.string.settings_message_center)));
+        settingsList.add(new SettingsBean(NOTIFICATION, R.mipmap.ic_settings_message, getString(R.string.settings_message_center)));
         settingsList.add(new SettingsBean(CONTACT, R.mipmap.ic_settings_contacts, getString(R.string.settings_contacts)));
         settingsList.add(new SettingsBean(SYSTEM, R.mipmap.ic_settings, getString(R.string.settings_system)));
         settingsList.add(new SettingsBean(USER, R.mipmap.ic_settings_user, getString(R.string.settings_user)));

@@ -14,7 +14,7 @@ import com.ocpay.wallet.adapter.viewholder.RecycleViewHolder;
 import com.ocpay.wallet.adapter.viewholder.WheelAdHolder;
 import com.ocpay.wallet.bean.home.Banner;
 import com.ocpay.wallet.bean.home.HomeBean;
-import com.ocpay.wallet.view.CustomDefaultSliderView;
+import com.ocpay.wallet.widget.CustomDefaultSliderView;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
 
 import static com.ocpay.wallet.Constans.HOME.GENERALIZE;
