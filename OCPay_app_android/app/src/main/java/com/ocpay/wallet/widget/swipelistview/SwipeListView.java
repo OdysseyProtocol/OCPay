@@ -31,7 +31,6 @@ public class SwipeListView extends ListView {
 
     private boolean mDragHandleBySuper;
     private boolean mDragHandleByThis;
-    //如果item open，此时点击其它地方就close item，并且完全不处理后续的所以消息（即此时滑动不起作用了）。
     private boolean mIsCancelEvent;
 
     public SwipeListView(Context context) {

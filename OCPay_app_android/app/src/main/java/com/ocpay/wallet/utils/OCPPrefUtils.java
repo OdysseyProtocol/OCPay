@@ -16,7 +16,6 @@ public class OCPPrefUtils {
 
 
     /**
-     *
      * @return
      */
     public static List<Contact> getContacts() {
@@ -29,11 +28,10 @@ public class OCPPrefUtils {
 
 
     /**
-     *
      * @param list
      */
     public static void putContacts(List<Contact> list) {
-        if (list == null || list.size() <= 0) return;
+        if (list == null || list.size() < 0) return;
         PrefUtils.putBean(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_CONTACTS, list);
 
     }

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ocpay.wallet.BR;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.bean.Contact;
 import com.ocpay.wallet.databinding.ActivityCreateContactsBinding;
@@ -29,10 +30,22 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
 
 
     private ActivityCreateContactsBinding binding;
-
+    public static final String TYPE = "contact_type";
+    public static final String C_NAME = "contact_name";
+    public static final int EDIT = 1;
+    public static final int CREATE = 0;
+    private int modeType;
+    private List<Contact> contacts;
+    private int position;
 
     public static void startContactsCreateActivity(Activity activity) {
+        startContactsCreateActivity(activity, CREATE, "");
+    }
+
+    public static void startContactsCreateActivity(Activity activity, int type, String firstName) {
         Intent intent = new Intent(activity, ContactsCreateActivity.class);
+        intent.putExtra(TYPE, type);
+        intent.putExtra(C_NAME, firstName);
         activity.startActivity(intent);
 
     }
@@ -43,9 +56,14 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(ContactsCreateActivity.this, R.layout.activity_create_contacts);
         initActionBar();
+        initData();
         initView();
         initListener();
 
+    }
+
+    private void initData() {
+        contacts = OCPPrefUtils.getContacts();
     }
 
     private void initListener() {
@@ -76,8 +94,19 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
 
 
     private void initView() {
-
-
+        modeType = getIntent().getIntExtra(TYPE, 0);
+        String contactName = getIntent().getStringExtra(C_NAME);
+        if (modeType == CREATE || StringUtil.isEmpty(contactName)) return;
+        Contact contact = null;
+        if (contacts == null || contacts.size() <= 0) return;
+        for (int i = 0; i < contacts.size(); i++) {
+            if (contactName.equals(contacts.get(i).getFirstName())) {
+                contact = contacts.get(i);
+                position = i;
+            }
+        }
+        if (contact == null) return;
+        binding.setVariable(BR.contact, contact);
     }
 
 
@@ -116,21 +145,36 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
         }
 
 
-        List<Contact> contacts = OCPPrefUtils.getContacts();
         if (contacts == null) {
             contacts = new ArrayList<Contact>();
         }
         for (Contact c : contacts) {
             if (address.equals(c.getWalletAddress())) {
-                Toast.makeText(ContactsCreateActivity.this, "address has exits", Toast.LENGTH_SHORT).show();
-                return;
+                if (modeType == CREATE) {
+                    Toast.makeText(ContactsCreateActivity.this, "address has exits", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (modeType == EDIT && !contacts.get(position).getWalletAddress().equals(address)) {
+                    Toast.makeText(ContactsCreateActivity.this, "address has exits", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
+            if (firstName.equals(c.getFirstName())) {
+                if (modeType == CREATE) {
+                    Toast.makeText(ContactsCreateActivity.this, "name has exits", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (modeType == EDIT && !contacts.get(position).getFirstName().equals(firstName)) {
+                    Toast.makeText(ContactsCreateActivity.this, "address has exits", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
         }
-        Contact contact = new Contact(firstName, address);
+        Contact contact = modeType == CREATE ? new Contact(firstName, address) : contacts.get(position);
         String familyName = binding.etFamilyName.getText().toString().trim();
         if (!StringUtil.isEmpty(familyName)) contact.setFamilyName(familyName);
-
-
         String phoneNumber = binding.etContactsPhoneNumber.getText().toString().trim();
         if (!StringUtil.isEmpty(phoneNumber)) contact.setPhoneName(phoneNumber);
         String email = binding.etContactsEmail.getText().toString().trim();
@@ -138,12 +182,12 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
         String note = binding.etContactsNote.getText().toString().trim();
         if (!StringUtil.isEmpty(note)) contact.setNote(note);
 
-
-        contacts.add(contact);
-
+        if (modeType == CREATE) {
+            contacts.add(contact);
+        }
         OCPPrefUtils.putContacts(contacts);
 
-        RxBus.getInstance().post(ACTION_CONTACTS_UPDATE,"");
+        RxBus.getInstance().post(ACTION_CONTACTS_UPDATE, "");
 
         finish();
     }

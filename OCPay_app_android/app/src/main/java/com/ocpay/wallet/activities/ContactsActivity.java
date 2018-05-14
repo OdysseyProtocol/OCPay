@@ -11,6 +11,7 @@ import android.view.View;
 import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.ContactsAdapter;
+import com.ocpay.wallet.adapter.ContactsListAdapter;
 import com.ocpay.wallet.bean.Contact;
 import com.ocpay.wallet.databinding.ActivityContactsBinding;
 import com.ocpay.wallet.http.rx.RxBus;
@@ -27,6 +28,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     private ActivityContactsBinding binding;
     private List<Contact> contactList;
     private ContactsAdapter contactsAdapter;
+    private ContactsListAdapter contactsListAdapter;
 
 
     public static void startContactsActivity(Activity activity) {
@@ -43,7 +45,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         binding = DataBindingUtil.setContentView(ContactsActivity.this, R.layout.activity_contacts);
         initActionBar();
         initData();
-        initView();
+//        initView();
+        initListView();
         initListener();
 
     }
@@ -57,8 +60,11 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void accept(String s) throws Exception {
                         List<Contact> contacts = OCPPrefUtils.getContacts();
-                        contactsAdapter.setData(contacts);
-                        contactsAdapter.notifyDataSetChanged();
+                        contactList.clear();
+                        contactList.addAll(contacts);
+                        contactsListAdapter.notifyDataSetChanged();
+//                        contactsAdapter.setData(contacts);
+//                        contactsAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -85,6 +91,12 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         contactsAdapter.setData(contactList);
         binding.rlContacts.setAdapter(contactsAdapter);
         binding.rlContacts.setLayoutManager(new LinearLayoutManager(ContactsActivity.this));
+    }
+
+    private void initListView() {
+        contactsListAdapter = new ContactsListAdapter(ContactsActivity.this, contactList);
+        binding.slvContacts.setAdapter(contactsListAdapter);
+
     }
 
 
