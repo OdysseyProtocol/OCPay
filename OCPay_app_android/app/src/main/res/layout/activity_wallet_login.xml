@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.ocpay.wallet.view.customview.CircleImageView
+        <com.ocpay.wallet.widget.customview.CircleImageView
             android:id="@+id/iv_wallet_head"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -29,6 +29,11 @@
                 android:text="0XDDC0222FB…75E42DERS"
                 android:textColor="#FF33535F"
                 android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/id_account_select" />
 
         </LinearLayout>
 

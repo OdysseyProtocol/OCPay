@@ -185,7 +185,7 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
         if (modeType == CREATE) {
             contacts.add(contact);
         }
-        OCPPrefUtils.putContacts(contacts);
+        OCPPrefUtils.setContacts(contacts);
 
         RxBus.getInstance().post(ACTION_CONTACTS_UPDATE, "");
 

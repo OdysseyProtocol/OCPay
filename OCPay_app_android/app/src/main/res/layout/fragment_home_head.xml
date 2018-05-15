@@ -17,7 +17,7 @@
                 android:layout_height="49dp"
                 android:orientation="horizontal">
 
-                <com.ocpay.wallet.view.customview.CircleImageView
+                <com.ocpay.wallet.widget.customview.CircleImageView
                     android:id="@+id/riv_head_portrait"
                     android:layout_width="32dp"
                     android:layout_height="32dp"

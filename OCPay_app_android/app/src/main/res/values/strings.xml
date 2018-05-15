@@ -42,7 +42,7 @@
     <string name="note_about_observe_wallet">Observe the wallet does not need to import the private key, only import the wallet address for daily viewing of accounts, transactions and acceptance of notifications. The private key of large funds is recommended to use cold wallet or hardware wallet management to avoid disclosure of theft</string>
     <string name="edit_wallet_name">wallet name</string>
     <string name="btn_create_wallet">Create Wallet</string>
-    <string name="note_create_walet_one">The password is used to protect the private key and transaction authorization, the strength is very important</string>
+    <string name="note_create_wallet_one">The password is used to protect the private key and transaction authorization, the strength is very important</string>
     <string name="note_create_wallet_two">Ocn does not store passwords, nor does it help you to retrieve them. Please remember to remember</string>
     <string name="action_next_step">Next step</string>
     <string name="action_confirm">Confirm</string>
@@ -66,5 +66,32 @@
     <string name="activity_title_transaction_detail">Transaction Detail</string>
     <string name="activity_title_tx_query">Transaction Number Query</string>
     <string name="activity_transfer">Transfer</string>
+
+
+
+    <string name="settings_message_center">Message Center</string>
+    <string name="settings_contacts">Contacts</string>
+    <string name="settings_system">System Settings</string>
+    <string name="settings_user">Personal Center</string>
+    <string name="settings_help">Help Center</string>
+    <string name="settings_about_us">About Us</string>
+    <string name="fragment_title_me">Me</string>
+    <string name="activity_notification_read_all">Read All</string>
+    <string name="activity_notification">Notification</string>
+    <string name="activity_notification_del">Notification Details</string>
+    <string name="activity_title_contacts">Contacts</string>
+    <string name="contracts_first_name">First Name</string>
+    <string name="contacts_family_name">Family Name</string>
+    <string name="contact_address">Payee payment platform address</string>
+    <string name="contacts_phone_number">Phone Number</string>
+    <string name="contact_email">Email</string>
+    <string name="contact_note">Note</string>
+    <string name="activity_about_us_content">Ocpay is a mobile light wallet app designed to provide ordinary users with a secure, easy-to-use and powerful digital asset wallet application.</string>
+    <string name="activity_about_us">About Us</string>
+    <string name="activity_about_us_use_agreement">Use Agreement</string>
+    <string name="activity_about_us_check_version">Check Version</string>
+    <string name="activity_about_us_product_guide">Product Guide</string>
+    <string name="activity_about_us_version_log">Version Log</string>
+    <string name="activity_about_us_privacy_poicy">Privacy Policy</string>
 
 </resources>

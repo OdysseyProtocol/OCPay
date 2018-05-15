@@ -63,6 +63,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         initRxBus();
         updateInfo(walletInfo);
         initListener();
+
+
     }
 
     private void initListener() {

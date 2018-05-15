@@ -15,14 +15,14 @@ import android.widget.Toast;
 import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
+import com.ocpay.wallet.bean.ZipSignBean;
 import com.ocpay.wallet.databinding.ActivitySendBinding;
-import com.ocpay.wallet.http.client.EthScanHttpClientIml;
 import com.ocpay.wallet.http.rx.RxBus;
-import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.eth.bean.OCPWalletFile;
 import com.ocpay.wallet.utils.wallet.WalletStorage;
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
 import com.ocpay.wallet.widget.PasswordConfirmDialog;
+import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
 
 import org.web3j.crypto.CipherException;
@@ -36,9 +36,11 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
+import static com.ocpay.wallet.Constans.ERROR.WALLET_INVALID_PASSWORD;
+import static com.ocpay.wallet.Constans.ERROR.WALLET_NO_KEYSTORE;
 import static com.ocpay.wallet.Constans.RXBUS.ACTION_SEND_TRANSFER_ADDRESS;
-import static com.ocpay.wallet.Constans.RXBUS.ACTION_TRANSACTION_SEND_TX;
 import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
 import static com.ocpay.wallet.Constans.TRANSFER.DEFAULT_GAS_PRICE;
 import static com.ocpay.wallet.Constans.WALLET.ADDRESS_FROM;
@@ -116,42 +118,56 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         Observable<EtherScanJsonrpcResponse> nonceObservable = RxBus.getInstance()
                 .toObservable(Constans.RXBUS.ACTION_TRANSACTION_GET_NONCE, EtherScanJsonrpcResponse.class);
         Disposable disposableSign = Observable
-                .zip(pwdObservable, nonceObservable, new BiFunction<String, EtherScanJsonrpcResponse, String>() {
+                .zip(pwdObservable, nonceObservable, new BiFunction<String, EtherScanJsonrpcResponse, ZipSignBean>() {
                     @Override
-                    public String apply(String s, EtherScanJsonrpcResponse etherScanJsonrpcResponse) throws Exception {
+                    public ZipSignBean apply(String s, EtherScanJsonrpcResponse etherScanJsonrpcResponse) throws Exception {
+                        showLoading(false);
+                        setTip("trading...");
+                        return new ZipSignBean(s, etherScanJsonrpcResponse);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(new Consumer<ZipSignBean>() {
+                    @Override
+                    public void accept(ZipSignBean zipSignBean) throws Exception {
+
+                        MyLog.i("accept:" + Thread.currentThread().getName());
+                        String status = "";
                         OCPWalletFile ocpWallet = null;
                         ECKeyPair ecKeyPair = null;
                         try {
                             ocpWallet = WalletStorage.getInstance().getOCPWallet(walletAddress);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(SendActivity.this, "Can't find keystore", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SendActivity.this, "Can't find keystore", Toast.LENGTH_SHORT).show();
+                            status = WALLET_NO_KEYSTORE;
                         }
                         if (ocpWallet == null) {
-                            Toast.makeText(SendActivity.this, "Can't find keystore", Toast.LENGTH_SHORT).show();
-
+                            status = WALLET_NO_KEYSTORE;
                         }
                         try {
-                            ecKeyPair = Wallet.decrypt(s, ocpWallet.getWalletFile());
+                            ecKeyPair = Wallet.decrypt(zipSignBean.getPassword(), ocpWallet.getWalletFile());
                         } catch (CipherException e) {
                             e.printStackTrace();
-                        }
+                            status = WALLET_INVALID_PASSWORD;
 
-                        String signHex = OCPWalletUtils.signTransacion(ecKeyPair, binding.tvTransferAmount.getText().toString().trim(),
-                                Constans.currentWallet.getWalletAddress(),
-                                gasPrice.toString(),
-                                gasLimit.toString(),
-                                "",
-                                getErc20Address(),
-                                etherScanJsonrpcResponse.getDicemalFromDex()
-                        );
-                        return signHex;
-                    }
-                })
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        EthScanHttpClientIml.sendTransaction(ACTION_TRANSACTION_SEND_TX, s);
+                        }
+//
+//                        String signHex = OCPWalletUtils.signTransaction(ecKeyPair, binding.tvTransferAmount.getText().toString().trim(),
+//                                Constans.currentWallet.getWalletAddress(),
+//                                gasPrice.toString(),
+//                                gasLimit.toString(),
+//                                "",
+//                                getErc20Address(),
+//                                zipSignBean.getEtherScanJsonrpcResponse().getDicemalFromDex()
+//                        );
+                        //   return signHex;
+
+
+//                        MyLog.i("accept:" + Thread.currentThread().getName());
+//
+//                        if (!s.startsWith("0x")) return;
+//                        EthScanHttpClientIml.sendTransaction(ACTION_TRANSACTION_SEND_TX, s);
                     }
                 });
         addDisposable(disposableSign);
@@ -287,8 +303,6 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(SendActivity.this, "Not Enough Amount", Toast.LENGTH_LONG).show();
                 return false;
             }
-
-
         }
 
         if (!isSimpleMode) {

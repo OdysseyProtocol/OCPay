@@ -50,7 +50,7 @@
             android:background="#FFFF"
             android:visibility="gone" />
 
-        <com.ocpay.wallet.view.FlowLayout
+        <com.ocpay.wallet.widget.FlowLayout
             android:id="@+id/fl_mnemonic_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             app:flRowSpacing="8dp" />
 
 
-        <com.ocpay.wallet.view.FlowLayout
+        <com.ocpay.wallet.widget.FlowLayout
             android:id="@+id/fl_mnemonic_select"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

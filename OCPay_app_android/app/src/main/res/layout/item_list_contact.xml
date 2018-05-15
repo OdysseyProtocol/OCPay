@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ocpay.wallet.widget.swipelistview.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="81dp"
+    android:background="@color/white">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pay_method_card_bg"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <com.ocpay.wallet.widget.customview.CircleImageView
+                android:id="@+id/civ_wallet_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_wallet_name"
+                    android:layout_width="96dp"
+                    android:layout_height="16dp"
+                    android:text="WALLET NAME"
+                    android:textColor="#FF38525F"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_wallet_address"
+                    android:layout_width="152dp"
+                    android:layout_height="16dp"
+                    android:text="0XDDC0222FB…75E42DERS"
+                    android:textColor="#FFA4AFB4"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#FFF2F2F2" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="500px"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#44ffff00"
+            android:gravity="center"
+            android:padding="20px"
+            android:text="EDIT" />
+
+        <TextView
+            android:id="@+id/tv_del"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#44ff00ff"
+            android:gravity="center"
+            android:padding="20px"
+            android:text="REMOVE" />
+    </LinearLayout>
+</com.ocpay.wallet.widget.swipelistview.SwipeItemLayout>

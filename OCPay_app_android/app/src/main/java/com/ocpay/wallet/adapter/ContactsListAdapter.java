@@ -74,7 +74,7 @@ public class ContactsListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 list.remove(position);
-                OCPPrefUtils.putContacts(list);
+                OCPPrefUtils.setContacts(list);
                 notifyDataSetChanged();
             }
         });

@@ -76,7 +76,7 @@
                         android:background="@color/color_fragment_home_elephant"
                         android:orientation="vertical">
 
-                        <com.ocpay.wallet.view.customview.CircleImageView
+                        <com.ocpay.wallet.widget.customview.CircleImageView
                             android:id="@+id/civ_wallet_icon"
                             android:layout_width="60dp"
                             android:layout_height="60dp"

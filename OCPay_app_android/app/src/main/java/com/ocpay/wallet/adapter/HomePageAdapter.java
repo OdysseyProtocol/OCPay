@@ -59,23 +59,19 @@ public class HomePageAdapter extends BaseAdapter<HomeBean, RecyclerView.ViewHold
             }
             mWheelAdHolder.sliderLayout.setCustomIndicator(mWheelAdHolder.indicator);
             mWheelAdHolder.setIsRecyclable(false);
-        } else
-//
-            if (viewHolder instanceof RecycleViewHolder && getItemViewType(position) == MERCHANT) {
-                MerchantAdapter itemAdapter = new MerchantAdapter(mCtx);
-                if (data.getGoodsBean().getPageItems() == null || data.getGoodsBean().getPageItems().size() == 0) {
-                    return;
-                }
-                itemAdapter.setData(data.getGoodsBean().getPageItems());
-                ((RecycleViewHolder) viewHolder).recyclerView.setAdapter(itemAdapter);
-            } else if (viewHolder instanceof RecycleViewHolder && getItemViewType(position) == GENERALIZE) {
-                GeneralizeAdapter itemAdapter = new GeneralizeAdapter(mCtx);
-                itemAdapter.setData(data.getGeneralizeBean().getPageItems());
-                ((RecycleViewHolder) viewHolder).recyclerView.setAdapter(itemAdapter);
-                ((RecycleViewHolder) viewHolder).llHomeItem.setBackgroundColor(mCtx.getResources().getColor(R.color.color_concrete_background));
-
-
+        } else if (viewHolder instanceof RecycleViewHolder && getItemViewType(position) == MERCHANT) {
+            MerchantAdapter itemAdapter = new MerchantAdapter(mCtx);
+            if (data.getGoodsBean().getPageItems() == null || data.getGoodsBean().getPageItems().size() == 0) {
+                return;
             }
+            itemAdapter.setData(data.getGoodsBean().getPageItems());
+            ((RecycleViewHolder) viewHolder).recyclerView.setAdapter(itemAdapter);
+        } else if (viewHolder instanceof RecycleViewHolder && getItemViewType(position) == GENERALIZE) {
+            GeneralizeAdapter itemAdapter = new GeneralizeAdapter(mCtx);
+            itemAdapter.setData(data.getGeneralizeBean().getPageItems());
+            ((RecycleViewHolder) viewHolder).recyclerView.setAdapter(itemAdapter);
+            ((RecycleViewHolder) viewHolder).llHomeItem.setBackgroundColor(mCtx.getResources().getColor(R.color.color_concrete_background));
+        }
 //        else if (viewHolder instanceof BannerHolder && getItemViewType(position) == BANNER.ordinal()) {
 //            Log.i("snow_hehe", "what fuck" + data.getBannerBean().getBannerList().size());
 //            if (data.getBannerBean().getBannerList().size() == 0) return;

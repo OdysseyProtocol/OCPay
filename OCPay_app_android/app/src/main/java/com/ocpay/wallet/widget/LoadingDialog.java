@@ -2,9 +2,7 @@ package com.ocpay.wallet.widget;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ocpay.wallet.R;
@@ -16,13 +14,13 @@ import com.ocpay.wallet.R;
 
 public class LoadingDialog extends Dialog {
 
-    private ImageView progressImg;
+//    private ImageView progressImg;
     private TextView tvTxt;
     //帧动画
-    private AnimationDrawable animation;
+//    private AnimationDrawable animation;
 
     public LoadingDialog(Context context) {
-        super(context, R.style.dialog);
+        super(context, R.style.CustomDialog);
     }
 
     @Override
@@ -33,10 +31,10 @@ public class LoadingDialog extends Dialog {
         //点击imageview外侧区域，动画不会消失
         setCanceledOnTouchOutside(false);
 
-        progressImg = (ImageView) findViewById(R.id.imgLoading);
+//        progressImg = (ImageView) findViewById(R.id.imgLoading);
         tvTxt=(TextView)findViewById(R.id.tvTxt);
-        //加载动画资源
-        animation = (AnimationDrawable) progressImg.getDrawable();
+//        //加载动画资源
+//        animation = (AnimationDrawable) progressImg.getDrawable();
     }
 
     public void setCance(boolean isCance){
@@ -54,7 +52,7 @@ public class LoadingDialog extends Dialog {
     @Override
     protected void onStart() {
         super.onStart();
-        animation.start();
+//        animation.start();
     }
 
     /**
@@ -63,7 +61,7 @@ public class LoadingDialog extends Dialog {
     @Override
     protected void onStop() {
         super.onStop();
-        animation.stop();
+//        animation.stop();
     }
 
 }

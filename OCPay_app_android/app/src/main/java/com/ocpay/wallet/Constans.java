@@ -65,7 +65,9 @@ public class Constans {
 
     public static class PREFKEY {
         public final static String PREF_KEY_CONTACTS = "pref_key_contacts";
+        public final static String PREF_KEY_CURRENCY = "pref_key_currency";
 
+        public final static String APP_LANGUAGE = "app_language";
     }
 
 
@@ -95,8 +97,6 @@ public class Constans {
         public final static int ACTION_CONTACTS_UPDATE = 14;
 
 
-
-
     }
 
     public static class REGULAR {
@@ -121,6 +121,11 @@ public class Constans {
 
     }
 
+
+    public static class ERROR {
+        public final static String WALLET_INVALID_PASSWORD = "error_invalid_password";
+        public final static String WALLET_NO_KEYSTORE = "error_no_keystore";
+    }
 
     public static WalletInfo currentWallet;
 

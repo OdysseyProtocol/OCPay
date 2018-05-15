@@ -1,0 +1,73 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/tv_app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:text="V11.4.42344"
+            android:textColor="#FFB5BDC8"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/activity_about_us_content"
+            android:textColor="#FF38525F"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="24dp"
+            android:background="#FFF2F2F2" />
+
+        <include
+            android:id="@+id/include_use_agreement"
+            layout="@layout/item_settings_text" />
+
+        <include
+            android:id="@+id/include_use_privacy_policy"
+            layout="@layout/item_settings_text" />
+
+        <include
+            android:id="@+id/include_version"
+            layout="@layout/item_settings_text" />
+
+        <include
+            android:id="@+id/include_product_guide"
+            layout="@layout/item_settings_text" />
+
+        <include
+            android:id="@+id/include_check_version"
+            layout="@layout/item_settings_text" />
+
+
+    </LinearLayout>
+</layout>

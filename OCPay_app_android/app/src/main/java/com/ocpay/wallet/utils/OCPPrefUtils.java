@@ -1,9 +1,12 @@
 package com.ocpay.wallet.utils;
 
+import android.content.Context;
+
 import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.bean.Contact;
 import com.snow.commonlibrary.utils.PrefUtils;
+import com.snow.commonlibrary.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +33,36 @@ public class OCPPrefUtils {
     /**
      * @param list
      */
-    public static void putContacts(List<Contact> list) {
+    public static void setContacts(List<Contact> list) {
         if (list == null || list.size() < 0) return;
         PrefUtils.putBean(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_CONTACTS, list);
 
+    }
+
+    /**
+     * @return
+     */
+    public static String getCurrency() {
+        return PrefUtils.getString(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_CURRENCY, "CNY");
+    }
+
+    /**
+     * @param currency
+     */
+    public static void setCurrency(String currency) {
+        if (StringUtil.isEmpty(currency)) return;
+        PrefUtils.putString(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_CURRENCY, currency);
+
+    }
+
+
+
+    public static String getLanguage(Context context) {
+        return PrefUtils.getString(context, Constans.PREFKEY.APP_LANGUAGE, "English");
+    }
+
+    public static void setLanguage(Context context, String language) {
+        PrefUtils.putString(context, Constans.PREFKEY.APP_LANGUAGE, language);
     }
 
 

@@ -1,0 +1,50 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_wallet_item_selected"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar" />
+
+        <TextView
+            android:id="@+id/tv_notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="Notice: Successfully purchased 10 Bitcoin and 10 Ether coins"
+            android:textColor="#FF38525F"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_notification_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:text="An hour ago"
+            android:textColor="#FFA4AFB4"
+            android:textSize="12sp" />
+
+
+        <TextView
+
+            android:id="@+id/tv_notification_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="20dp"
+            android:text="Blockchain is a brand new technology. Decentralization, irreconcilable, individual control (accounts, assets and data) that is the difference between the Internet and the conventional art features apart. The wallet is the passport of this new world. Its essence is the private key. Ocpay is a wallet tool that helps you manage private keys.
+
+If there is no block chain and wallet basic understanding, if there is no high-speed driving license, this is a very dangerous thing. Therefore, we have established a risk assessment system to ensure your ability to meet specific standards before starting to use it. Everything is for safety, thank you for your cooperation!"
+            android:textColor="#FF38525F"
+            android:textSize="14sp" />
+    </LinearLayout>
+</layout>

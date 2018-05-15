@@ -1,0 +1,180 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="contact"
+            type="com.ocpay.wallet.bean.Contact" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.ocpay.wallet.widget.customview.CircleImageView
+                android:id="@+id/civ_wallet_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="3dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/contracts_first_name"
+                    android:text="@{contact.firstName}"
+                    android:textColor="@color/color_text_main"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#FFE1E5E9" />
+
+                <EditText
+                    android:id="@+id/et_family_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/contacts_family_name"
+                    android:text="@{contact.familyName}"
+                    android:textColor="@color/color_text_main"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="228dp"
+                    android:layout_height="0.5dp"
+                    android:background="#FFE1E5E9" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_contacts_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/contact_address"
+                android:paddingTop="22dp"
+                android:text="@{contact.walletAddress}"
+                android:textColor="@color/color_text_main"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="22dp"
+                android:paddingTop="22dp"
+                android:src="@mipmap/ic_scan_main_color" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFE1E5E9" />
+
+        <EditText
+            android:id="@+id/et_contacts_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:background="@null"
+            android:hint="@string/contacts_phone_number"
+            android:paddingBottom="12dp"
+            android:paddingTop="20dp"
+            android:text="@{contact.phoneName}"
+            android:textColor="@color/color_text_main"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFE1E5E9" />
+
+        <EditText
+            android:id="@+id/et_contacts_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:background="@null"
+            android:hint="@string/contact_email"
+            android:paddingBottom="12dp"
+            android:paddingTop="20dp"
+            android:text="@{contact.email}"
+            android:textColor="@color/color_text_main"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFE1E5E9" />
+
+        <EditText
+            android:id="@+id/et_contacts_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:background="@null"
+            android:hint="@string/contact_note"
+            android:paddingBottom="12dp"
+            android:paddingTop="20dp"
+            android:text="@{contact.note}"
+            android:textColor="@color/color_text_main"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFE1E5E9" />
+
+    </LinearLayout>
+</layout>

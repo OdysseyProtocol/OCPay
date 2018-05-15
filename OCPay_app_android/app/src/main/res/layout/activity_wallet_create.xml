@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="319dp"
                     android:layout_height="24dp"
-                    android:text="@string/note_create_walet_one"
+                    android:text="@string/note_create_wallet_one"
                     android:textColor="#FFA4AFB4"
                     android:textSize="9sp" />
 

@@ -636,7 +636,7 @@ public class OCPWalletUtils {
 //     * @throws InterruptedException
 //     */
 //
-    public static String signTransacion(ECKeyPair ecKeyPair, String OCNAmount, String toAddress, String gas_price, String gas_limit, String data, String ERC20Address, BigInteger nonce) throws IOException, InterruptedException {
+    public static String signTransaction(ECKeyPair ecKeyPair, String OCNAmount, String toAddress, String gas_price, String gas_limit, String data, String ERC20Address, BigInteger nonce) throws IOException, InterruptedException {
         Credentials credentials = Credentials.create(ecKeyPair);
         RawTransaction tx = RawTransactionUtils.getTransaction(nonce, ERC20Address, OCNAmount, gas_price, gas_limit, data, toAddress);
         byte[] signed = TransactionEncoder.signMessage(tx, (byte) EtherScanApi.CHAIN_ID, credentials);

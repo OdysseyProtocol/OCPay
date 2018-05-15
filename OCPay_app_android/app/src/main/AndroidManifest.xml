@@ -79,6 +79,22 @@
         <activity
             android:name=".activities.SimpleWebViewActivity"
             android:theme="@style/OThemeNoBar" />
+
+
+        <activity
+            android:name=".activities.NotificationActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.NotificationDetailActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.ContactsActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.ContactsCreateActivity"
+            android:theme="@style/OThemeNoBar" />
+
+
     </application>
 
 </manifest>

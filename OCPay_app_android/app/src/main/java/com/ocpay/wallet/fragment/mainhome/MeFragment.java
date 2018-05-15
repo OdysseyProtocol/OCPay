@@ -9,6 +9,7 @@ import android.view.View;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.activities.ContactsActivity;
 import com.ocpay.wallet.activities.NotificationActivity;
+import com.ocpay.wallet.activities.SystemSettingsActivity;
 import com.ocpay.wallet.activities.WalletImportActivity;
 import com.ocpay.wallet.activities.WalletManageActivity;
 import com.ocpay.wallet.adapter.SettingsAdapter;
@@ -83,6 +84,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
                 ContactsActivity.startContactsActivity(getActivity());
                 break;
             case SYSTEM:
+                SystemSettingsActivity.startSystemSettingsActivity(getActivity());
                 break;
             case NOTIFICATION:
                 NotificationActivity.startNotificationActivity(getActivity());

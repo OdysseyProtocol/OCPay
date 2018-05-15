@@ -60,7 +60,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
         binding.tvAppVersion.setText(ApplicationUtils.getInstance(MyApp.getContext()).getVersionName());
 
         binding.includeUseAgreement.tvSettingsName.setText(R.string.activity_about_us_use_agreement);
-        binding.includeUsePrivacyPolicy.tvSettingsName.setText(R.string.activity_about_us_privacy_poicy);
+        binding.includeUsePrivacyPolicy.tvSettingsName.setText(R.string.activity_about_us_privacy_policy);
         binding.includeVersion.tvSettingsName.setText(R.string.activity_about_us_version_log);
         binding.includeProductGuide.tvSettingsName.setText(R.string.activity_about_us_product_guide);
         binding.includeCheckVersion.tvSettingsName.setText(R.string.activity_about_us_check_version);

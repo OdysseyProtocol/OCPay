@@ -1,16 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_wallet_item_selected"
+        android:orientation="vertical"
         tools:context=".fragment.mainhome.HomeFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/bottom_bar_me" />
+        <include
+            android:id="@+id/include_action_bar"
+            layout="@layout/layout_action_bar"
+            android:background="@color/white" />
 
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#FF38525F"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/ll_manage_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_settings_wallet_manage" />
+
+                <TextView
+                    android:layout_width="92.5dp"
+                    android:layout_height="18dp"
+                    android:text="Manage wallet"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="100dp"
+                android:background="#405A66" />
+
+            <LinearLayout
+                android:id="@+id/ll_import_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_settings_wallet_import" />
+
+                <TextView
+                    android:layout_width="92.5dp"
+                    android:layout_height="18dp"
+                    android:text="Import wallet"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rl_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
 
 </layout>

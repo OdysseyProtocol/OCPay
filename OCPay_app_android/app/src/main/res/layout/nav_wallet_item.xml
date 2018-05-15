@@ -16,7 +16,7 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <com.ocpay.wallet.view.customview.CircleImageView
+        <com.ocpay.wallet.widget.customview.CircleImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"

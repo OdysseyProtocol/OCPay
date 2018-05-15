@@ -22,7 +22,7 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
 
-        <com.ocpay.wallet.view.ScrollViewPager
+        <com.ocpay.wallet.widget.ScrollViewPager
             android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
         <!--</FrameLayout>-->
 
 
-        <com.ocpay.wallet.view.customview.BottomActionBar
+        <com.ocpay.wallet.widget.customview.BottomActionBar
             android:id="@+id/action_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
