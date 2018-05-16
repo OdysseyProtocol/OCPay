@@ -1,4 +1,4 @@
-package com.ocpay.wallet.widget;
+package com.ocpay.wallet.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

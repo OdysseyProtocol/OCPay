@@ -1,8 +1,7 @@
-package com.ocpay.wallet.widget;
+package com.ocpay.wallet.widget.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
@@ -12,30 +11,27 @@ import com.ocpay.wallet.databinding.DialogWarmBinding;
 
 
 public class WarmDialog extends AlertDialog implements View.OnClickListener {
-    public static final String TAG = "PasswordConfirmDialog";
-    private Context mContext;
+    public static final String TAG = "WarmDialog";
     private Activity activity;
     private DialogWarmBinding binding;
     static WarmDialog dialog;
 
 
-    public static WarmDialog getInstance(Context context, int ResTheme, Activity activity) {
+    public static WarmDialog getInstance(Activity activity) {
         if (dialog == null) {
-            dialog = new WarmDialog(context, ResTheme, activity);
+            dialog = new WarmDialog(R.style.PasswordConfirmDialog, activity);
         }
         return dialog;
     }
 
 
-    private WarmDialog(Context context, Activity activity) {
-        super(context);
-        this.mContext = context;
+    private WarmDialog(Activity activity) {
+        super(activity);
         this.activity = activity;
     }
 
-    private WarmDialog(Context context, int ResTheme, Activity activity) {
-        super(context, ResTheme);
-        this.mContext = context;
+    private WarmDialog(int ResTheme, Activity activity) {
+        super(activity, ResTheme);
         this.activity = activity;
 
     }
@@ -43,6 +39,7 @@ public class WarmDialog extends AlertDialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.dialog_warm, null, false);
+
         setContentView(binding.getRoot());
 
         initView();
@@ -50,11 +47,15 @@ public class WarmDialog extends AlertDialog implements View.OnClickListener {
 
     }
 
+
+    public void setTip(String tip) {
+        if (binding == null) return;
+        binding.tvWarmTitle.setText(tip);
+    }
+
+
     private void initView() {
-
         binding.tvActionConfirm.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -71,10 +72,19 @@ public class WarmDialog extends AlertDialog implements View.OnClickListener {
             case R.id.tv_action_cancel:
                 dismiss();
                 break;
-
             case R.id.tv_action_confirm:
-
+                dismiss();
                 break;
         }
+    }
+
+
+    public void destroy() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+        binding = null;
+        activity = null;
     }
 }

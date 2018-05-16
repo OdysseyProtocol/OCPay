@@ -96,6 +96,8 @@ public class Constans {
         public final static int ACTION_CONTACTS_ADDRESS = 13;
         public final static int ACTION_CONTACTS_UPDATE = 14;
 
+        public final static int ACTION_SEND_ERROR = 15;
+
 
     }
 
@@ -123,10 +125,11 @@ public class Constans {
 
 
     public static class ERROR {
-        public final static String WALLET_INVALID_PASSWORD = "error_invalid_password";
-        public final static String WALLET_NO_KEYSTORE = "error_no_keystore";
+        public final static int WALLET_INVALID_PASSWORD = 2;
+        public final static int WALLET_NO_KEYSTORE = 1;
     }
 
     public static WalletInfo currentWallet;
+
 
 }
