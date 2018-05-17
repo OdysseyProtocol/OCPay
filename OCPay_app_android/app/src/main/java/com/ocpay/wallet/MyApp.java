@@ -33,6 +33,17 @@ public class MyApp extends Application {
         super.onCreate();
         mContext = this;
         HttpUtils.getInstance().init(mContext, true);
+
+        initEthInfo();
+
+    }
+
+    private void initEthInfo() {
+        //get gas price
+//        EthScanHttpClientIml.getGasPrice();
+
+
+
     }
 
 
@@ -43,11 +54,12 @@ public class MyApp extends Application {
 
 
     public static BigInteger getEthBlockNumber() {
-
         return ethBlockNumber;
     }
 
     public static void setEthBlockNumber(BigInteger ethBlockNumber) {
         MyApp.ethBlockNumber = ethBlockNumber;
     }
+
+
 }

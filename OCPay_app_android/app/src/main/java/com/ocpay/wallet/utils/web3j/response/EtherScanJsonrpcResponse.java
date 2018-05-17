@@ -12,12 +12,12 @@ public class EtherScanJsonrpcResponse {
     public String id;
 
 
-    public BigInteger getDicemalFromDex() {
-        if (!StringUtil.isNumber(result) || StringUtil.isEmpty(result) || !result.startsWith("0x"))
-            return new BigInteger("0");
+    public BigInteger getDecimalFromDex() {
         if (result.startsWith("0x")) {
             return Hex2Decimal(result);
         }
+        if (!StringUtil.isNumber(result) || StringUtil.isEmpty(result) || !result.startsWith("0x"))
+            return new BigInteger("0");
         return new BigInteger(result);
     }
 }

@@ -6,7 +6,7 @@ package com.ocpay.wallet.utils.web3j.api;
 public class OWalletAPI {
 
 
-//    public static WalletInfo generateWallet() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException {
+//    public static OWalletInfo generateWallet() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException {
 //        return OWalletUtils.generateWallet();
 //    }
 //

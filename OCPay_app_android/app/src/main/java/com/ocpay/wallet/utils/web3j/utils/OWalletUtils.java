@@ -1,6 +1,6 @@
 package com.ocpay.wallet.utils.web3j.utils;
 
-import com.ocpay.wallet.utils.web3j.bean.WalletInfo;
+import com.ocpay.wallet.utils.web3j.bean.OWalletInfo;
 
 import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.CipherException;
@@ -28,9 +28,9 @@ public class OWalletUtils {
      * @throws NoSuchAlgorithmException
      * @throws NoSuchProviderException
      */
-    public static WalletInfo generateWallet() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException {
+    public static OWalletInfo generateWallet() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException {
         ECKeyPair ecKeyPair = Keys.createEcKeyPair();
-        return new WalletInfo(ecKeyPair);
+        return new OWalletInfo(ecKeyPair);
     }
 
 

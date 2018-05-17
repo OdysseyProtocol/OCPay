@@ -87,4 +87,10 @@ public class WarmDialog extends AlertDialog implements View.OnClickListener {
         binding = null;
         activity = null;
     }
+
+    public static void showTip(Activity activity,String tip){
+        WarmDialog.getInstance(activity).show();
+        WarmDialog.getInstance(activity).setTip(tip);
+
+    }
 }

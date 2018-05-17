@@ -10,16 +10,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.bean.PickerData;
 import com.ocpay.wallet.databinding.ActivityWalletLoginBinding;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
+import com.ocpay.wallet.utils.OCPPrefUtils;
 import com.ocpay.wallet.utils.PickerUtil;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
-import com.snow.commonlibrary.utils.PrefUtils;
 import com.snow.commonlibrary.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -102,7 +101,7 @@ public class WalletLoginActivity extends BaseActivity implements View.OnClickLis
 
 
     public void initData() {
-        Object bean = PrefUtils.getBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET);
+        Object bean = OCPPrefUtils.getCurrentWallet();
         walletInfos = WalletInfoDaoUtils.sqlAll(MyApp.getContext());
         currentAddress = "";
 

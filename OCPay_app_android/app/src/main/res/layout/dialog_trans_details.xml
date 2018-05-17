@@ -2,18 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <!--<LinearLayout -->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#FFFFFFFF"
+            android:layout_height="46dp"
+            android:background="#FFFFFF"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -30,6 +34,11 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/gradient_white_shadow" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Order information"
+                android:text="@string/dialog_tx_detail_order_info"
                 android:textColor="#FFB5BDC8"
                 android:textSize="12sp" />
 
@@ -70,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Transfer From"
+                android:text="@string/dialog_tx_detail_from"
                 android:textColor="#FFB5BDC8"
                 android:textSize="12sp" />
 
@@ -96,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Transfer To"
+                android:text="@string/dialog_tx_detail_to"
                 android:textColor="#FFB5BDC8"
                 android:textSize="12sp" />
 
@@ -121,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Fee"
+                android:text="@string/dialog_tx_detail_fee"
                 android:textColor="#FFB5BDC8"
                 android:textSize="12sp" />
 
@@ -144,6 +153,7 @@
 
 
             <TextView
+                android:id="@+id/tv_fee_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -166,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Amount"
+                android:text="@string/dialog_tx_detail_amount"
                 android:textColor="#FFB5BDC8"
                 android:textSize="12sp" />
 
@@ -174,13 +184,14 @@
                 android:id="@+id/tv_transfer_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
                 android:text="1.000ETH"
                 android:textColor="#FF38525F"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_"
+            android:id="@+id/tv_next_step"
             style="@style/MnemonicBackupBtn"
             android:layout_width="match_parent"
             android:layout_marginBottom="0dp"

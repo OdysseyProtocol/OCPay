@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.activities.GatheringActivity;
 import com.ocpay.wallet.activities.QRReaderActivity;
@@ -38,7 +39,6 @@ import static com.ocpay.wallet.Constans.HOME.MERCHANT;
 import static com.ocpay.wallet.Constans.HOME.WHEEL_AD;
 import static com.ocpay.wallet.activities.QRReaderActivity.QR_CODE_MODE_PARSE;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.foldWalletAddress;
-import static com.ocpay.wallet.utils.eth.OCPWalletUtils.getCurrentWallet;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements View.OnClickListener {
 
@@ -52,7 +52,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
     @Override
     public void loadData() {
-        walletInfo = getCurrentWallet();
+        walletInfo = OCPWallet.getCurrentWallet();
     }
 
 
@@ -93,7 +93,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
     public void updateInfo(WalletInfo walletInfo) {
         if (walletInfo == null) return;
-        Constans.currentWallet = walletInfo;
+        OCPWallet.setCurrentWallet(walletInfo);
         bindingView.includeHead.tvWalletName.setText(walletInfo.getWalletName());
         bindingView.include.tvWalletAddress.setText(foldWalletAddress(walletInfo.getWalletAddress()));
     }

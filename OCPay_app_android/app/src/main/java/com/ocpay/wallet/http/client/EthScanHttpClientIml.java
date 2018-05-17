@@ -1,11 +1,14 @@
 package com.ocpay.wallet.http.client;
 
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.http.rx.RxBus;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.web3j.response.EthBalanceResponse;
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
 import com.ocpay.wallet.utils.web3j.transaction.OWalletTransaction;
 import com.snow.commonlibrary.log.MyLog;
+
+import java.math.BigInteger;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -286,6 +289,42 @@ public class EthScanHttpClientIml {
                                 MyLog.i("onNext" + o.toString());
                                 RxBus.getInstance().post(requestId, o);
 
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                MyLog.i("onError" + e.getMessage());
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                MyLog.i("onComplete");
+
+                            }
+                        }
+                );
+    }
+
+
+    public static void getGasPrice() {
+        /** interval get gasprice **/
+        HttpClient.Builder
+                .getEthScanServer()
+                .getGasPrice()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<EtherScanJsonrpcResponse>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(EtherScanJsonrpcResponse e) {
+                                BigInteger gasPrice = e.getDecimalFromDex();
+                                OCPWallet.stGasPrice = gasPrice;
+                                MyLog.i("gasprice" + gasPrice.toString());
                             }
 
                             @Override

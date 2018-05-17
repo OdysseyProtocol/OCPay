@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.viewholder.WalletManageItemHolder;
 import com.ocpay.wallet.databinding.WalletManageItemBinding;
 import com.ocpay.wallet.greendao.WalletInfo;
-import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
 
 /**
@@ -23,7 +23,7 @@ public class WalletManageListsAdapter extends BaseAdapter<WalletInfo, WalletMana
 
     public WalletManageListsAdapter(Context ctx) {
         super(ctx);
-        walletInfo = OCPWalletUtils.getCurrentWallet();
+        walletInfo = OCPWallet.getCurrentWallet();
 
     }
 

@@ -7,8 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
-import com.ocpay.wallet.greendao.WalletInfo;
-import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
 import com.ocpay.wallet.utils.CommonUtils;
 import com.ocpay.wallet.utils.eth.bean.OCPWalletFile;
 import com.ocpay.wallet.utils.eth.util.CustomMnemonicUtils;
@@ -17,7 +15,6 @@ import com.ocpay.wallet.utils.eth.util.bip44.hdpath.HdKeyPath;
 import com.ocpay.wallet.utils.wallet.WalletStorage;
 import com.ocpay.wallet.utils.web3j.api.EtherScanApi;
 import com.ocpay.wallet.utils.web3j.utils.RawTransactionUtils;
-import com.snow.commonlibrary.utils.PrefUtils;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
 
 import org.spongycastle.util.encoders.Hex;
@@ -40,7 +37,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
-import java.util.List;
 
 
 /**
@@ -520,18 +516,6 @@ public class OCPWalletUtils {
     }
 
 
-    public static WalletInfo getCurrentWallet() {
-        WalletInfo wallet = (WalletInfo) PrefUtils.getBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET);
-        if (wallet == null) {
-            List<WalletInfo> walletInfo = WalletInfoDaoUtils.sqlAll(MyApp.getContext());
-            if (walletInfo != null && walletInfo.size() > 0) {
-                wallet = walletInfo.get(0);
-            }
-        }
-        return wallet;
-    }
-
-
     public static String walletAddress32b(String walletAddress) {
         if (walletAddress.startsWith("0x")) {
             walletAddress = walletAddress.replace("0x", "0x000000000000000000000000");
@@ -622,7 +606,6 @@ public class OCPWalletUtils {
 
     }
 
-    //
 //    /**
 //     * @param ecKeyPair
 //     * @param OCNAmount
@@ -635,7 +618,6 @@ public class OCPWalletUtils {
 //     * @throws IOException
 //     * @throws InterruptedException
 //     */
-//
     public static String signTransaction(ECKeyPair ecKeyPair, String OCNAmount, String toAddress, String gas_price, String gas_limit, String data, String ERC20Address, BigInteger nonce) throws IOException, InterruptedException {
         Credentials credentials = Credentials.create(ecKeyPair);
         RawTransaction tx = RawTransactionUtils.getTransaction(nonce, ERC20Address, OCNAmount, gas_price, gas_limit, data, toAddress);
@@ -644,9 +626,8 @@ public class OCPWalletUtils {
     }
 
 
-
-    public static boolean isEthAddress(String address){
-        return  RegularExpressionUtils.valid(address, Constans.REGULAR.REGULAR_ETH_ADDRESS);
+    public static boolean isEthAddress(String address) {
+        return RegularExpressionUtils.valid(address, Constans.REGULAR.REGULAR_ETH_ADDRESS);
 
     }
 

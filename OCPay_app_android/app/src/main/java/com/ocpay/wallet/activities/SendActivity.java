@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.ocpay.wallet.Constans;
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.bean.ZipSignBean;
 import com.ocpay.wallet.databinding.ActivitySendBinding;
@@ -24,7 +25,9 @@ import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
 import com.ocpay.wallet.widget.dialog.PasswordConfirmDialog;
 import com.ocpay.wallet.widget.dialog.TxDetailDialog;
 import com.ocpay.wallet.widget.dialog.WarmDialog;
+import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
+import com.snow.commonlibrary.utils.StringUtil;
 
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.ECKeyPair;
@@ -34,6 +37,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
@@ -45,7 +49,6 @@ import static com.ocpay.wallet.Constans.RXBUS.ACTION_SEND_ERROR;
 import static com.ocpay.wallet.Constans.RXBUS.ACTION_SEND_TRANSFER_ADDRESS;
 import static com.ocpay.wallet.Constans.RXBUS.ACTION_TRANSACTION_SEND_TX;
 import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
-import static com.ocpay.wallet.Constans.TRANSFER.DEFAULT_GAS_PRICE;
 import static com.ocpay.wallet.Constans.WALLET.ADDRESS_FROM;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
 import static com.ocpay.wallet.activities.QRReaderActivity.QR_CODE_MODE_READER;
@@ -59,20 +62,18 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
 
     private String tokenName;
 
-    private BigInteger gasUnit = new BigInteger(16800 + "");
+    private BigInteger gasLimit = OCPWallet.getMinGasLimit();
 
-    private BigInteger gasLimit = new BigInteger(gasUnit.toString());
+    private BigInteger gasPrice;
 
-    private BigInteger gasPrice = new BigInteger(DEFAULT_GAS_PRICE);
     private BigInteger customGas;
-    private BigInteger customGasPrice;
-    private BigInteger customRealGasPrice;
-    private BigInteger customGasLimit;
+    private BigInteger customGasPrice;//gwei
     private String walletAddress;
+    private BigInteger inputGasPrice;
+    private BigInteger inputGasLimit;
 
 
     public static void startSendActivity(Activity activity, String fromAddress, String tokenName) {
-
         Intent intent = new Intent(activity, SendActivity.class);
         intent.putExtra(TOKEN_NAME, tokenName);
         intent.putExtra(ADDRESS_FROM, fromAddress);
@@ -97,14 +98,12 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
 
         initRxBus();
 
-        initTestData();
+        initData();
 
 
     }
 
-    private void initTestData() {
-
-        //0x570bdbCb9d434c51e6F1CC9c796E9c4F3F0C09da
+    private void initData() {
         binding.etSendWalletAddress.setText("0x570bdbCb9d434c51e6F1CC9c796E9c4F3F0C09da");
         binding.tvTransferAmount.setText("1");
 
@@ -150,18 +149,18 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                         if (ecKeyPair == null) status = WALLET_INVALID_PASSWORD;
 
                         if (status != 0) {
-                            RxBus.getInstance().post(ACTION_SEND_ERROR, Integer.class);
+                            RxBus.getInstance().post(ACTION_SEND_ERROR, status);
                             return;
                         }
 
                         /**    sign    **/
                         String signHex = OCPWalletUtils.signTransaction(ecKeyPair, binding.tvTransferAmount.getText().toString().trim(),
-                                Constans.currentWallet.getWalletAddress(),
-                                gasPrice.toString(),
-                                gasLimit.toString(),
+                                OCPWallet.getCurrentWallet().getWalletAddress(),
+                                inputGasPrice.toString(),
+                                inputGasLimit.toString(),
                                 "",
                                 getErc20Address(),
-                                zipSignBean.getEtherScanJsonrpcResponse().getDicemalFromDex()
+                                zipSignBean.getEtherScanJsonrpcResponse().getDecimalFromDex()
                         );
                         /**  send transaction **/
                         if (!signHex.startsWith("0x")) return;
@@ -171,18 +170,23 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         addDisposable(disposableSign);
 
 
+        /** post raw transaction **/
         Disposable txSendTx = RxBus.getInstance()
                 .toObservable(ACTION_TRANSACTION_SEND_TX, Object.class)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object s) throws Exception {
-
+                        dismissLoading();
+                        MyLog.i(s.toString());
+                        WarmDialog.showTip(SendActivity.this, s.toString());
                     }
                 });
         addDisposable(txSendTx);
 
         Disposable statusResponse = RxBus.getInstance()
                 .toObservable(ACTION_SEND_ERROR, Integer.class)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer s) throws Exception {
@@ -190,11 +194,11 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                         switch (s) {
                             case WALLET_INVALID_PASSWORD:
                                 dismissLoading();
-                                WarmDialog.getInstance(SendActivity.this).setTip("Wrong Password");
+                                WarmDialog.showTip(SendActivity.this, "Wrong Password");
                                 break;
                             case WALLET_NO_KEYSTORE:
                                 dismissLoading();
-                                WarmDialog.getInstance(SendActivity.this).setTip("Can't find  keystore");
+                                WarmDialog.showTip(SendActivity.this, "Can't find  keystore");
                                 break;
                         }
                     }
@@ -263,11 +267,16 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         progressChanged(10);
     }
 
+    /**
+     * update  gasPrice ; seekBar only change gasPrice
+     *
+     * @param i
+     */
     private void progressChanged(int i) {
-        if (i == 0) i = 1;
-        BigDecimal gasPriceD = new BigDecimal(gasPrice);
-        gasLimit = gasUnit.multiply(new BigInteger(i + ""));
-        BigDecimal transactionFee = getTransactionFee(gasPriceD, new BigDecimal(gasLimit));
+        MyLog.i("process" + i);
+        if (i == 0) i = 10;
+        gasPrice = new BigInteger(i + "").multiply(OCPWallet.getMinGasPrice()).divide(new BigInteger("10"));
+        BigDecimal transactionFee = getTransactionFee(new BigDecimal(gasPrice), new BigDecimal(gasLimit));
         binding.tvSeekBarGasFee.setText(transactionFee.toString() + " ETH");
     }
 
@@ -296,17 +305,17 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 showPwdDialog();
             }
         });
-        BigInteger sGasPrice = isSimpleMode ? gasPrice : customGasPrice;
-        BigInteger sGasLimit = isSimpleMode ? gasLimit : customGasLimit;
+        inputGasPrice = isSimpleMode ? gasPrice : OCPWallet.gwei2Wei(customGasPrice);
+        inputGasLimit = isSimpleMode ? gasLimit : customGas;
 
         Window win = txDetailDialog.getWindow();
         win.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
         txDetailDialog.show();
         txDetailDialog.setData(getString(R.string.dialog_tx_detail_transfer),
-                Constans.currentWallet.getWalletAddress(),
+                OCPWallet.getCurrentWallet().getWalletAddress(),
                 binding.etSendWalletAddress.getText().toString().trim(),
-                sGasPrice,
-                sGasLimit,
+                inputGasPrice,
+                inputGasLimit,
                 binding.tvTransferAmount.getText().toString().trim()
         );
 
@@ -335,41 +344,45 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
             return false;
         }
         /** send same address **/
-        if (Constans.currentWallet.getWalletAddress().equals(binding.etSendWalletAddress.getText().toString().trim())) {
+        if (OCPWallet.getCurrentWallet().getWalletAddress().equals(binding.etSendWalletAddress.getText().toString().trim())) {
             Toast.makeText(SendActivity.this, "Invalid Address", Toast.LENGTH_LONG).show();
             return false;
         }
-        /** compare balance **/
-
-
-        BigInteger bigInteger = new BigInteger(binding.tvTransferAmount.getText().toString());
-        if (bigInteger.compareTo(new BigInteger(0 + "")) < 0) {
+        /** todo compare balance **/
+        Double amount = Double.valueOf(binding.tvTransferAmount.getText().toString());
+//        BigInteger bigInteger = new BigInteger(binding.tvTransferAmount.getText().toString());
+//        if (bigInteger.compareTo(new BigInteger(0 + "")) < 0) {
+        if (amount < 0) {
             Toast.makeText(SendActivity.this, "Not Enough Amount", Toast.LENGTH_LONG).show();
             return false;
         }
 
+        /**    data hex **/
+        boolean validHex = RegularExpressionUtils.valid(binding.tvNote.getText().toString().trim(), Constans.REGULAR.REGULAR_HEX);
+        if (!validHex && !StringUtil.isEmpty(binding.tvNote.getText().toString())) {
+            Toast.makeText(SendActivity.this, "input error  eg: 0x123" + OCPWallet.getMinGasLimit().toString(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         /** check arg **/
-
-
         if (!isSimpleMode) {
-
+            /** min gasPrice **/
             customGasPrice = new BigInteger(binding.etCustomGasPrice.getText().toString());
-            customGas = new BigInteger(binding.etCustomGas.toString());
-            BigInteger cutomHex = new BigInteger(binding.etCustomHex.toString());
-
-            if (isPositive(customGasPrice) && isPositive(customGas)) {
-                Toast.makeText(SendActivity.this, "Not Enough Amount", Toast.LENGTH_LONG).show();
+            BigInteger customGasWei = OCPWallet.gwei2Wei(customGasPrice);
+            if (customGasPrice == null || customGasWei.longValue() < OCPWallet.getMinGasPrice().longValue()) {
+                BigDecimal bigDecimal = OCPWallet.wei2Gwei(OCPWallet.getMinGasPrice());
+                Toast.makeText(SendActivity.this, "gas price is to low,eg: " + bigDecimal.toString(), Toast.LENGTH_LONG).show();
                 return false;
             }
-            customRealGasPrice = customGasPrice.multiply(new BigInteger("100000000"));
+            /** min gasLimit **/
+            customGas = new BigInteger(binding.etCustomGas.getText().toString());
+            if (customGas == null || customGas.longValue() < OCPWallet.getMinGasLimit().longValue()) {
+                Toast.makeText(SendActivity.this, "gas limit is to low,eg: " + OCPWallet.getMinGasLimit().toString(), Toast.LENGTH_LONG).show();
+                return false;
+            }
+
         }
         return true;
-    }
-
-
-    public boolean isPositive(BigInteger value) {
-        return value.compareTo(new BigInteger("0")) > 0;
-
     }
 
 

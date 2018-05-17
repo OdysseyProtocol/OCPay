@@ -11,20 +11,25 @@
     </declare-styleable>
 
 
-
     <declare-styleable name="FlowLayout">
-        <attr name="flFlow" format="boolean"/>
+        <attr name="flFlow" format="boolean" />
         <attr name="flChildSpacing" format="enum|dimension">
-            <enum name="auto" value="-65536"/>
+            <enum name="auto" value="-65536" />
         </attr>
         <attr name="flChildSpacingForLastRow" format="enum|dimension">
-            <enum name="auto" value="-65536"/>
-            <enum name="align" value="-65537"/>
+            <enum name="auto" value="-65536" />
+            <enum name="align" value="-65537" />
         </attr>
         <attr name="flRowSpacing" format="enum|dimension">
-            <enum name="auto" value="-65536"/>
+            <enum name="auto" value="-65536" />
         </attr>
-        <attr name="flRtl" format="boolean"/>
-        <attr name="flMaxRows" format="integer"/>
+        <attr name="flRtl" format="boolean" />
+        <attr name="flMaxRows" format="integer" />
     </declare-styleable>
+
+    <string-array name="language" translatable="false">
+        <item>English</item>
+        <item>简体中文</item>
+    </string-array>
+
 </resources>

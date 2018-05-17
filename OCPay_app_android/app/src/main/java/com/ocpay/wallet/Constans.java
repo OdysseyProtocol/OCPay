@@ -1,7 +1,5 @@
 package com.ocpay.wallet;
 
-import com.ocpay.wallet.greendao.WalletInfo;
-
 /**
  * Created by y on 2018/4/16.
  */
@@ -108,6 +106,8 @@ public class Constans {
         public final static String REGULAR_MNEMONIC = "^([a-zA-Z]+ )+[a-zA-Z]+$";
 
         public final static String REGULAR_ETH_ADDRESS = "^0x([a-zA-Z0-9]{40})$";
+
+        public final static String REGULAR_HEX="^0[xX][0-9a-fA-F]+";
     }
 
 
@@ -117,7 +117,7 @@ public class Constans {
     }
 
     public static class TRANSFER {
-        public final static String DEFAULT_GAS_PRICE = "5000000000";
+        public final static String DEFAULT_GAS_PRICE = "4000000000";
         public final static String DEFAULT_GAS_LIMIT = "21000";
 
 
@@ -128,8 +128,6 @@ public class Constans {
         public final static int WALLET_INVALID_PASSWORD = 2;
         public final static int WALLET_NO_KEYSTORE = 1;
     }
-
-    public static WalletInfo currentWallet;
 
 
 }

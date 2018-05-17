@@ -122,8 +122,8 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
 //        manageListsAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
 //            @Override
 //            public void onItemClicked(RecyclerView.Adapter adapter, Object data, int position) {
-//                if (data instanceof WalletInfo) {
-//                    WalletDetailActivity.startWalletDetailActivity(TokenTransactionsActivity.this, ((WalletInfo) data).getWalletAddress(), ((WalletInfo) data).getWalletName());
+//                if (data instanceof OWalletInfo) {
+//                    WalletDetailActivity.startWalletDetailActivity(TokenTransactionsActivity.this, ((OWalletInfo) data).getWalletAddress(), ((OWalletInfo) data).getWalletName());
 //                }
 //            }
 //        });

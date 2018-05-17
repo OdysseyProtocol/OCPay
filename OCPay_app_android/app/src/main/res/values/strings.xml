@@ -92,6 +92,18 @@
     <string name="activity_about_us_check_version">Check Version</string>
     <string name="activity_about_us_product_guide">Product Guide</string>
     <string name="activity_about_us_version_log">Version Log</string>
-    <string name="activity_about_us_privacy_poicy">Privacy Policy</string>
+    <string name="activity_about_us_privacy_policy">Privacy Policy</string>
+    <string name="activity_system_settings">System Settings</string>
+    <string name="activity_settings_language">Language</string>
+    <string name="activity_settings_unit">Currency Unit</string>
+    <string name="activity_currency_unit">Currency Unit</string>
+    <string name="loading_tip_trading">Trading...</string>
+    <string name="dialog_tx_detail_order_info">Order information</string>
+    <string name="dialog_tx_detail_from">Transfer From</string>
+    <string name="dialog_tx_detail_to">Transfer To</string>
+    <string name="dialog_tx_detail_fee">Fee</string>
+    <string name="dialog_tx_detail_amount">Amount</string>
+    <string name="dialog_tx_detail_transfer">Transfer</string>
+    <string name="unit_gwei">gwei</string>
 
 </resources>

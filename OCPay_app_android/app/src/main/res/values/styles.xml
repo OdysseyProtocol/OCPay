@@ -18,6 +18,15 @@
         <!--<item name="android:windowAnimationStyle">@style/default_animation_down</item>-->
     </style>
 
+    <style name="OSplashThemeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--选中状态icon的颜色和字体颜色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowBackground">@mipmap/ic_splash</item>
+        <!--<item name="android:windowAnimationStyle">@style/default_animation_down</item>-->
+    </style>
+
 
     <!--菜单item-->
     <style name="HeadFunctionTextStyle">
@@ -71,7 +80,7 @@
 
 
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowBackground">@drawable/shape_corner_dialog</item>
+        <item name="android:windowBackground">@color/color_transparent</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -118,6 +127,18 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="txDetailDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/color_transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:width"></item>-->
+        <!--<item name="android:layout_width">match_parent</item>-->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 

@@ -74,7 +74,7 @@ public class PrivateKeyFragment extends BaseFragment<FragmentPrivateKeyBinding> 
         }
         //rep pwd
         String repPwd = bindingView.etCheckPwd.getText().toString().trim();
-        if (pwd.equals(repPwd)) {
+        if (!pwd.equals(repPwd)) {
             Toast.makeText(MyApp.getContext(), "password is different", Toast.LENGTH_LONG).show();
             return false;
         }

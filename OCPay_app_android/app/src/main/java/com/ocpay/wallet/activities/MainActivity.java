@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ocpay.wallet.Constans;
-import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.WalletsAdapter;
 import com.ocpay.wallet.databinding.ActivityMainBinding;
@@ -30,16 +29,18 @@ import com.ocpay.wallet.fragment.mainhome.NearbyFragment;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.OCPPrefUtils;
 import com.ocpay.wallet.widget.ScrollViewPager;
 import com.ocpay.wallet.widget.customview.BottomActionBar;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
-import com.snow.commonlibrary.utils.PrefUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+
+import static com.ocpay.wallet.http.client.EthScanHttpClientIml.getGasPrice;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
@@ -67,6 +68,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         initContentFragment();
 
+        getGasPrice();
+
+
     }
 
 
@@ -89,7 +93,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 if (data instanceof WalletInfo) {
                     mBinding.drawerLayout.closeDrawers();
                     if (data == walletsAdapter.getWalletInfo()) return;
-                    PrefUtils.putBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET, data);
+                    OCPPrefUtils.setCurrentWallet((WalletInfo) data);
                     walletsAdapter.setWalletInfo((WalletInfo) data);
                     walletsAdapter.notifyDataSetChanged();
                     RxBus.getInstance().post(Constans.RXBUS.ACTION_SELECT_WALLET, data);

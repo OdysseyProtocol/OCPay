@@ -20,7 +20,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/OThemeNoBar">
+            android:screenOrientation="portrait"
+            android:windowBackground="@mipmap/ic_splash"
+            android:theme="@style/OSplashThemeNoBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -93,6 +95,23 @@
         <activity
             android:name=".activities.ContactsCreateActivity"
             android:theme="@style/OThemeNoBar" />
+
+        <activity
+            android:name=".activities.AboutUsActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.SystemSettingsActivity"
+            android:theme="@style/OThemeNoBar" />
+
+        <activity
+            android:name=".activities.LanguageActivity"
+            android:theme="@style/OThemeNoBar" />
+        <activity
+            android:name=".activities.CurrencyUnitActivity"
+            android:theme="@style/OThemeNoBar" />
+        <!--<activity-->
+        <!--android:name=".activities.AboutUsActivity"-->
+        <!--android:theme="@style/OThemeNoBar" />-->
 
 
     </application>

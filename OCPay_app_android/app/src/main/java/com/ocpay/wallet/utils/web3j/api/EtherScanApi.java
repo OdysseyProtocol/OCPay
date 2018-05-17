@@ -18,6 +18,10 @@ public class EtherScanApi {
      * @param ROPSTEN_API
      * @param MAIN_CHAIN_ID
      */
+
+    static {
+
+    }
     private String token;
     public static int MAIN_CHAIN_ID = 1;
     public static int ROPSTEN_CHAIN_ID = 3;
@@ -27,7 +31,7 @@ public class EtherScanApi {
 
     public static String Url = ETH_API;
     //        public static int CHAIN_ID = ROPSTEN_CHAIN_ID;
-    public static int CHAIN_ID = MAIN_CHAIN_ID;
+    public static int CHAIN_ID = ROPSTEN_CHAIN_ID;
 
     /**
      *

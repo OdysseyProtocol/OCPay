@@ -9,7 +9,6 @@
         android:orientation="vertical"
         tools:context=".fragment.mainhome.HomeFragment">
 
-
         <include
             android:id="@+id/include_head"
             layout="@layout/fragment_home_head" />

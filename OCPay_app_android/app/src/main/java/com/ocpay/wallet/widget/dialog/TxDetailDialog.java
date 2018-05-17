@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ocpay.wallet.MyApp;
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.databinding.DialogTransDetailsBinding;
+import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.snow.commonlibrary.log.MyLog;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 
@@ -112,15 +115,17 @@ public class TxDetailDialog extends AlertDialog implements View.OnClickListener 
 
     public void setData(String orderInfo, String from, String to, BigInteger gasPrice, BigInteger gasLimit, String amount) {
         MyLog.i("dialog:setData");
-
         if (binding == null) return;
         MyLog.i("gasPrice:" + gasPrice);
         MyLog.i("gasLimit:" + gasLimit);
         binding.tvOrderInfo.setText(orderInfo);
-        binding.tvOrderFrom.setText(from);
-        binding.tvOrderTo.setText(to);
+        binding.tvOrderFrom.setText(OCPWalletUtils.foldWalletAddress(from));
+        binding.tvOrderTo.setText(OCPWalletUtils.foldWalletAddress(to));
         binding.tvTransferAmount.setText(amount);
-        binding.tvFeeDetail.setText(orderInfo);
-        binding.tvTransferFee.setText(orderInfo);
+        String feeDetail = "Gas(%s)*Gas Price(%s gwei)";
+        String format = String.format(feeDetail, gasLimit, OCPWallet.wei2Gwei(gasPrice).toString());
+        BigDecimal eth = OCPWalletUtils.getTransactionFee(new BigDecimal(gasPrice), new BigDecimal(gasLimit));
+        binding.tvFeeDetail.setText(format);
+        binding.tvTransferFee.setText(eth + " ETH");
     }
 }

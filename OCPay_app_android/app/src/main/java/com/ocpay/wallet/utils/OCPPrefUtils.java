@@ -5,6 +5,7 @@ import android.content.Context;
 import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.bean.Contact;
+import com.ocpay.wallet.greendao.WalletInfo;
 import com.snow.commonlibrary.utils.PrefUtils;
 import com.snow.commonlibrary.utils.StringUtil;
 
@@ -56,7 +57,6 @@ public class OCPPrefUtils {
     }
 
 
-
     public static String getLanguage(Context context) {
         return PrefUtils.getString(context, Constans.PREFKEY.APP_LANGUAGE, "English");
     }
@@ -66,4 +66,13 @@ public class OCPPrefUtils {
     }
 
 
+    public static void setCurrentWallet(WalletInfo data) {
+        PrefUtils.putBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET, data);
+    }
+
+
+
+    public static WalletInfo getCurrentWallet(){
+      return (WalletInfo) PrefUtils.getBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET);
+    }
 }
