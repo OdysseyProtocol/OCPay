@@ -11,13 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ocpay.wallet.Constans;
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.TokenTransferAdapter;
 import com.ocpay.wallet.adapter.WalletManageListsAdapter;
 import com.ocpay.wallet.databinding.ActivityTokenDetailsBinding;
 import com.ocpay.wallet.http.client.HttpClient;
 import com.ocpay.wallet.http.rx.RxBus;
-import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.web3j.response.EthTransaction;
 import com.ocpay.wallet.utils.web3j.response.EthTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
@@ -33,9 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.ocpay.wallet.Constans.RXBUS.ACTION_UPDATE_TRANSACTION_LIST;
 import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
-import static com.ocpay.wallet.Constans.TEST.WALLET_ADDRESS;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
-import static com.ocpay.wallet.Constans.WALLET.WALLET_NAME;
 
 public class TokenTransactionsActivity extends BaseActivity implements View.OnClickListener, BaseAdapter.OnItemClickListener {
 
@@ -45,11 +43,9 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
     private String tokenName;
     private TokenTransferAdapter transferAdapter;
 
-    public static void startTokenTransactionActivity(Activity activity, String walletAddress, String tokenName) {
-
+    public static void startTokenTransactionActivity(Activity activity, String tokenName) {
         Intent intent = new Intent(activity, TokenTransactionsActivity.class);
         intent.putExtra(TOKEN_NAME, tokenName);
-        intent.putExtra(WALLET_NAME, walletAddress);
         activity.startActivity(intent);
 
     }
@@ -160,7 +156,7 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
 
 
     public void getTokenTrList() {
-        String walletAddress = OCPWalletUtils.walletAddress32b(WALLET_ADDRESS);
+        String walletAddress = OCPWallet.getCurrentWallet().getWalletAddress();
         HttpClient.Builder
                 .getEthScanServer()
                 .getTokenTransactionList(OCN_TOKEN_ADDRESS, walletAddress, walletAddress, "1000", "last")

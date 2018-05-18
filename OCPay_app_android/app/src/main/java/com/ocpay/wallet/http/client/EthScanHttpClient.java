@@ -1,6 +1,5 @@
 package com.ocpay.wallet.http.client;
 
-import com.ocpay.wallet.utils.web3j.response.EthBalanceResponse;
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
@@ -33,7 +32,7 @@ public interface EthScanHttpClient {
      * @return
      */
     @GET("api?module=account&action=balance&tag=latest")
-    Observable<EthBalanceResponse> getEthBalance(@Query("address") String address);
+    Observable<TokenBalanceResponse> getEthBalance(@Query("address") String address);
 
 
     @GET("api?module=proxy&action=eth_call&tag=latest")
@@ -93,7 +92,9 @@ public interface EthScanHttpClient {
 
 
     @GET("api?module=proxy&action=eth_sendRawTransaction")
-    Observable<Object> sendTransaction(@Query("hex") String hex);
+    Observable<EtherScanJsonrpcResponse> sendTransaction(@Query("hex") String hex);
+
+
 
 
 }

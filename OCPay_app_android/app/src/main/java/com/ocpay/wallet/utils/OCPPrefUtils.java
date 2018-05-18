@@ -9,6 +9,7 @@ import com.ocpay.wallet.greendao.WalletInfo;
 import com.snow.commonlibrary.utils.PrefUtils;
 import com.snow.commonlibrary.utils.StringUtil;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,8 +72,18 @@ public class OCPPrefUtils {
     }
 
 
-
-    public static WalletInfo getCurrentWallet(){
-      return (WalletInfo) PrefUtils.getBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET);
+    public static WalletInfo getCurrentWallet() {
+        return (WalletInfo) PrefUtils.getBean(MyApp.getContext(), Constans.WALLET.CURRENT_WALLET);
     }
+
+
+    public static void setTokenPrice(String tokenName, BigDecimal b) {
+        PrefUtils.setDouble(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_TOKEN_PRICE + tokenName, b.doubleValue());
+    }
+
+
+    public static BigDecimal getTokenPrice(String tokenName) {
+        return new BigDecimal(PrefUtils.getDouble(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_TOKEN_PRICE + tokenName, 0));
+    }
+
 }

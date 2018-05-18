@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.ocpay.wallet.http.HttpUtils;
+import com.ocpay.wallet.http.client.DataBlockClientIml;
 
 import java.math.BigInteger;
 import java.util.Locale;
@@ -39,9 +40,10 @@ public class MyApp extends Application {
     }
 
     private void initEthInfo() {
-        //get gas price
-//        EthScanHttpClientIml.getGasPrice();
-
+        //update rate
+        DataBlockClientIml.getPairOCN_ETH(-1);
+        //update ocn_eth
+        DataBlockClientIml.getRate();
 
 
     }

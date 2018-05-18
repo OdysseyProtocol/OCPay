@@ -7,20 +7,20 @@ import org.web3j.crypto.Keys;
 /**
  * Created by y on 2018/3/5.
  */
-public class WalletInfo {
+public class OWalletInfo {
 
     ECKeyPair ecKeyPair;
     String walletAddress;
     String privateKey;
 
 
-    public WalletInfo(ECKeyPair ecKeyPair) {
+    public OWalletInfo(ECKeyPair ecKeyPair) {
         this.ecKeyPair = ecKeyPair;
         this.walletAddress = Keys.getAddress(ecKeyPair);
         this.privateKey = OWalletUtils.getWalletPrivateKey(ecKeyPair);
     }
 
-    public WalletInfo(String privateKey) {
+    public OWalletInfo(String privateKey) {
         this.ecKeyPair = OWalletUtils.getEckeyPair(privateKey);
         this.walletAddress = Keys.getAddress(ecKeyPair);
         this.privateKey = privateKey;

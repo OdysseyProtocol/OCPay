@@ -1,10 +1,12 @@
 package com.ocpay.wallet.http.client;
 
+import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.TokenUtils;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
-import com.ocpay.wallet.utils.web3j.response.EthBalanceResponse;
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
+import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
 import com.ocpay.wallet.utils.web3j.transaction.OWalletTransaction;
 import com.snow.commonlibrary.log.MyLog;
 
@@ -25,21 +27,22 @@ import static com.ocpay.wallet.Constans.TEST.WALLET_ADDRESS;
 public class EthScanHttpClientIml {
 
 
-    public static void showBalance() {
+    public static void getEthBalanceOf(String address, final String tokenName) {
         HttpClient.Builder
                 .getEthScanServer()
-                .getEthBalance(WALLET_ADDRESS)
+                .getEthBalance(address)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<EthBalanceResponse>() {
+                        new Observer<TokenBalanceResponse>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                             }
 
                             @Override
-                            public void onNext(EthBalanceResponse o) {
-                                MyLog.i("onNext" + o.toString());
+                            public void onNext(TokenBalanceResponse o) {
+                                o.setTokenName(tokenName);
+                                RxBus.getInstance().post(Constans.RXBUS.ACTION_TOKEN_BALANCE_UPDATE, o);
 
                             }
 
@@ -58,26 +61,29 @@ public class EthScanHttpClientIml {
                 );
     }
 
-    public static void getTokenBalanceOf() {
+    public static void getTokenBalanceOf(String address, final String tokenName) {
+        if (TokenUtils.ETH.equals(tokenName)) {
+            getEthBalanceOf(address, tokenName);
+            return;
+        }
 
-        String data = OWalletTransaction.getBalanceOfTokenData(WALLET_ADDRESS);
+        String data = OWalletTransaction.getBalanceOfTokenData(address);
         HttpClient.Builder
                 .getEthScanServer()
-                .getTokenBalance(OCN_TOKEN_ADDRESS, data)
+                .getTokenBalance(TokenUtils.getTokenAddress(tokenName), data)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<Object>() {
+                        new Observer<TokenBalanceResponse>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
                                 MyLog.i("onSubscribe");
                             }
 
                             @Override
-                            public void onNext(Object o) {
-                                MyLog.i("onNext" + o.toString());
-
+                            public void onNext(TokenBalanceResponse o) {
+                                o.setTokenName(tokenName);
+                                RxBus.getInstance().post(Constans.RXBUS.ACTION_TOKEN_BALANCE_UPDATE, o);
                             }
 
                             @Override
@@ -203,39 +209,6 @@ public class EthScanHttpClientIml {
                 );
     }
 
-    public static void sendRaw() {
-        HttpClient.Builder
-                .getEthScanServer()
-                .getEthBalance(WALLET_ADDRESS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<EthBalanceResponse>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                            }
-
-                            @Override
-                            public void onNext(EthBalanceResponse o) {
-                                MyLog.i("onNext" + o.toString());
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                MyLog.i("onError" + e.getMessage());
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                MyLog.i("onComplete");
-
-                            }
-                        }
-                );
-    }
-
 
     public static void getAddressNonce(final int requestId, String walletAddress) {
         HttpClient.Builder
@@ -279,13 +252,13 @@ public class EthScanHttpClientIml {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<Object>() {
+                        new Observer<EtherScanJsonrpcResponse>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                             }
 
                             @Override
-                            public void onNext(Object o) {
+                            public void onNext(EtherScanJsonrpcResponse o) {
                                 MyLog.i("onNext" + o.toString());
                                 RxBus.getInstance().post(requestId, o);
 

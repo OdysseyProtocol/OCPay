@@ -83,7 +83,7 @@ public class GatheringActivity extends BaseActivity implements View.OnClickListe
                         boolean valid = RegularExpressionUtils.valid(amount, REGULAR_FLOAT);
                         if (!valid) {
                             shareBinding.etAmount.setText("");
-                            Toast.makeText(MyApp.getContext(), "Input Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), "Input ErrorInfo", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         updateQRCode(walletAddress + ":amount:" + shareBinding.etAmount.getText().toString());

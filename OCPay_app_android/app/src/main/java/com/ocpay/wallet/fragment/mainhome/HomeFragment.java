@@ -2,6 +2,7 @@ package com.ocpay.wallet.fragment.mainhome;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -13,7 +14,9 @@ import com.ocpay.wallet.R;
 import com.ocpay.wallet.activities.GatheringActivity;
 import com.ocpay.wallet.activities.QRReaderActivity;
 import com.ocpay.wallet.activities.SendActivity;
+import com.ocpay.wallet.activities.TokenTransactionsActivity;
 import com.ocpay.wallet.adapter.HomePageAdapter;
+import com.ocpay.wallet.adapter.TokenBalanceAdapter;
 import com.ocpay.wallet.bean.home.Banner;
 import com.ocpay.wallet.bean.home.BannerBean;
 import com.ocpay.wallet.bean.home.Generalize;
@@ -21,10 +24,13 @@ import com.ocpay.wallet.bean.home.GeneralizeBean;
 import com.ocpay.wallet.bean.home.Goods;
 import com.ocpay.wallet.bean.home.GoodsBean;
 import com.ocpay.wallet.bean.home.HomeBean;
+import com.ocpay.wallet.bean.home.TokenBalanceBean;
 import com.ocpay.wallet.databinding.FragmentHomeBinding;
 import com.ocpay.wallet.fragment.BaseFragment;
 import com.ocpay.wallet.greendao.WalletInfo;
+import com.ocpay.wallet.http.client.EthScanHttpClientIml;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
 import com.snow.commonlibrary.utils.PrefUtils;
 
 import java.util.ArrayList;
@@ -38,12 +44,17 @@ import static com.ocpay.wallet.Constans.HOME.GENERALIZE;
 import static com.ocpay.wallet.Constans.HOME.MERCHANT;
 import static com.ocpay.wallet.Constans.HOME.WHEEL_AD;
 import static com.ocpay.wallet.activities.QRReaderActivity.QR_CODE_MODE_PARSE;
+import static com.ocpay.wallet.utils.TokenUtils.ETH;
+import static com.ocpay.wallet.utils.TokenUtils.TOKEN_OCN;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.foldWalletAddress;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements View.OnClickListener {
 
 
     private WalletInfo walletInfo;
+    private HomePageAdapter mainAdapter;
+    private TokenBalanceAdapter tokenBalanceAdapter;
+    private boolean isShowToken;
 
     @Override
     public int setContentView() {
@@ -63,7 +74,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         initRxBus();
         updateInfo(walletInfo);
         initListener();
-
+        initToken();
+        getTokenBalance();
 
     }
 
@@ -85,9 +97,31 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                         if (walletInfo != null) updateInfo(walletInfo);
                     }
                 });
-
-
         addDisposable(disposable);
+        Disposable tokenUpdate = RxBus.getInstance()
+                .toObservable(Constans.RXBUS.ACTION_TOKEN_BALANCE_UPDATE, TokenBalanceResponse.class)
+                .subscribe(new Consumer<TokenBalanceResponse>() {
+                    @Override
+                    public void accept(TokenBalanceResponse tokenBalanceResponse) throws Exception {
+                        updateTokenAdapter(tokenBalanceResponse);
+
+                    }
+                });
+        addDisposable(tokenUpdate);
+
+
+    }
+
+    private void updateTokenAdapter(TokenBalanceResponse tokenBalanceResponse) {
+        if (tokenBalanceAdapter.getmData() == null || tokenBalanceAdapter.getmData().size() <= 0)
+            return;
+        for (int i = 0; i < tokenBalanceAdapter.getmData().size(); i++) {
+            if (tokenBalanceResponse.getTokenName().equals(tokenBalanceAdapter.getmData().get(i).getTokenName())) {
+                tokenBalanceAdapter.getmData().get(i).setTokenBalance(tokenBalanceResponse.getTokenBalance().toString());
+                tokenBalanceAdapter.notifyDataSetChanged();
+            }
+        }
+
     }
 
 
@@ -100,7 +134,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
     private void initView() {
 
-        HomePageAdapter mainAdapter = new HomePageAdapter(getContext());
+        mainAdapter = new HomePageAdapter(getContext());
         RecyclerView.LayoutManager manager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 
         mainAdapter.setData(getHomeBeans());
@@ -173,23 +207,25 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
             case R.id.iv_address_qr:
                 GatheringActivity.startGatheringActivity(getActivity(), "OCN", walletInfo.getWalletAddress());
-
                 break;
-
             case R.id.iv_hide_asset:
                 hideAsset();
                 break;
             case R.id.iv_re_change:
-
+                isShowToken = !isShowToken;
+                int tbVisible = isShowToken ? View.GONE : View.VISIBLE;
+                int tokenBoardVisible = isShowToken ? View.VISIBLE : View.GONE;
+                bindingView.rlToken.setVisibility(tokenBoardVisible);
+                bindingView.rlView.setVisibility(tbVisible);
                 break;
             case R.id.ll_scan:
                 QRReaderActivity.startQRReaderActivity(getActivity(), -1, QR_CODE_MODE_PARSE);
                 break;
             case R.id.ll_send:
-                SendActivity.startSendActivity(getActivity(), walletInfo.getWalletAddress(), "OCN");
+                SendActivity.startSendActivity(getActivity(), walletInfo.getWalletAddress(), TOKEN_OCN);
                 break;
             case R.id.ll_record:
-
+                TokenTransactionsActivity.startTokenTransactionActivity(getActivity(), TOKEN_OCN);
                 break;
             case R.id.iv_slide_menu:
                 RxBus.getInstance().post(Constans.RXBUS.ACTION_OPEN_DRAWER, 1);
@@ -207,5 +243,23 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         PrefUtils.putBoolean(MyApp.getContext(), HIDE_ASSET, !isHide);
     }
 
+
+    public void initToken() {
+        tokenBalanceAdapter = new TokenBalanceAdapter(getContext());
+        bindingView.rlToken.setLayoutManager(new LinearLayoutManager(getContext()));
+        bindingView.rlToken.setAdapter(tokenBalanceAdapter);
+        List<TokenBalanceBean> list = new ArrayList<>();
+        list.add(new TokenBalanceBean("https://resource.jinse.com/phenix/img/coin/ETH.png", ETH, 0 + ""));
+        list.add(new TokenBalanceBean("https://resource.jinse.com/phenix/img/coin/EOS.png", TOKEN_OCN, 0 + ""));
+        tokenBalanceAdapter.setData(list);
+    }
+
+
+    public void getTokenBalance() {
+        for (TokenBalanceBean tb : tokenBalanceAdapter.getmData()) {
+            EthScanHttpClientIml.getTokenBalanceOf(OCPWallet.getCurrentWallet().getWalletAddress(), tb.getTokenName());
+//            DataBlockClientIml.getTokenPrice(Constans.RXBUS.ACTION_TOKEN_PRICE_UPDATE, tb.getTokenName());
+        }
+    }
 
 }

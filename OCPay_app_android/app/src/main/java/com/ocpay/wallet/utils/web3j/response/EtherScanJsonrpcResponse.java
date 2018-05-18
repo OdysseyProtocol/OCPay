@@ -10,6 +10,7 @@ public class EtherScanJsonrpcResponse {
     public String jsonrpc;
     public String result;
     public String id;
+    public ErrorInfo error;
 
 
     public BigInteger getDecimalFromDex() {
@@ -20,4 +21,15 @@ public class EtherScanJsonrpcResponse {
             return new BigInteger("0");
         return new BigInteger(result);
     }
+
+    public String getResult() {
+        return result;
+    }
+
+
+
+
+
+
+
 }

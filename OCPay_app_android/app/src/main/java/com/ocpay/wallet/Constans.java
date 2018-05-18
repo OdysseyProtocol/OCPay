@@ -42,6 +42,8 @@ public class Constans {
         public final static String API_ETHSCAN = API_ROPSTEN_ETHSCAN;
         public final static String API_TXHAH = API_ETHSCAN + "tx/";
 
+        public final static String API_DATA_BLOCK = "https://data.block.cc/";
+
 
     }
 
@@ -66,6 +68,9 @@ public class Constans {
         public final static String PREF_KEY_CURRENCY = "pref_key_currency";
 
         public final static String APP_LANGUAGE = "app_language";
+
+        public final static String PREF_KEY_TOKEN_PRICE = "pref_key_token_price";
+
     }
 
 
@@ -96,6 +101,10 @@ public class Constans {
 
         public final static int ACTION_SEND_ERROR = 15;
 
+        public final static int ACTION_TOKEN_BALANCE_UPDATE = 16;
+
+        public final static int ACTION_TOKEN_PRICE_UPDATE = 17;
+
 
     }
 
@@ -107,7 +116,7 @@ public class Constans {
 
         public final static String REGULAR_ETH_ADDRESS = "^0x([a-zA-Z0-9]{40})$";
 
-        public final static String REGULAR_HEX="^0[xX][0-9a-fA-F]+";
+        public final static String REGULAR_HEX = "^0[xX][0-9a-fA-F]+";
     }
 
 

@@ -172,14 +172,21 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
 
         /** post raw transaction **/
         Disposable txSendTx = RxBus.getInstance()
-                .toObservable(ACTION_TRANSACTION_SEND_TX, Object.class)
+                .toObservable(ACTION_TRANSACTION_SEND_TX, EtherScanJsonrpcResponse.class)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Object>() {
+                .subscribe(new Consumer<EtherScanJsonrpcResponse>() {
                     @Override
-                    public void accept(Object s) throws Exception {
-                        dismissLoading();
-                        MyLog.i(s.toString());
-                        WarmDialog.showTip(SendActivity.this, s.toString());
+                    public void accept(EtherScanJsonrpcResponse response) throws Exception {
+                        if(response==null||response.error!=null){
+                            dismissLoading();
+                            String errorMesg =(response==null||response.error!=null)?"error":response.error.getMessage();
+                            WarmDialog.showTip(SendActivity.this, errorMesg);
+                            return;
+                        }
+                        if(response.result.startsWith("0x")){
+
+                        }
+
                     }
                 });
         addDisposable(txSendTx);

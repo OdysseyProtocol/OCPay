@@ -31,16 +31,11 @@ public class MerchantAdapter extends BaseAdapter<Goods, MerchantHolder> {
                 .into(viewHolder.ivGoods);
 
         final String link = data.getLink();
-
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SimpleWebViewActivity.startWebViewActivity(link, mCtx);
             }
         });
-//        viewHolder.tvGoodsName.setText(data.getName());
-//        viewHolder.tvAmount.setText(data.getCurrency() + " " + data.getAmount() + "");
-//        viewHolder.tvHighAmount.setText(data.getCurrency() + " " + data.getRawAmount() + "");
     }
 
 
