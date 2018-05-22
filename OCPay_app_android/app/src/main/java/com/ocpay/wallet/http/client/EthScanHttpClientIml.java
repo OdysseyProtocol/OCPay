@@ -1,7 +1,10 @@
 package com.ocpay.wallet.http.client;
 
 import com.ocpay.wallet.Constans;
+import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.OCPWallet;
+import com.ocpay.wallet.greendao.WalletInfo;
+import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
 import com.ocpay.wallet.http.rx.RxBus;
 import com.ocpay.wallet.utils.TokenUtils;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
@@ -27,7 +30,7 @@ import static com.ocpay.wallet.Constans.TEST.WALLET_ADDRESS;
 public class EthScanHttpClientIml {
 
 
-    public static void getEthBalanceOf(String address, final String tokenName) {
+    public static void getEthBalanceOf(final String address, final String tokenName, final boolean isUpdate) {
         HttpClient.Builder
                 .getEthScanServer()
                 .getEthBalance(address)
@@ -41,8 +44,20 @@ public class EthScanHttpClientIml {
 
                             @Override
                             public void onNext(TokenBalanceResponse o) {
-                                o.setTokenName(tokenName);
-                                RxBus.getInstance().post(Constans.RXBUS.ACTION_TOKEN_BALANCE_UPDATE, o);
+                                //save
+                                if (isUpdate) {
+                                    o.setTokenName(tokenName);
+                                    RxBus.getInstance().post(Constans.RXBUS.ACTION_TOKEN_BALANCE_UPDATE, o);
+                                } else {
+                                    //update sql
+                                    if (o != null && o.getEthBalance() != null) {
+                                        WalletInfo walletInfo = WalletInfoDaoUtils.sqlByAddress(MyApp.getContext(), address);
+                                        if (walletInfo == null) return;
+                                        walletInfo.setEthBalance(o.getEthBalance().toString());
+                                        WalletInfoDaoUtils.update(MyApp.getContext(), walletInfo);
+                                    }
+                                }
+
 
                             }
 
@@ -63,7 +78,7 @@ public class EthScanHttpClientIml {
 
     public static void getTokenBalanceOf(String address, final String tokenName) {
         if (TokenUtils.ETH.equals(tokenName)) {
-            getEthBalanceOf(address, tokenName);
+            getEthBalanceOf(address, tokenName, false);
             return;
         }
 
@@ -314,4 +329,6 @@ public class EthScanHttpClientIml {
                         }
                 );
     }
+
+
 }

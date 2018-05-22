@@ -1,8 +1,12 @@
 package com.ocpay.wallet.http.client;
 
+import com.ocpay.wallet.utils.RateUtils;
+import com.ocpay.wallet.utils.TokenUtils;
 import com.ocpay.wallet.utils.web3j.response.RateResponse;
 import com.ocpay.wallet.utils.web3j.response.SymbolPairResponse;
 import com.ocpay.wallet.utils.web3j.response.TokenPriceResponse;
+
+import java.math.BigDecimal;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,7 +33,12 @@ public class DataBlockClientIml {
 
                             @Override
                             public void onNext(SymbolPairResponse o) {
+                                if (o == null) return;
+                                String s = o.getData().symbol_pair;
 
+                                String[] tokenName = s.split("_");
+
+                                RateUtils.setRatePairs(tokenName[0], tokenName[1], new BigDecimal(o.getData().last));
 
                             }
 
@@ -46,10 +55,10 @@ public class DataBlockClientIml {
                 );
     }
 
-    public static void getRate() {
+    public static void getRate(String base, String to) {
         HttpClient.Builder
                 .getDataBlockServer()
-                .getRate()
+                .getRate(base, to)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -60,7 +69,8 @@ public class DataBlockClientIml {
 
                             @Override
                             public void onNext(RateResponse o) {
-
+                                if (o == null) return;
+                                RateUtils.setRatePairs(o.getData().getBase(), "CNY", new BigDecimal(o.getData().getRates().CNY));
                             }
 
                             @Override
@@ -77,7 +87,7 @@ public class DataBlockClientIml {
     }
 
 
-    public static void getTokenPrice(int requetId,String tokenName) {
+    public static void getTokenPrice(int requetId, String tokenName) {
         HttpClient.Builder
                 .getDataBlockServer()
                 .getTokenPrice(tokenName)
@@ -91,8 +101,10 @@ public class DataBlockClientIml {
 
                             @Override
                             public void onNext(TokenPriceResponse o) {
-//                                o.getTokenPriceData().get(0).name;
-
+                                if (o == null || o.getData() == null || o.getData().size() <= 0)
+                                    return;
+                                TokenPriceResponse.TokenPriceDate tokenPriceDate = o.getData().get(0);
+                                TokenUtils.setTokenPrice(tokenPriceDate.symbol, new BigDecimal(tokenPriceDate.price));
                             }
 
                             @Override

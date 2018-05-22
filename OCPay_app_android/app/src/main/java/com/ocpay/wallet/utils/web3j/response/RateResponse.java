@@ -33,7 +33,7 @@ public class RateResponse {
         return data;
     }
 
-    private   class Data {
+    public   class Data {
 
         private String base;
         private long timestamp;
@@ -65,8 +65,7 @@ public class RateResponse {
 
     }
 
-    private  class Rates {
-
+    public  class Rates {
         public double BITCNY;
         public double USDT;
         public double USD;

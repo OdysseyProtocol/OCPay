@@ -34,7 +34,7 @@ public class SymbolPairResponse {
         return data;
     }
 
-    private class Data {
+    public  class Data {
 
         public long timestamps;
         public double last;

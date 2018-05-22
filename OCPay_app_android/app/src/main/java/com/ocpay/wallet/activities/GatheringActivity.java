@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.databinding.ActivityGatheringBinding;
+import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.qr.QRCodeUtils;
 import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.utils.RegularExpressionUtils;
@@ -98,7 +99,7 @@ public class GatheringActivity extends BaseActivity implements View.OnClickListe
     private void initView() {
         tokenName = getIntent().getStringExtra(TOKEN_NAME);
         walletAddress = getIntent().getStringExtra(WALLET_ADDRESS);
-        shareBinding.tvWalletAddress.setText(walletAddress);
+        shareBinding.tvWalletAddress.setText(OCPWalletUtils.foldWalletAddress(walletAddress));
         shareBinding.includeActionBar.ivBack.setOnClickListener(this);
         shareBinding.includeActionBar.actionBarTitle.setText(R.string.activity_qr_code);
         shareBinding.includeActionBar.toolbarMenuIcon.setImageResource(R.mipmap.ic_share);

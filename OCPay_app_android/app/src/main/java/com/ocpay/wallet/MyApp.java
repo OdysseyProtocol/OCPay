@@ -10,6 +10,9 @@ import com.ocpay.wallet.http.client.DataBlockClientIml;
 import java.math.BigInteger;
 import java.util.Locale;
 
+import static com.ocpay.wallet.utils.CurrencyUtils.CNY;
+import static com.ocpay.wallet.utils.CurrencyUtils.USD;
+
 /**
  * Created by y on 2018/4/16.
  */
@@ -35,7 +38,7 @@ public class MyApp extends Application {
         mContext = this;
         HttpUtils.getInstance().init(mContext, true);
 
-        initEthInfo();
+//        initEthInfo();
 
     }
 
@@ -43,7 +46,7 @@ public class MyApp extends Application {
         //update rate
         DataBlockClientIml.getPairOCN_ETH(-1);
         //update ocn_eth
-        DataBlockClientIml.getRate();
+        DataBlockClientIml.getRate(USD,CNY);
 
 
     }

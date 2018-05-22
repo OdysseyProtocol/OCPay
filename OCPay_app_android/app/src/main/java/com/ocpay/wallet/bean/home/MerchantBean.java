@@ -13,12 +13,12 @@ import java.util.List;
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class GoodsBean implements Serializable {
+public class MerchantBean implements Serializable {
 
     private int currentIndex;
     private int totalCount;
     private int totalPage;
-    private List<Goods> pageItems;
+    private List<Merchant> pageItems;
 //    private PaginationCondition paginationCondition;
 
     public void setCurrentIndex(int currentIndex) {
@@ -45,11 +45,11 @@ public class GoodsBean implements Serializable {
         return totalPage;
     }
 
-    public void setPageItems(List<Goods> pageItems) {
+    public void setPageItems(List<Merchant> pageItems) {
         this.pageItems = pageItems;
     }
 
-    public List<Goods> getPageItems() {
+    public List<Merchant> getPageItems() {
         if (pageItems == null) pageItems = new ArrayList<>();
         return pageItems;
     }

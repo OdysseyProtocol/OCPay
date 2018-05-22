@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class Goods  implements Serializable {
+public class Merchant implements Serializable {
 
     private String id;
     private String position;

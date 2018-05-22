@@ -12,7 +12,7 @@ import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
 
 public class TokenUtils {
 
-    public final static String TOKEN_OCN = "OCN";
+    public final static String OCN = "OCN";
     public final static String ETH = "ETH";
     public static BigDecimal ethPrice;
     public static BigDecimal ocnPrice;
@@ -25,7 +25,7 @@ public class TokenUtils {
 
     public static Map<String, String> getTokenMap() {
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put(TOKEN_OCN, OCN_TOKEN_ADDRESS);
+        tokenMap.put(OCN, OCN_TOKEN_ADDRESS);
         return tokenMap;
 
     }

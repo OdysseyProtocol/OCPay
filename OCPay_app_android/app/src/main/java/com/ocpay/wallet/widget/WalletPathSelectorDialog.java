@@ -6,10 +6,13 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.ocpay.wallet.Constans;
+import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.databinding.DialogWalletPathBinding;
+import com.snow.commonlibrary.utils.ViewUtils;
 
 
 /**
@@ -68,6 +71,9 @@ public class WalletPathSelectorDialog extends AlertDialog {
     }
 
     private void initView() {
+        ViewGroup.LayoutParams layoutParams = binding.getRoot().getLayoutParams();
+        layoutParams.width = MyApp.getContext().getResources().getDisplayMetrics().widthPixels- ViewUtils.dp2px(MyApp.getContext(),28);
+
         binding.includeCustom.tvPathContent.setText(Constans.WALLET.PATH_Custom);
         binding.includeImtoken.tvPathContent.setText(Constans.WALLET.PATH_imToken);
         binding.includeLedger.tvPathContent.setText(Constans.WALLET.PATH_Ledger);
@@ -182,7 +188,7 @@ public class WalletPathSelectorDialog extends AlertDialog {
             if (dialog.isShowing()) dialog.dismiss();
             activity = null;
             dialog = null;
-            listener =null;
+            listener = null;
         }
     }
 }

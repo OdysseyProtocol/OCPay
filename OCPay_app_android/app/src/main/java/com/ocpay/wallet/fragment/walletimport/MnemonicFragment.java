@@ -1,5 +1,6 @@
 package com.ocpay.wallet.fragment.walletimport;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -71,11 +72,18 @@ public class MnemonicFragment extends BaseFragment<FragmentMnemonicBinding> impl
     private void initView() {
         mDialog = WalletPathSelectorDialog.getInstance(getActivity(), R.style.CustomDialog, getActivity());
         bindingView.etPath.setClickable(false);
+        bindingView.tvActionImport.setClickable(false);
         mDialog.setListener(new WalletPathSelectorDialog.OnPathSelectorListener() {
             @Override
             public void onSelect(int pathType, String path) {
                 bindingView.etPath.setClickable(pathType == WalletPathSelectorDialog.Custom);
                 bindingView.etPath.setText(path);
+            }
+        });
+        mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                bindingView.ivBtnShowPath.setBackgroundResource(R.mipmap.ic_list_close);
             }
         });
 
@@ -88,13 +96,13 @@ public class MnemonicFragment extends BaseFragment<FragmentMnemonicBinding> impl
         String mnemonic = bindingView.etMnemonic.getText().toString().trim();
         boolean validMnemonic = RegularExpressionUtils.valid(mnemonic, Constans.REGULAR.REGULAR_MNEMONIC);
         if (!validMnemonic) {
-            Toast.makeText(MyApp.getContext(), "Mnemonic is error", Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApp.getContext(), "Mnemonic is error", Toast.LENGTH_SHORT).show();
             return false;
         }
         //path
         String path = bindingView.etPath.getText().toString().trim();
         if (path.split("/").length != 6) {
-            Toast.makeText(MyApp.getContext(), "path is error", Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApp.getContext(), "path is error", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -135,7 +143,7 @@ public class MnemonicFragment extends BaseFragment<FragmentMnemonicBinding> impl
                 importByMnemonic();
                 break;
             case R.id.ll_check_policy:
-                setCheckBoxStatus(bindingView.include.cbPrivacyPolicy.isChecked());
+                bindingView.include.cbPrivacyPolicy.setChecked(!bindingView.include.cbPrivacyPolicy.isChecked());
                 break;
 
             case R.id.tv_privacy_policy:
@@ -158,13 +166,7 @@ public class MnemonicFragment extends BaseFragment<FragmentMnemonicBinding> impl
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        setCheckBoxStatus(isChecked);
-    }
-
-    private void setCheckBoxStatus(boolean isChecked) {
-        bindingView.tvActionImport.setClickable(isChecked);
-        int resBgImport = isChecked ? R.drawable.shape_corner_btn_main_r6 : R.drawable.shape_btn_grave;
-        bindingView.tvActionImport.setBackgroundResource(resBgImport);
+        setCheckBoxStatus(getContext(), isChecked, bindingView.tvActionImport);
     }
 
 
@@ -199,7 +201,9 @@ public class MnemonicFragment extends BaseFragment<FragmentMnemonicBinding> impl
         WindowManager.LayoutParams lp = win.getAttributes();
         float getY = bindingView.viewLinePath.getY();
         lp.y = (int) getY + dp2px(getContext(), 100);
+        bindingView.ivBtnShowPath.setBackgroundResource(R.mipmap.ic_list_open);
         mDialog.show();
+
     }
 
     @Override

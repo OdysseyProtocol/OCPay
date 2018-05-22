@@ -10,14 +10,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.ocpay.wallet.Constans;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.WalletManageListsAdapter;
 import com.ocpay.wallet.databinding.ActivityWalletManageBinding;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
+import com.ocpay.wallet.http.rx.RxBus;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
 
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class WalletManageActivity extends BaseActivity implements View.OnClickListener {
 
@@ -39,14 +44,30 @@ public class WalletManageActivity extends BaseActivity implements View.OnClickLi
         binding = DataBindingUtil.setContentView(WalletManageActivity.this, R.layout.activity_wallet_manage);
         initActionBar();
         init();
+        initRx();
 
 
     }
 
+    private void initRx() {
+        Disposable disposable = RxBus.getInstance().toObservable(Constans.RXBUS.ACTION_TOKEN_WALLET_MANAGE_UPDATE, String.class).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                List<WalletInfo> walletInfos = WalletInfoDaoUtils.sqlAll(WalletManageActivity.this);
+                manageListsAdapter.setData(walletInfos);
+            }
+        });
+        addDisposable(disposable);
+    }
+
     private void initActionBar() {
         binding.includeActionBar.actionBarTitle.setText(R.string.activity_wallet_manager);
+        binding.includeActionBar.llToolbar.setBackgroundColor(getResources().getColor(R.color.white));
+        binding.includeActionBar.actionBarTitle.setTextColor(getResources().getColor(R.color.color_text_main));
         binding.includeActionBar.ivBack.setImageResource(R.mipmap.ic_back);
         binding.includeActionBar.ivBack.setOnClickListener(this);
+        binding.includeActionBar.toolbarMenuIcon.setVisibility(View.GONE);
+
 
     }
 

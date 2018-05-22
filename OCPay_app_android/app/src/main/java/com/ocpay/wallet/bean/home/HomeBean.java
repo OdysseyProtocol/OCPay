@@ -9,7 +9,7 @@ public class HomeBean extends BastBean {
 
 
     public GeneralizeBean generalizeBean;
-    public GoodsBean goodsBean;
+    public MerchantBean merchantBean;
     public BannerBean bannerBean;
 
     private int type;
@@ -44,12 +44,12 @@ public class HomeBean extends BastBean {
     }
 
 
-    public GoodsBean getGoodsBean() {
-        return goodsBean;
+    public MerchantBean getMerchantBean() {
+        return merchantBean;
     }
 
-    public void setGoodsBean(GoodsBean goodsBean) {
-        this.goodsBean = goodsBean;
+    public void setMerchantBean(MerchantBean merchantBean) {
+        this.merchantBean = merchantBean;
     }
 
     public int getType() {

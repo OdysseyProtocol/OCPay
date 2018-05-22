@@ -39,10 +39,10 @@ public class HomePageAdapter extends BaseAdapter<HomeBean, RecyclerView.ViewHold
             bindWheelAd((WheelAdHolder) viewHolder, data);
         } else if (viewHolder instanceof RecycleViewHolder && getItemViewType(position) == MERCHANT) {
             MerchantAdapter itemAdapter = new MerchantAdapter(mCtx);
-            if (data.getGoodsBean().getPageItems() == null || data.getGoodsBean().getPageItems().size() == 0) {
+            if (data.getMerchantBean().getPageItems() == null || data.getMerchantBean().getPageItems().size() == 0) {
                 return;
             }
-            itemAdapter.setData(data.getGoodsBean().getPageItems());
+            itemAdapter.setData(data.getMerchantBean().getPageItems());
             ((RecycleViewHolder) viewHolder).recyclerView.setAdapter(itemAdapter);
         } else if (viewHolder instanceof RecycleViewHolder && getItemViewType(position) == GENERALIZE) {
             GeneralizeAdapter itemAdapter = new GeneralizeAdapter(mCtx);

@@ -1,7 +1,6 @@
 package com.ocpay.wallet.activities;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -18,12 +17,15 @@ import com.ocpay.wallet.adapter.WalletManageListsAdapter;
 import com.ocpay.wallet.databinding.ActivityTokenDetailsBinding;
 import com.ocpay.wallet.http.client.HttpClient;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.RateUtils;
 import com.ocpay.wallet.utils.web3j.response.EthTransaction;
 import com.ocpay.wallet.utils.web3j.response.EthTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.EventTransaction;
 import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
+
+import java.math.BigDecimal;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.ocpay.wallet.Constans.RXBUS.ACTION_UPDATE_TRANSACTION_LIST;
 import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
+import static com.ocpay.wallet.Constans.WALLET.TOKEN_BALANCE;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
 
 public class TokenTransactionsActivity extends BaseActivity implements View.OnClickListener, BaseAdapter.OnItemClickListener {
@@ -42,10 +45,12 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
     private WalletManageListsAdapter manageListsAdapter;
     private String tokenName;
     private TokenTransferAdapter transferAdapter;
+    private BigDecimal tokenBalance = new BigDecimal(0);
 
-    public static void startTokenTransactionActivity(Activity activity, String tokenName) {
+    public static void startTokenTransactionActivity(Activity activity, String tokenName, String tokenBalance) {
         Intent intent = new Intent(activity, TokenTransactionsActivity.class);
         intent.putExtra(TOKEN_NAME, tokenName);
+        intent.putExtra(TOKEN_BALANCE, tokenBalance);
         activity.startActivity(intent);
 
     }
@@ -56,13 +61,24 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(TokenTransactionsActivity.this, R.layout.activity_token_details);
         initActionBar();
-        init();
         showLoading(false);
-        tokenName = getIntent().getStringExtra(TOKEN_NAME);
-        tokenName = "OCN";
+
+        initData();
+
+        initView();
+
         initRxbus();
 
         getTokenTrList();
+    }
+
+    private void initData() {
+
+        tokenName = getIntent().getStringExtra(TOKEN_NAME);
+        String strTokenBalance = getIntent().getStringExtra(TOKEN_BALANCE);
+        if (strTokenBalance != null) {
+            tokenBalance = new BigDecimal(strTokenBalance);
+        }
     }
 
 
@@ -102,42 +118,17 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
         binding.ivBack.setOnClickListener(this);
     }
 
-    private void init() {
+    private void initView() {
         transferAdapter = new TokenTransferAdapter(this);
 
         binding.rlTokenTransactions.setLayoutManager(new LinearLayoutManager(TokenTransactionsActivity.this));
         binding.rlTokenTransactions.setAdapter(transferAdapter);
         transferAdapter.setOnItemClickListener(this);
-
-//
-//        binding.rlWalletManageList.setLayoutManager(new LinearLayoutManager(TokenTransactionsActivity.this));
-//        binding.rlWalletManageList.setAdapter(manageListsAdapter);
-//        manageListsAdapter.notifyDataSetChanged();
-//        binding.includeBottomButton.rlCreateWallet.setOnClickListener(this);
-//        binding.includeBottomButton.rlImportWallet.setOnClickListener(this);
-//        manageListsAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClicked(RecyclerView.Adapter adapter, Object data, int position) {
-//                if (data instanceof OWalletInfo) {
-//                    WalletDetailActivity.startWalletDetailActivity(TokenTransactionsActivity.this, ((OWalletInfo) data).getWalletAddress(), ((OWalletInfo) data).getWalletName());
-//                }
-//            }
-//        });
+        binding.tvTokenBalance.setText(tokenBalance.toString());
+        String estimateToken = RateUtils.estimateToken(tokenName, tokenBalance);
+        binding.tvTokenValue.setText(estimateToken);
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        MyLog.i("onAttachedToWindow");
-    }
-
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        MyLog.i("onAttachFragment");
-
-    }
 
     @Override
     public void onClick(View v) {

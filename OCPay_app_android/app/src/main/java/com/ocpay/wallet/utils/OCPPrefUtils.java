@@ -86,4 +86,14 @@ public class OCPPrefUtils {
         return new BigDecimal(PrefUtils.getDouble(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_TOKEN_PRICE + tokenName, 0));
     }
 
+
+    public static void setRatePairs(String base, String to, BigDecimal b) {
+        PrefUtils.setDouble(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_TOKEN_PRICE + base + "_" + to, b.doubleValue());
+    }
+
+
+    public static BigDecimal getRatePairs(String base, String to) {
+        return new BigDecimal(PrefUtils.getDouble(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_TOKEN_PRICE + base + "_" + to, 0));
+    }
+
 }

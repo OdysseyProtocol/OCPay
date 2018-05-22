@@ -57,7 +57,7 @@ public class TokenBalanceResponse {
 
     public BigDecimal getEthBalance() {
         if (!result.startsWith("0x")) {
-            return new BigDecimal(result).divide(new BigDecimal(1000000000000000000d), 8, BigDecimal.ROUND_UP);
+            return new BigDecimal(result).divide(new BigDecimal(1000000000000000000d), 5, BigDecimal.ROUND_UP);
 
         }
         return new BigDecimal(0);

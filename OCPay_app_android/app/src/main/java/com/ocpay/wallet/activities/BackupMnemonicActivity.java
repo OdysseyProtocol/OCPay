@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.ocpay.wallet.Constans.WALLET.ADDRESS_FROM;
-import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
 import static com.ocpay.wallet.widget.LabelText.MODE_ADDED;
 import static com.ocpay.wallet.widget.LabelText.MODE_UN_SELECT;
 
@@ -29,13 +27,14 @@ public class BackupMnemonicActivity extends BaseActivity implements View.OnClick
 
     private ActivityBackupMnemonicBinding binding;
     private FlowLayout flInput;
-    private List<LabelText> labelTexts;
+    protected List<LabelText> labelTexts;
     private FlowLayout flSelect;
+    private int step;
 
-    public static void startBackupActivity(Activity activity, String fromAddress, String tokenName) {
+    public static void startBackupActivity(Activity activity) {
         Intent intent = new Intent(activity, BackupMnemonicActivity.class);
-        intent.putExtra(TOKEN_NAME, tokenName);
-        intent.putExtra(ADDRESS_FROM, fromAddress);
+//        intent.putExtra(TOKEN_NAME, tokenName);
+//        intent.putExtra(ADDRESS_FROM, fromAddress);
         activity.startActivity(intent);
 
     }
@@ -45,24 +44,50 @@ public class BackupMnemonicActivity extends BaseActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-
         binding = DataBindingUtil.setContentView(BackupMnemonicActivity.this, R.layout.activity_backup_mnemonic);
+        step = 1;
+        initActionBar();
         initView();
+        initShow();
         initSelect();
         randomShow();
 
 
     }
 
+    private void initActionBar() {
+        binding.includeActionBar.actionBarTitle.setText(R.string.activity_backup_mnemonic_title);
+        binding.includeActionBar.llToolbar.setBackgroundColor(getResources().getColor(R.color.white));
+        binding.includeActionBar.actionBarTitle.setTextColor(getResources().getColor(R.color.color_text_main));
+        binding.includeActionBar.ivBack.setImageResource(R.mipmap.ic_back);
+        binding.includeActionBar.toolbarMenuIcon.setVisibility(View.GONE);
+        binding.includeActionBar.ivBack.setOnClickListener(this);
+
+    }
+
     private void initView() {
-        binding.includeShow.llMnemonicShow.setVisibility(View.GONE);
         flInput = binding.includeReview.flMnemonicInput;
         flSelect = binding.includeReview.flMnemonicSelect;
         binding.includeReview.tvActionConfirm.setOnClickListener(this);
+        binding.includeSummary.tvGoBackup.setOnClickListener(this);
+        binding.includeShow.tvActionNext.setOnClickListener(this);
     }
 
 
-    String mnemonic = "box hex one hurry what do you want to see give sky";
+    protected String mnemonic = "box hex one hurry what do you want to see give sky";
+
+
+    private void initShow() {
+//        List<LabelText> mnemonics = new ArrayList<>();
+//        String[] split = mnemonic.split(" ");
+//        labelTexts = new ArrayList<>();
+//        for (String word : split) {
+//            LabelText labelText = new LabelText(this, word, MODE_UN_SELECT, false);
+//            mnemonics.add(labelText);
+//        }
+        binding.includeShow.tvMnemonicShow.setText(mnemonic);
+    }
+
 
     private void initSelect() {
         String[] split = mnemonic.split(" ");
@@ -145,12 +170,56 @@ public class BackupMnemonicActivity extends BaseActivity implements View.OnClick
                         builder.append(" ");
                     }
                 }
+                if (builder.toString().equals(mnemonic)) {
+
+                    //todo delete mnemonic
+
+                    //todo go to main activity
+                    MainActivity.startMainActivity(BackupMnemonicActivity.this);
+
+                } else {
+                    Toast.makeText(this, "incorrect mnemonic", Toast.LENGTH_SHORT).show();
+
+                }
+
                 MyLog.i("confirm:__" + builder.toString());
                 break;
             case R.id.tv_action_next:
+                step = 3;
+                binding.includeShow.llMnemonicShow.setVisibility(View.GONE);
+                break;
+            case R.id.iv_back:
+                if (backAction()) return;
+                finish();
+                break;
 
+
+            case R.id.tv_go_backup:
+                step = 2;
+                binding.includeSummary.llMnemonicReview.setVisibility(View.GONE);
                 break;
 
         }
+    }
+
+    private boolean backAction() {
+        if (step == 3) {
+            step = 2;
+            binding.includeShow.llMnemonicShow.setVisibility(View.VISIBLE);
+            return true;
+        }
+
+//        if (step == 2) {
+//            step = 1;
+//            binding.includeSummary.llMnemonicReview.setVisibility(View.VISIBLE);
+//            return true;
+//        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backAction()) return;
+        super.onBackPressed();
     }
 }

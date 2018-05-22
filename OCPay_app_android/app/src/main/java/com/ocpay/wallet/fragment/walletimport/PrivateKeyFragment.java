@@ -44,7 +44,6 @@ public class PrivateKeyFragment extends BaseFragment<FragmentPrivateKeyBinding> 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initListener();
         initRXBus();
     }
@@ -85,6 +84,7 @@ public class PrivateKeyFragment extends BaseFragment<FragmentPrivateKeyBinding> 
 
 
     private void initListener() {
+        bindingView.tvActionImport.setClickable(false);
         bindingView.tvActionImport.setOnClickListener(this);
         bindingView.include.cbPrivacyPolicy.setOnCheckedChangeListener(this);
         bindingView.include.llCheckPolicy.setOnClickListener(this);
@@ -102,7 +102,8 @@ public class PrivateKeyFragment extends BaseFragment<FragmentPrivateKeyBinding> 
                 importByPrivateKey();
                 break;
             case R.id.ll_check_policy:
-                setCheckBoxStatus(bindingView.include.cbPrivacyPolicy.isChecked());
+                bindingView.include.cbPrivacyPolicy.setChecked(!bindingView.include.cbPrivacyPolicy.isChecked());
+
                 break;
 
             case R.id.tv_privacy_policy:
@@ -121,13 +122,8 @@ public class PrivateKeyFragment extends BaseFragment<FragmentPrivateKeyBinding> 
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        setCheckBoxStatus(isChecked);
-    }
+        setCheckBoxStatus(getContext(), isChecked, bindingView.tvActionImport);
 
-    private void setCheckBoxStatus(boolean isChecked) {
-        bindingView.tvActionImport.setClickable(isChecked);
-        int resBgImport = isChecked ? R.drawable.shape_corner_btn_main_r6 : R.drawable.shape_btn_grave;
-        bindingView.tvActionImport.setBackgroundResource(resBgImport);
     }
 
 

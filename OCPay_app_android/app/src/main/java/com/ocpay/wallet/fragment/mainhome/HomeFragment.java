@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.ocpay.wallet.Constans;
@@ -21,18 +22,23 @@ import com.ocpay.wallet.bean.home.Banner;
 import com.ocpay.wallet.bean.home.BannerBean;
 import com.ocpay.wallet.bean.home.Generalize;
 import com.ocpay.wallet.bean.home.GeneralizeBean;
-import com.ocpay.wallet.bean.home.Goods;
-import com.ocpay.wallet.bean.home.GoodsBean;
+import com.ocpay.wallet.bean.home.Merchant;
+import com.ocpay.wallet.bean.home.MerchantBean;
 import com.ocpay.wallet.bean.home.HomeBean;
 import com.ocpay.wallet.bean.home.TokenBalanceBean;
 import com.ocpay.wallet.databinding.FragmentHomeBinding;
 import com.ocpay.wallet.fragment.BaseFragment;
 import com.ocpay.wallet.greendao.WalletInfo;
+import com.ocpay.wallet.http.client.DataBlockClientIml;
 import com.ocpay.wallet.http.client.EthScanHttpClientIml;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.RateUtils;
 import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
+import com.ocpay.wallet.utils.web3j.response.TokenPriceResponse;
+import com.snow.commonlibrary.recycleview.BaseAdapter;
 import com.snow.commonlibrary.utils.PrefUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +51,7 @@ import static com.ocpay.wallet.Constans.HOME.MERCHANT;
 import static com.ocpay.wallet.Constans.HOME.WHEEL_AD;
 import static com.ocpay.wallet.activities.QRReaderActivity.QR_CODE_MODE_PARSE;
 import static com.ocpay.wallet.utils.TokenUtils.ETH;
-import static com.ocpay.wallet.utils.TokenUtils.TOKEN_OCN;
+import static com.ocpay.wallet.utils.TokenUtils.OCN;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.foldWalletAddress;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements View.OnClickListener {
@@ -76,6 +82,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         initListener();
         initToken();
         getTokenBalance();
+
 
     }
 
@@ -110,7 +117,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         addDisposable(tokenUpdate);
 
 
+        Disposable tokenPrice = RxBus.getInstance()
+                .toObservable(Constans.RXBUS.ACTION_TOKEN_PRICE_UPDATE, TokenPriceResponse.class)
+                .subscribe(new Consumer<TokenPriceResponse>() {
+                    @Override
+                    public void accept(TokenPriceResponse tokenPriceResponse) throws Exception {
+                        tokenBalanceAdapter.notifyDataSetChanged();
+                    }
+                });
+        addDisposable(tokenPrice);
+
+
     }
+
 
     private void updateTokenAdapter(TokenBalanceResponse tokenBalanceResponse) {
         if (tokenBalanceAdapter.getmData() == null || tokenBalanceAdapter.getmData().size() <= 0)
@@ -121,6 +140,29 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 tokenBalanceAdapter.notifyDataSetChanged();
             }
         }
+        BigDecimal totalOCN = RateUtils.getTotalOCN(tokenBalanceAdapter.getmData());
+        String estimateToken = RateUtils.estimateToken(OCN, totalOCN);
+        bindingView.include.tvTotalOcn.setText(totalOCN.toString());
+        bindingView.include.tvEstimateValue.setText(estimateToken);
+        bindingView.include.tvTotalOcn.invalidate();
+
+        updateSize();
+
+
+    }
+
+    private void updateSize() {
+        bindingView.include.tvTotalOcn.post(new Runnable() {
+            @Override
+            public void run() {
+                if (bindingView.include.tvTotalOcn.getLineCount() > 1) {
+                    float textSize = bindingView.include.tvTotalOcn.getTextSize();
+                    bindingView.include.tvTotalOcn.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize / 1.18f);
+                    bindingView.include.tvTotalOcn.invalidate();
+                    updateSize();
+                }
+            }
+        });
 
     }
 
@@ -130,6 +172,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         OCPWallet.setCurrentWallet(walletInfo);
         bindingView.includeHead.tvWalletName.setText(walletInfo.getWalletName());
         bindingView.include.tvWalletAddress.setText(foldWalletAddress(walletInfo.getWalletAddress()));
+
     }
 
     private void initView() {
@@ -152,15 +195,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         HomeBean homeBean2 = new HomeBean();
 
         //merchant
-        GoodsBean goodsBean = new GoodsBean();
-        List<Goods> goodsList = new ArrayList<>();
-        Goods goods = null;
+        MerchantBean merchantBean = new MerchantBean();
+        List<Merchant> merchantList = new ArrayList<>();
+        Merchant merchant = null;
         for (int i = 0; i < 6; i++) {
-            goods = new Goods();
-            goodsList.add(goods);
+            merchant = new Merchant();
+            merchantList.add(merchant);
         }
-        goodsBean.setPageItems(goodsList);
-        homeBean2.setGoodsBean(goodsBean);
+        merchantBean.setPageItems(merchantList);
+        homeBean2.setMerchantBean(merchantBean);
         homeBean2.setType(MERCHANT);
         list.add(homeBean2);
 
@@ -222,10 +265,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 QRReaderActivity.startQRReaderActivity(getActivity(), -1, QR_CODE_MODE_PARSE);
                 break;
             case R.id.ll_send:
-                SendActivity.startSendActivity(getActivity(), walletInfo.getWalletAddress(), TOKEN_OCN);
+                SendActivity.startSendActivity(getActivity(), walletInfo.getWalletAddress(), OCN);
                 break;
             case R.id.ll_record:
-                TokenTransactionsActivity.startTokenTransactionActivity(getActivity(), TOKEN_OCN);
+//                TokenTransactionsActivity.startTokenTransactionActivity(getActivity(), OCN);
                 break;
             case R.id.iv_slide_menu:
                 RxBus.getInstance().post(Constans.RXBUS.ACTION_OPEN_DRAWER, 1);
@@ -238,8 +281,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
 
     private void hideAsset() {
         boolean isHide = PrefUtils.getBoolean(MyApp.getContext(), HIDE_ASSET, false);
-        int iconRes = isHide ? R.mipmap.icon_show_asset : R.mipmap.icon_show_asset;
-        bindingView.include.ivHideAsset.setImageResource(iconRes);
         PrefUtils.putBoolean(MyApp.getContext(), HIDE_ASSET, !isHide);
     }
 
@@ -250,15 +291,24 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         bindingView.rlToken.setAdapter(tokenBalanceAdapter);
         List<TokenBalanceBean> list = new ArrayList<>();
         list.add(new TokenBalanceBean("https://resource.jinse.com/phenix/img/coin/ETH.png", ETH, 0 + ""));
-        list.add(new TokenBalanceBean("https://resource.jinse.com/phenix/img/coin/EOS.png", TOKEN_OCN, 0 + ""));
+        list.add(new TokenBalanceBean("https://resource.jinse.com/phenix/img/coin/EOS.png", OCN, 0 + ""));
         tokenBalanceAdapter.setData(list);
+        tokenBalanceAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView.Adapter adapter, Object data, int position) {
+                if (data instanceof TokenBalanceBean) {
+                    TokenTransactionsActivity.startTokenTransactionActivity(getActivity(), ((TokenBalanceBean) data).getTokenName(), ((TokenBalanceBean) data).getTokenBalance());
+                }
+
+            }
+        });
     }
 
 
     public void getTokenBalance() {
         for (TokenBalanceBean tb : tokenBalanceAdapter.getmData()) {
             EthScanHttpClientIml.getTokenBalanceOf(OCPWallet.getCurrentWallet().getWalletAddress(), tb.getTokenName());
-//            DataBlockClientIml.getTokenPrice(Constans.RXBUS.ACTION_TOKEN_PRICE_UPDATE, tb.getTokenName());
+            DataBlockClientIml.getTokenPrice(Constans.RXBUS.ACTION_TOKEN_PRICE_UPDATE, tb.getTokenName());
         }
     }
 

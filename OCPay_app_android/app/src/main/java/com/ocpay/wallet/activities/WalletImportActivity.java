@@ -56,7 +56,7 @@ public class WalletImportActivity extends BaseActivity implements ViewPager.OnPa
 
     private void initView() {
         vpContent = binding.vpContent;
-        binding.include.actionBarTitle.setText(R.string.activity_title_create_wallet);
+        binding.include.actionBarTitle.setText(R.string.import_wallet);
         binding.include.ivBack.setImageResource(R.mipmap.ic_back);
         binding.include.actionBarTitle.setTextColor(getResources().getColor(R.color.color_text_main));
         binding.include.ivBack.setOnClickListener(this);

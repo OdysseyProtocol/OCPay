@@ -1,13 +1,10 @@
 package com.ocpay.wallet.activities;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ocpay.wallet.Constans;
+import com.ocpay.wallet.MyApp;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.WalletsAdapter;
 import com.ocpay.wallet.databinding.ActivityMainBinding;
@@ -28,6 +26,8 @@ import com.ocpay.wallet.fragment.mainhome.MeFragment;
 import com.ocpay.wallet.fragment.mainhome.NearbyFragment;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
+import com.ocpay.wallet.http.client.DataBlockClientIml;
+import com.ocpay.wallet.http.client.EthScanHttpClientIml;
 import com.ocpay.wallet.http.rx.RxBus;
 import com.ocpay.wallet.utils.OCPPrefUtils;
 import com.ocpay.wallet.widget.ScrollViewPager;
@@ -41,12 +41,20 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 import static com.ocpay.wallet.http.client.EthScanHttpClientIml.getGasPrice;
+import static com.ocpay.wallet.utils.CurrencyUtils.CNY;
+import static com.ocpay.wallet.utils.CurrencyUtils.USD;
+import static com.ocpay.wallet.utils.TokenUtils.ETH;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private ActivityMainBinding mBinding;
     private ScrollViewPager vpContent;
     private WalletsAdapter walletsAdapter;
+
+    public static void startMainActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, MainActivity.class));
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +78,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         getGasPrice();
 
-
+        initEthInfo();
     }
 
 
@@ -214,15 +222,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }, 1000);
     }
 
-    public void getPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //当前系统大于等于6.0
-            if (!(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, 10086);
-            }
+
+    private void initEthInfo() {
+        //update rate
+        DataBlockClientIml.getPairOCN_ETH(-1);
+        //update ocn_eth
+        DataBlockClientIml.getRate(USD, CNY);
+        //update eth
+        List<WalletInfo> walletInfos = WalletInfoDaoUtils.sqlAll(MyApp.getContext());
+        for (WalletInfo info : walletInfos) {
+            EthScanHttpClientIml.getEthBalanceOf(info.getWalletAddress(), ETH, false);
 
         }
-
 
     }
 

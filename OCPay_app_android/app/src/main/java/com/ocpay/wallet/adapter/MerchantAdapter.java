@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.viewholder.MerchantHolder;
-import com.ocpay.wallet.bean.home.Goods;
+import com.ocpay.wallet.bean.home.Merchant;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
 
 /**
  * Created by y on 2017/11/17.
  */
 
-public class MerchantAdapter extends BaseAdapter<Goods, MerchantHolder> {
+public class MerchantAdapter extends BaseAdapter<Merchant, MerchantHolder> {
 
 
     public MerchantAdapter(Context ctx) {
@@ -23,7 +23,7 @@ public class MerchantAdapter extends BaseAdapter<Goods, MerchantHolder> {
     }
 
     @Override
-    protected void bindViewHolderData(MerchantHolder viewHolder, final Goods data, final int position) {
+    protected void bindViewHolderData(MerchantHolder viewHolder, final Merchant data, final int position) {
 
         Glide.with(mCtx)
                 .load(data.getMainImage())

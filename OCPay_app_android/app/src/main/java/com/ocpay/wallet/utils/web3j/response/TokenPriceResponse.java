@@ -33,7 +33,7 @@ public class TokenPriceResponse {
         this.data = data;
     }
 
-    public List<TokenPriceDate> getTokenPriceData() {
+    public List<TokenPriceDate> getData() {
         return data;
     }
 

@@ -13,6 +13,7 @@ public class Constans {
         public static String CURRENT_WALLET = "CURRENT_WALLET";
 
         public static String TOKEN_NAME = "token_name";
+        public static String TOKEN_BALANCE = "token_balance";
         public static String WALLET_ADDRESS = "wallet_address";
         public static String ADDRESS_FROM = "wallet_from";
         public static String WALLET_NAME = "wallet_name";
@@ -43,6 +44,7 @@ public class Constans {
         public final static String API_TXHAH = API_ETHSCAN + "tx/";
 
         public final static String API_DATA_BLOCK = "https://data.block.cc/";
+        public final static String API_DATA_BLOCK_API = API_DATA_BLOCK + "api/";
 
 
     }
@@ -70,6 +72,7 @@ public class Constans {
         public final static String APP_LANGUAGE = "app_language";
 
         public final static String PREF_KEY_TOKEN_PRICE = "pref_key_token_price";
+        public final static String PREF_KEY_RATE_ = "pref_key_rate_";
 
     }
 
@@ -106,6 +109,9 @@ public class Constans {
         public final static int ACTION_TOKEN_PRICE_UPDATE = 17;
 
 
+        public final static int ACTION_TOKEN_WALLET_MANAGE_UPDATE = 18;
+
+
     }
 
     public static class REGULAR {
@@ -117,6 +123,17 @@ public class Constans {
         public final static String REGULAR_ETH_ADDRESS = "^0x([a-zA-Z0-9]{40})$";
 
         public final static String REGULAR_HEX = "^0[xX][0-9a-fA-F]+";
+
+
+        public final static String REGULAR_PWD_LV1 = "^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{8,10}$";
+
+        public final static String REGULAR_PWD_LV2 = "^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{10,14}$";
+
+        public final static String REGULAR_PWD_LV3 = "^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{14,16}$";
+
+        public final static String REGULAR_PWD_LV4 = "^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{16,99}$";
+
+
     }
 
 

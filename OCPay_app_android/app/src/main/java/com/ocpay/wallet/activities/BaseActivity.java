@@ -1,5 +1,10 @@
 package com.ocpay.wallet.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
@@ -71,6 +76,14 @@ public class BaseActivity extends AppCompatActivity {
     public void dismissLoading() {
         if (loadingDialog != null) {
             loadingDialog.dismiss();
+        }
+    }
+
+    public void getPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
+        //当前系统大于等于6.0
+        if (!(ContextCompat.checkSelfPermission(BaseActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(BaseActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, 10086);
         }
     }
 }

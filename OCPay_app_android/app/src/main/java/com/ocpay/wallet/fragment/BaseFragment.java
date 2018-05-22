@@ -1,5 +1,6 @@
 package com.ocpay.wallet.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ocpay.wallet.R;
 import com.snow.commonlibrary.log.MyLog;
@@ -102,5 +104,14 @@ public abstract class BaseFragment<VD extends ViewDataBinding> extends Fragment 
             this.mDisposable = null;
         }
         super.onDestroy();
+    }
+
+
+    public   void setCheckBoxStatus(Context mContext, boolean isChecked, TextView textView){
+        textView.setClickable(isChecked);
+        int resBgImport = isChecked ? R.drawable.shape_corner_btn_main_r6 : R.drawable.shape_btn_grave;
+        int resTxColor = isChecked ? mContext.getResources().getColor(R.color.white) : getResources().getColor(R.color.color_btn_text_un_click);
+        textView.setTextColor(resTxColor);
+        textView.setBackgroundResource(resBgImport);
     }
 }

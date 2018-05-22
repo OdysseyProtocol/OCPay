@@ -21,7 +21,7 @@ public interface DataBlockClient {
      * @param tokenName
      * @return
      */
-    @GET("v1/price?")
+    @GET("api/v1/price?")
     Observable<TokenPriceResponse> getTokenPrice(@Query("symbol") String tokenName);
 
 
@@ -30,7 +30,7 @@ public interface DataBlockClient {
      *
      * @return
      */
-    @GET("v1/ticker?market=huobipro&symbol_pair=OCN_ETH")
+    @GET("api/v1/ticker?market=huobipro&symbol_pair=OCN_ETH")
     Observable<SymbolPairResponse> getPairOCN_ETH();
 
     /**
@@ -38,8 +38,8 @@ public interface DataBlockClient {
      *
      * @return
      */
-    @GET("v1/ticker?market=huobipro&symbol_pair=OCN_ETH")
-    Observable<RateResponse> getRate();
+    @GET("api/v1/exrate?")
+    Observable<RateResponse> getRate(@Query("base")String base,@Query("symbol")String symbol);
 
 
 }
