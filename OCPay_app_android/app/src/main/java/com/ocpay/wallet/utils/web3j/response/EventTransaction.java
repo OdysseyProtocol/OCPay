@@ -1,6 +1,7 @@
 package com.ocpay.wallet.utils.web3j.response;
 
 import com.ocpay.wallet.MyApp;
+import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.web3j.utils.CommonUtils;
 import com.snow.commonlibrary.utils.DateUtils;
@@ -11,7 +12,6 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.List;
 
-import static com.ocpay.wallet.Constans.TEST.WALLET_ADDRESS;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.getAmountByP1;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.getTransactionFee;
 import static com.ocpay.wallet.utils.eth.OCPWalletUtils.subWalletAddress;
@@ -126,8 +126,7 @@ public class EventTransaction extends BaseTransaction implements Serializable {
 
     public boolean isSend() {
         String topic1 = subWalletAddress(getTopics().get(1));
-        return WALLET_ADDRESS.equalsIgnoreCase(topic1);
-
+        return OCPWallet.getCurrentWallet().getWalletAddress().equalsIgnoreCase(topic1);
     }
 
     public String getTransferAmount() {

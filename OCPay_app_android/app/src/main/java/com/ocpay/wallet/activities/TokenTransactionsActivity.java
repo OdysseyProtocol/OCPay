@@ -15,17 +15,22 @@ import com.ocpay.wallet.R;
 import com.ocpay.wallet.adapter.TokenTransferAdapter;
 import com.ocpay.wallet.adapter.WalletManageListsAdapter;
 import com.ocpay.wallet.databinding.ActivityTokenDetailsBinding;
+import com.ocpay.wallet.http.client.EthScanHttpClientIml;
 import com.ocpay.wallet.http.client.HttpClient;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.OCPPrefUtils;
 import com.ocpay.wallet.utils.RateUtils;
-import com.ocpay.wallet.utils.web3j.response.EthTransaction;
-import com.ocpay.wallet.utils.web3j.response.EthTransactionResponse;
+import com.ocpay.wallet.utils.TokenUtils;
+import com.ocpay.wallet.utils.web3j.response.BaseTransaction;
+import com.ocpay.wallet.utils.web3j.response.CustomTransaction;
+import com.ocpay.wallet.utils.web3j.response.EtherScanTxListResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
-import com.ocpay.wallet.utils.web3j.response.EventTransaction;
 import com.snow.commonlibrary.log.MyLog;
 import com.snow.commonlibrary.recycleview.BaseAdapter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,7 +38,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.ocpay.wallet.Constans.RXBUS.ACTION_UPDATE_TRANSACTION_LIST;
+import static com.ocpay.wallet.Constans.RXBUS.ACTION_TRANSACTION_SINGLE_TOKEN;
 import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_BALANCE;
 import static com.ocpay.wallet.Constans.WALLET.TOKEN_NAME;
@@ -62,14 +67,11 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
         binding = DataBindingUtil.setContentView(TokenTransactionsActivity.this, R.layout.activity_token_details);
         initActionBar();
         showLoading(false);
-
         initData();
-
         initView();
-
-        initRxbus();
-
-        getTokenTrList();
+        initRxBus();
+        pullData();
+//        getTokenTrList();
     }
 
     private void initData() {
@@ -82,36 +84,36 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
     }
 
 
-    private void initRxbus() {
-        Disposable disposable = null;
-        if (tokenName.equals("ETH")) {
-            disposable = RxBus.getInstance()
-                    .toObservable(ACTION_UPDATE_TRANSACTION_LIST, EthTransactionResponse.class)
-                    .subscribe(new Consumer<EthTransactionResponse>() {
-                        @Override
-                        public void accept(EthTransactionResponse ethTransactionResponse) throws Exception {
-                            dismissLoading();
-
-                        }
-                    });
-
-        } else {
-            disposable = RxBus.getInstance()
-                    .toObservable(ACTION_UPDATE_TRANSACTION_LIST, EventLogTransactionResponse.class)
-                    .subscribe(new Consumer<EventLogTransactionResponse>() {
-                        @Override
-                        public void accept(EventLogTransactionResponse ethTransactionResponse) throws Exception {
-                            dismissLoading();
-                            MyLog.i("ß --------ß");
-                            transferAdapter.setData(ethTransactionResponse.getResult());
-                            transferAdapter.notifyDataSetChanged();
-                        }
-                    });
-        }
-        addDisposable(disposable);
-
-
-    }
+//    private void initRxbus() {
+//        Disposable disposable = null;
+//        if (tokenName.equals("ETH")) {
+//            disposable = RxBus.getInstance()
+//                    .toObservable(ACTION_UPDATE_TRANSACTION_LIST, EthTransactionResponse.class)
+//                    .subscribe(new Consumer<EthTransactionResponse>() {
+//                        @Override
+//                        public void accept(EthTransactionResponse ethTransactionResponse) throws Exception {
+//                            dismissLoading();
+//
+//                        }
+//                    });
+//
+//        } else {
+//            disposable = RxBus.getInstance()
+//                    .toObservable(ACTION_UPDATE_TRANSACTION_LIST, EventLogTransactionResponse.class)
+//                    .subscribe(new Consumer<EventLogTransactionResponse>() {
+//                        @Override
+//                        public void accept(EventLogTransactionResponse ethTransactionResponse) throws Exception {
+//                            dismissLoading();
+//                            MyLog.i("ß --------ß");
+//                            transferAdapter.setData(ethTransactionResponse.getResult());
+//                            transferAdapter.notifyDataSetChanged();
+//                        }
+//                    });
+//        }
+//        addDisposable(disposable);
+//
+//
+//    }
 
     private void initActionBar() {
         binding.tvTitle.setText(tokenName);
@@ -185,17 +187,55 @@ public class TokenTransactionsActivity extends BaseActivity implements View.OnCl
     @Override
     public void onItemClicked(RecyclerView.Adapter adapter, Object data, int position) {
 
-        EthTransaction ethTransaction = null;
-        EventTransaction eventTransaction = null;
-        if (data instanceof EthTransaction) {
-            ethTransaction = (EthTransaction) data;
-        }
-        if (data instanceof EventTransaction) {
-            eventTransaction = (EventTransaction) data;
-        }
+        TransactionDetailActivity.startTxDetailActivity(this, (BaseTransaction) data);
+    }
 
-        TransactionDetailActivity.startTxDetailActivity(this, ethTransaction, eventTransaction);
 
+    private void pullData() {
+        String startBlockNo = OCPPrefUtils.getFirstStartBlockNo();
+        //todo modify
+        //EthScanHttpClientIml.getTransactionList(ACTION_TRANSACTION_CENTER_MERGE_LIST, OCPWallet.getCurrentWallet().getWalletAddress(), startBlockNo, Constans.ETH.DEFAULT_END_BLOCKNO);
+        EthScanHttpClientIml.getTransactionList(ACTION_TRANSACTION_SINGLE_TOKEN, Constans.TEST.WALLET_ADDRESS, startBlockNo, Constans.ETH.DEFAULT_END_BLOCKNO);
+    }
+
+    private void initRxBus() {
+        Disposable disposable = RxBus.getInstance().toObservable(ACTION_TRANSACTION_SINGLE_TOKEN, EtherScanTxListResponse.class).subscribe(new Consumer<EtherScanTxListResponse>() {
+            @Override
+            public void accept(EtherScanTxListResponse o) throws Exception {
+                transferAdapter.setData(filterTokenTransaction(tokenName, o.getResult()));
+
+                dismissLoading();
+//                if (binding.r.isRefreshing()) {
+//                    binding.refresh.setRefreshing(false);
+//                }
+            }
+        });
+        addDisposable(disposable);
 
     }
+
+    private List filterTokenTransaction(String tokenName, List<CustomTransaction> result) {
+        List<CustomTransaction> list = new ArrayList<>();
+        String erc20Address = "";
+        if (!TokenUtils.ETH.equals(tokenName)) {
+            erc20Address = TokenUtils.getTokenMap().get(tokenName);
+        }
+
+        for (CustomTransaction customTransaction : result) {
+            if (TokenUtils.ETH.equals(tokenName)) {
+                if (customTransaction.isEthTransaction()) {
+                    list.add(customTransaction);
+                }
+            }else {
+                if (erc20Address.equals(customTransaction.getTo())) {
+                    list.add(customTransaction);
+                }
+
+            }
+        }
+
+        return list;
+    }
+
+
 }

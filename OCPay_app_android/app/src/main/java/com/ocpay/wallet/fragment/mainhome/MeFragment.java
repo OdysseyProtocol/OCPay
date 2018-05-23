@@ -47,7 +47,6 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initData();
         initActionBar();
         initView();
@@ -100,8 +99,8 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
         bindingView.includeActionBar.ivBack.setVisibility(View.GONE);
         bindingView.includeActionBar.actionBarTitle.setText(R.string.fragment_title_me);
         bindingView.includeActionBar.actionBarTitle.setTextColor(getResources().getColor(R.color.color_text_main));
-        bindingView.includeActionBar.toolbarMenuIcon.setImageResource(R.mipmap.ic_share);
-        bindingView.includeActionBar.toolbarMenuIcon.setOnClickListener(this);
+        bindingView.includeActionBar.toolbarMenuIcon.setVisibility(View.GONE);
+
     }
 
     private void initData() {

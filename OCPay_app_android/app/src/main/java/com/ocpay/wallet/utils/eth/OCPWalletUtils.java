@@ -561,7 +561,7 @@ public class OCPWalletUtils {
             input = input.replace("0x", "");
         }
         BigDecimal amount = new BigDecimal(new BigInteger(input, 16).toString());
-        BigDecimal bigDecimal = amount.divide(new BigDecimal(1000000000000000000d), 18, BigDecimal.ROUND_UP);
+        BigDecimal bigDecimal = amount.divide(new BigDecimal(1000000000000000000d), 4, BigDecimal.ROUND_UP);
         return bigDecimal;
     }
 
@@ -606,7 +606,7 @@ public class OCPWalletUtils {
 
     }
 
-//    /**
+    //    /**
 //     * @param ecKeyPair
 //     * @param OCNAmount
 //     * @param toAddress

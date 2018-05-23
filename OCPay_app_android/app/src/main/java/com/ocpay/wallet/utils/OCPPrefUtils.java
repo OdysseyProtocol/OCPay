@@ -96,4 +96,25 @@ public class OCPPrefUtils {
         return new BigDecimal(PrefUtils.getDouble(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_TOKEN_PRICE + base + "_" + to, 0));
     }
 
+
+    // record first block No
+    public static void setFirstStartBlockNo(String blockNo) {
+        PrefUtils.putString(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_FIRST_BLOCK_NO, blockNo);
+    }
+
+
+    public static String getFirstStartBlockNo() {
+        return PrefUtils.getString(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_FIRST_BLOCK_NO, "0");
+    }
+
+    //has record first block No
+    public static void hasRecordFirstBlock(boolean has) {
+        PrefUtils.putBoolean(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_HAS_RECORD_B_N, has);
+
+    }
+
+    public static boolean isRecordFirstBlock() {
+        return PrefUtils.getBoolean(MyApp.getContext(), Constans.PREFKEY.PREF_KEY_HAS_RECORD_B_N, false);
+    }
+
 }

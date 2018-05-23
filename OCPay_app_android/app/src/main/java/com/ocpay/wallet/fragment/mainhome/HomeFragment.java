@@ -16,6 +16,7 @@ import com.ocpay.wallet.activities.GatheringActivity;
 import com.ocpay.wallet.activities.QRReaderActivity;
 import com.ocpay.wallet.activities.SendActivity;
 import com.ocpay.wallet.activities.TokenTransactionsActivity;
+import com.ocpay.wallet.activities.TransactionCenterActivity;
 import com.ocpay.wallet.adapter.HomePageAdapter;
 import com.ocpay.wallet.adapter.TokenBalanceAdapter;
 import com.ocpay.wallet.bean.home.Banner;
@@ -268,7 +269,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
                 SendActivity.startSendActivity(getActivity(), walletInfo.getWalletAddress(), OCN);
                 break;
             case R.id.ll_record:
-//                TokenTransactionsActivity.startTokenTransactionActivity(getActivity(), OCN);
+                TransactionCenterActivity.startContactsActivity(getActivity());
                 break;
             case R.id.iv_slide_menu:
                 RxBus.getInstance().post(Constans.RXBUS.ACTION_OPEN_DRAWER, 1);

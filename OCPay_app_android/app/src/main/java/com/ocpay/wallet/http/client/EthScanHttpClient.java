@@ -1,6 +1,7 @@
 package com.ocpay.wallet.http.client;
 
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
+import com.ocpay.wallet.utils.web3j.response.EtherScanTxListResponse;
 import com.ocpay.wallet.utils.web3j.response.EventLogTransactionResponse;
 import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
 
@@ -40,6 +41,8 @@ public interface EthScanHttpClient {
 
 
     /**
+     *
+     * http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=0x7E8247C7d145dEBe8a8C2D2a2Ab450992AA884c9&startblock=0&endblock=99999999&sort=desc&apikey=YourApiKeyToken
      * about eth transaction list
      *
      * @param address
@@ -47,8 +50,8 @@ public interface EthScanHttpClient {
      * @param endBlockNumber
      * @return
      */
-    @GET("api?module=account&action=txlist&sort=asc")
-    Observable<Object> getEthTransactionList(@Query("address") String address, @Query("startblock") String startblock, @Query("endblock") String endBlockNumber);
+    @GET("api?module=account&action=txlist&sort=desc")
+    Observable<EtherScanTxListResponse> getEthTransactionList(@Query("address") String address, @Query("startblock") String startblock, @Query("endblock") String endBlockNumber);
 
 
     /**
@@ -68,7 +71,7 @@ public interface EthScanHttpClient {
      * https://api-ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=YourApiKeyToken
      */
     @GET("api?module=proxy&action=eth_blockNumber")
-    Observable<Object> getEthBlockNumber();
+    Observable<EtherScanJsonrpcResponse> getEthBlockNumber();
 
 
     /**

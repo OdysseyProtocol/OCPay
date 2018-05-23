@@ -23,7 +23,10 @@ public class Constans {
 
 
         public static String TX_EVENT_LOG = "tx_event_log";
+
         public static String TX_ETH = "tx_eth";
+
+        public static String TX_CUSTOM = "tx_custom";
 
         //Metamask
         public static String PATH_Metamask = "m/44'/60'/0'/0/0 Jaxx,Metamask(ETH)";
@@ -74,6 +77,9 @@ public class Constans {
         public final static String PREF_KEY_TOKEN_PRICE = "pref_key_token_price";
         public final static String PREF_KEY_RATE_ = "pref_key_rate_";
 
+        public final static String PREF_KEY_HAS_RECORD_B_N = "pref_key_has_record_first_block";
+        public final static String PREF_KEY_FIRST_BLOCK_NO = "pref_key_first_block_no";
+
     }
 
 
@@ -110,6 +116,12 @@ public class Constans {
 
 
         public final static int ACTION_TOKEN_WALLET_MANAGE_UPDATE = 18;
+
+        public final static int ACTION_RECORD_BLOCK_NO = 19;
+
+        public final static int ACTION_TRANSACTION_CENTER_MERGE_LIST = 20;
+
+        public final static int ACTION_TRANSACTION_SINGLE_TOKEN= 21;
 
 
     }
@@ -155,5 +167,13 @@ public class Constans {
         public final static int WALLET_NO_KEYSTORE = 1;
     }
 
+
+    public static class ETH {
+        public final static String DEFAULT_END_BLOCKNO = "9999999";
+        public final static String ZERO_18 = "1000000000000000000";
+        public final static int ETH_SCALE = 6;
+        public final static int TOKEN_SCALE = 4;
+
+    }
 
 }

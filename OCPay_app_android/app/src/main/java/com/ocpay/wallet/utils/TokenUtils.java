@@ -3,6 +3,7 @@ package com.ocpay.wallet.utils;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static com.ocpay.wallet.Constans.TEST.OCN_TOKEN_ADDRESS;
 
@@ -38,6 +39,21 @@ public class TokenUtils {
 
     public static void setTokenPrice(String tokenName, BigDecimal tokenPrice) {
         OCPPrefUtils.setTokenPrice(tokenName, tokenPrice);
+    }
+
+    public static String getTokenNameByAddress(String address) {
+        if (address == null ) return "";
+        if (!address.startsWith("0x") && address.length() == 40) {
+            address = "0x" + address;
+        }
+        Map<String, String> tokenMap = getTokenMap();
+        Set<String> strings = tokenMap.keySet();
+        for (String key : strings) {
+            if (address.equals(tokenMap.get(key))) {
+                return key;
+            }
+        }
+        return "";
     }
 
 

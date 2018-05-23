@@ -86,7 +86,7 @@ public class ContactsCreateActivity extends BaseActivity implements View.OnClick
         binding.includeActionBar.actionBarTitle.setText(R.string.activity_title_contacts);
         binding.includeActionBar.llToolbar.setBackgroundColor(getResources().getColor(R.color.white));
         binding.includeActionBar.actionBarTitle.setTextColor(getResources().getColor(R.color.color_text_main));
-        binding.includeActionBar.ivBack.setImageResource(R.mipmap.icon_close);
+        binding.includeActionBar.ivBack.setImageResource(R.mipmap.ic_close_black);
         binding.includeActionBar.ivBack.setOnClickListener(this);
         binding.includeActionBar.toolbarMenuIcon.setImageResource(R.mipmap.ic_complete);
         binding.includeActionBar.toolbarMenuIcon.setOnClickListener(this);

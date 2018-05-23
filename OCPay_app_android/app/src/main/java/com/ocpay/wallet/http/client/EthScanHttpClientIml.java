@@ -6,9 +6,11 @@ import com.ocpay.wallet.OCPWallet;
 import com.ocpay.wallet.greendao.WalletInfo;
 import com.ocpay.wallet.greendao.manager.WalletInfoDaoUtils;
 import com.ocpay.wallet.http.rx.RxBus;
+import com.ocpay.wallet.utils.OCPPrefUtils;
 import com.ocpay.wallet.utils.TokenUtils;
 import com.ocpay.wallet.utils.eth.OCPWalletUtils;
 import com.ocpay.wallet.utils.web3j.response.EtherScanJsonrpcResponse;
+import com.ocpay.wallet.utils.web3j.response.EtherScanTxListResponse;
 import com.ocpay.wallet.utils.web3j.response.TokenBalanceResponse;
 import com.ocpay.wallet.utils.web3j.transaction.OWalletTransaction;
 import com.snow.commonlibrary.log.MyLog;
@@ -116,51 +118,45 @@ public class EthScanHttpClientIml {
                 );
     }
 
-    public static void getTransactionList() {
+    public static void getTransactionList(final int requestId, String address, String startBlock, String endBlock) {
 
         HttpClient.Builder
                 .getEthScanServer()
-                .getEthTransactionList(WALLET_ADDRESS, "5000", "9999999")
+                .getEthTransactionList(address, startBlock, endBlock)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<Object>() {
+                        new Observer<EtherScanTxListResponse>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
-                                MyLog.i("onSubscribe");
                             }
 
                             @Override
-                            public void onNext(Object o) {
-                                MyLog.i("onNext" + o.toString());
-
+                            public void onNext(EtherScanTxListResponse o) {
+                                RxBus.getInstance().post(requestId, o);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                MyLog.i("onError" + e.getMessage());
-
                             }
 
                             @Override
                             public void onComplete() {
-                                MyLog.i("onComplete");
-
                             }
                         }
                 );
     }
 
 
-    public static void getBlockNumber() {
+    public static void getBlockNumber(final int requestId) {
         HttpClient.Builder
                 .getEthScanServer()
                 .getEthBlockNumber()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<Object>() {
+                        new Observer<EtherScanJsonrpcResponse>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
@@ -168,9 +164,14 @@ public class EthScanHttpClientIml {
                             }
 
                             @Override
-                            public void onNext(Object o) {
-                                MyLog.i("onNext" + o.toString());
-
+                            public void onNext(EtherScanJsonrpcResponse o) {
+                                if (o != null && requestId == Constans.RXBUS.ACTION_RECORD_BLOCK_NO) {
+                                    BigInteger blockNo = o.getDecimalFromDex();
+                                    if (blockNo != null && blockNo.longValue() > 0) {
+                                        OCPPrefUtils.hasRecordFirstBlock(true);
+                                        OCPPrefUtils.setFirstStartBlockNo(blockNo.toString());
+                                    }
+                                }
                             }
 
                             @Override

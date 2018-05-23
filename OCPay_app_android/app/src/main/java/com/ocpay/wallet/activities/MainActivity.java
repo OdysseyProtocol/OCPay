@@ -232,7 +232,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         List<WalletInfo> walletInfos = WalletInfoDaoUtils.sqlAll(MyApp.getContext());
         for (WalletInfo info : walletInfos) {
             EthScanHttpClientIml.getEthBalanceOf(info.getWalletAddress(), ETH, false);
-
+        }
+        //record first block high
+        if (OCPPrefUtils.isRecordFirstBlock()) {
+            EthScanHttpClientIml.getBlockNumber(Constans.RXBUS.ACTION_RECORD_BLOCK_NO);
         }
 
     }
