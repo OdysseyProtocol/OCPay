@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stormfives.ocpay.token.dao.OauthAccessokenMapper" >
+  <resultMap id="BaseResultMap" type="com.stormfives.ocpay.token.dao.entity.OauthAccessoken" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="resource_owner_id" property="resourceOwnerId" jdbcType="INTEGER" />
+    <result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+    <result column="refresh_token" property="refreshToken" jdbcType="VARCHAR" />
+    <result column="expires_in" property="expiresIn" jdbcType="INTEGER" />
+    <result column="revoked_at" property="revokedAt" jdbcType="TIMESTAMP" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="scope" property="scope" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="merchant_app_id" property="merchantAppId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, resource_owner_id, access_token, refresh_token, expires_in, revoked_at, created_at, 
+    scope, type, count, merchant_app_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessokenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from oauth_access_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oauth_access_token
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oauth_access_token
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessokenExample" >
+    delete from oauth_access_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessoken" >
+    insert into oauth_access_token (id, resource_owner_id, access_token, 
+      refresh_token, expires_in, revoked_at, 
+      created_at, scope, type, 
+      count, merchant_app_id)
+    values (#{id,jdbcType=INTEGER}, #{resourceOwnerId,jdbcType=INTEGER}, #{accessToken,jdbcType=VARCHAR}, 
+      #{refreshToken,jdbcType=VARCHAR}, #{expiresIn,jdbcType=INTEGER}, #{revokedAt,jdbcType=TIMESTAMP}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{scope,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{merchantAppId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessoken" >
+    insert into oauth_access_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resourceOwnerId != null" >
+        resource_owner_id,
+      </if>
+      <if test="accessToken != null" >
+        access_token,
+      </if>
+      <if test="refreshToken != null" >
+        refresh_token,
+      </if>
+      <if test="expiresIn != null" >
+        expires_in,
+      </if>
+      <if test="revokedAt != null" >
+        revoked_at,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="scope != null" >
+        scope,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="merchantAppId != null" >
+        merchant_app_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resourceOwnerId != null" >
+        #{resourceOwnerId,jdbcType=INTEGER},
+      </if>
+      <if test="accessToken != null" >
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshToken != null" >
+        #{refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="revokedAt != null" >
+        #{revokedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scope != null" >
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="merchantAppId != null" >
+        #{merchantAppId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessokenExample" resultType="java.lang.Integer" >
+    select count(*) from oauth_access_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oauth_access_token
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceOwnerId != null" >
+        resource_owner_id = #{record.resourceOwnerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessToken != null" >
+        access_token = #{record.accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refreshToken != null" >
+        refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expiresIn != null" >
+        expires_in = #{record.expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="record.revokedAt != null" >
+        revoked_at = #{record.revokedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scope != null" >
+        scope = #{record.scope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.count != null" >
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchantAppId != null" >
+        merchant_app_id = #{record.merchantAppId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oauth_access_token
+    set id = #{record.id,jdbcType=INTEGER},
+      resource_owner_id = #{record.resourceOwnerId,jdbcType=INTEGER},
+      access_token = #{record.accessToken,jdbcType=VARCHAR},
+      refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
+      expires_in = #{record.expiresIn,jdbcType=INTEGER},
+      revoked_at = #{record.revokedAt,jdbcType=TIMESTAMP},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      scope = #{record.scope,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      count = #{record.count,jdbcType=INTEGER},
+      merchant_app_id = #{record.merchantAppId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessoken" >
+    update oauth_access_token
+    <set >
+      <if test="resourceOwnerId != null" >
+        resource_owner_id = #{resourceOwnerId,jdbcType=INTEGER},
+      </if>
+      <if test="accessToken != null" >
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshToken != null" >
+        refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        expires_in = #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="revokedAt != null" >
+        revoked_at = #{revokedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scope != null" >
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="merchantAppId != null" >
+        merchant_app_id = #{merchantAppId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stormfives.ocpay.token.dao.entity.OauthAccessoken" >
+    update oauth_access_token
+    set resource_owner_id = #{resourceOwnerId,jdbcType=INTEGER},
+      access_token = #{accessToken,jdbcType=VARCHAR},
+      refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      expires_in = #{expiresIn,jdbcType=INTEGER},
+      revoked_at = #{revokedAt,jdbcType=TIMESTAMP},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      scope = #{scope,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      merchant_app_id = #{merchantAppId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

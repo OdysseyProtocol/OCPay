@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stormfives.ocpay.advertisment.dao.AdvertismentMapper" >
+  <resultMap id="BaseResultMap" type="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="home_page_id" property="homePageId" jdbcType="INTEGER" />
+    <result column="direct_type" property="directType" jdbcType="INTEGER" />
+    <result column="direct_url" property="directUrl" jdbcType="VARCHAR" />
+    <result column="show_sort" property="showSort" jdbcType="INTEGER" />
+    <result column="show_img" property="showImg" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, home_page_id, direct_type, direct_url, show_sort, show_img, title, create_time, 
+    create_by, update_time, update_by
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.stormfives.ocpay.advertisment.dao.entity.AdvertismentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from advertisment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stormfives.ocpay.advertisment.dao.entity.AdvertismentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from advertisment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from advertisment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from advertisment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stormfives.ocpay.advertisment.dao.entity.AdvertismentExample" >
+    delete from advertisment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" >
+    insert into advertisment (id, home_page_id, direct_type, 
+      direct_url, show_sort, show_img, 
+      title, create_time, create_by, 
+      update_time, update_by, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{homePageId,jdbcType=INTEGER}, #{directType,jdbcType=INTEGER}, 
+      #{directUrl,jdbcType=VARCHAR}, #{showSort,jdbcType=INTEGER}, #{showImg,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" >
+    insert into advertisment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="homePageId != null" >
+        home_page_id,
+      </if>
+      <if test="directType != null" >
+        direct_type,
+      </if>
+      <if test="directUrl != null" >
+        direct_url,
+      </if>
+      <if test="showSort != null" >
+        show_sort,
+      </if>
+      <if test="showImg != null" >
+        show_img,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="homePageId != null" >
+        #{homePageId,jdbcType=INTEGER},
+      </if>
+      <if test="directType != null" >
+        #{directType,jdbcType=INTEGER},
+      </if>
+      <if test="directUrl != null" >
+        #{directUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showSort != null" >
+        #{showSort,jdbcType=INTEGER},
+      </if>
+      <if test="showImg != null" >
+        #{showImg,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stormfives.ocpay.advertisment.dao.entity.AdvertismentExample" resultType="java.lang.Integer" >
+    select count(*) from advertisment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update advertisment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.homePageId != null" >
+        home_page_id = #{record.homePageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.directType != null" >
+        direct_type = #{record.directType,jdbcType=INTEGER},
+      </if>
+      <if test="record.directUrl != null" >
+        direct_url = #{record.directUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showSort != null" >
+        show_sort = #{record.showSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.showImg != null" >
+        show_img = #{record.showImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update advertisment
+    set id = #{record.id,jdbcType=INTEGER},
+      home_page_id = #{record.homePageId,jdbcType=INTEGER},
+      direct_type = #{record.directType,jdbcType=INTEGER},
+      direct_url = #{record.directUrl,jdbcType=VARCHAR},
+      show_sort = #{record.showSort,jdbcType=INTEGER},
+      show_img = #{record.showImg,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update advertisment
+    set id = #{record.id,jdbcType=INTEGER},
+      home_page_id = #{record.homePageId,jdbcType=INTEGER},
+      direct_type = #{record.directType,jdbcType=INTEGER},
+      direct_url = #{record.directUrl,jdbcType=VARCHAR},
+      show_sort = #{record.showSort,jdbcType=INTEGER},
+      show_img = #{record.showImg,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" >
+    update advertisment
+    <set >
+      <if test="homePageId != null" >
+        home_page_id = #{homePageId,jdbcType=INTEGER},
+      </if>
+      <if test="directType != null" >
+        direct_type = #{directType,jdbcType=INTEGER},
+      </if>
+      <if test="directUrl != null" >
+        direct_url = #{directUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showSort != null" >
+        show_sort = #{showSort,jdbcType=INTEGER},
+      </if>
+      <if test="showImg != null" >
+        show_img = #{showImg,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" >
+    update advertisment
+    set home_page_id = #{homePageId,jdbcType=INTEGER},
+      direct_type = #{directType,jdbcType=INTEGER},
+      direct_url = #{directUrl,jdbcType=VARCHAR},
+      show_sort = #{showSort,jdbcType=INTEGER},
+      show_img = #{showImg,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stormfives.ocpay.advertisment.dao.entity.Advertisment" >
+    update advertisment
+    set home_page_id = #{homePageId,jdbcType=INTEGER},
+      direct_type = #{directType,jdbcType=INTEGER},
+      direct_url = #{directUrl,jdbcType=VARCHAR},
+      show_sort = #{showSort,jdbcType=INTEGER},
+      show_img = #{showImg,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

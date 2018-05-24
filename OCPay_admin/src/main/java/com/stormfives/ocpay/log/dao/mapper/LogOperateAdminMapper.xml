@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stormfives.ocpay.log.dao.LogOperateAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.stormfives.ocpay.log.dao.entity.LogOperateAdmin" >
+    <id column="logid" property="logid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="actpath" property="actpath" jdbcType="VARCHAR" />
+    <result column="consumetime" property="consumetime" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="param" property="param" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    logid, userid, actpath, consumetime, createtime, param, ip
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdminExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from log_operate_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from log_operate_admin
+    where logid = #{logid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_operate_admin
+    where logid = #{logid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdminExample" >
+    delete from log_operate_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdmin" >
+    insert into log_operate_admin (logid, userid, actpath, 
+      consumetime, createtime, param, 
+      ip)
+    values (#{logid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{actpath,jdbcType=VARCHAR}, 
+      #{consumetime,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{param,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdmin" >
+    insert into log_operate_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        logid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="actpath != null" >
+        actpath,
+      </if>
+      <if test="consumetime != null" >
+        consumetime,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="param != null" >
+        param,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="actpath != null" >
+        #{actpath,jdbcType=VARCHAR},
+      </if>
+      <if test="consumetime != null" >
+        #{consumetime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param != null" >
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdminExample" resultType="java.lang.Integer" >
+    select count(*) from log_operate_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update log_operate_admin
+    <set >
+      <if test="record.logid != null" >
+        logid = #{record.logid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.actpath != null" >
+        actpath = #{record.actpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumetime != null" >
+        consumetime = #{record.consumetime,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.param != null" >
+        param = #{record.param,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update log_operate_admin
+    set logid = #{record.logid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      actpath = #{record.actpath,jdbcType=VARCHAR},
+      consumetime = #{record.consumetime,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      param = #{record.param,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdmin" >
+    update log_operate_admin
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="actpath != null" >
+        actpath = #{actpath,jdbcType=VARCHAR},
+      </if>
+      <if test="consumetime != null" >
+        consumetime = #{consumetime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param != null" >
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stormfives.ocpay.log.dao.entity.LogOperateAdmin" >
+    update log_operate_admin
+    set userid = #{userid,jdbcType=INTEGER},
+      actpath = #{actpath,jdbcType=VARCHAR},
+      consumetime = #{consumetime,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      param = #{param,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR}
+    where logid = #{logid,jdbcType=INTEGER}
+  </update>
+</mapper>

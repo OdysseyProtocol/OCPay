@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stormfives.ocpay.token.dao.TokenMapper" >
+
+    <resultMap id="BaseResultMap" type="com.stormfives.ocpay.token.domain.Token">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="resource_owner_id" property="resourceOwnerId" jdbcType="INTEGER"/>
+        <result column="access_token" property="accessToken" jdbcType="VARCHAR"/>
+        <result column="refresh_token" property="refreshToken" jdbcType="VARCHAR"/>
+        <result column="expires_in" property="expiresIn" jdbcType="INTEGER"/>
+        <result column="revoked_at" property="revokedAt" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="scope" property="scope" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, resource_owner_id, access_token, refresh_token, expires_in, revoked_at, created_at,`type`,
+      scope, `count`
+    </sql>
+
+    <select id="selectByAccessToken" resultMap="BaseResultMap" parameterType="com.stormfives.ocpay.token.domain.Token">
+        select
+        <include refid="Base_Column_List"/>
+        from oauth_access_token
+        where access_token = #{accessToken,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByRefreshToken" resultMap="BaseResultMap" parameterType="com.stormfives.ocpay.token.domain.Token">
+        select
+        <include refid="Base_Column_List"/>
+        from oauth_access_token
+        where refresh_token = #{refreshToken,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.stormfives.ocpay.token.domain.Token">
+        insert into oauth_access_token
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="resourceOwnerId != null">
+                resource_owner_id,
+            </if>
+            <if test="accessToken != null">
+                access_token,
+            </if>
+            <if test="refreshToken != null">
+                refresh_token,
+            </if>
+            <if test="expiresIn != null">
+                expires_in,
+            </if>
+            <if test="revokedAt != null">
+                revoked_at,
+            </if>
+            created_at,
+            <if test="scope != null">
+                scope,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="count != null">
+                `count`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="resourceOwnerId != null">
+                #{resourceOwnerId,jdbcType=INTEGER},
+            </if>
+            <if test="accessToken != null">
+                #{accessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="refreshToken != null">
+                #{refreshToken,jdbcType=VARCHAR},
+            </if>
+            <if test="expiresIn != null">
+                #{expiresIn,jdbcType=INTEGER},
+            </if>
+            <if test="revokedAt != null">
+                #{revokedAt,jdbcType=TIMESTAMP},
+            </if>
+            now(),
+            <if test="scope != null">
+                #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+        </trim>
+  </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.stormfives.ocpay.token.domain.Token">
+        update oauth_access_token
+        <set>
+            <if test="count != null">
+                `count` =#{count,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id =#{id,jdbcType=INTEGER}
+    </update>
+
+
+    <delete id="deleteByOwnerId" parameterType="com.stormfives.ocpay.token.domain.Token">
+        delete from oauth_access_token
+        <where>
+            <if test="resourceOwnerId != null">
+                and resource_owner_id = #{resourceOwnerId,jdbcType=INTEGER}
+            </if>
+            <if test="scope != null">
+                and scope =#{scope,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+    <select id="selectLatestByOwnerId" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from oauth_access_token
+        <where>
+            <if test="resourceOwnerId != null">
+                and resource_owner_id = #{resourceOwnerId,jdbcType=INTEGER}
+            </if>
+            <if test="scope != null">
+                and scope =#{scope,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>
