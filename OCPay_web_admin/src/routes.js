@@ -57,61 +57,65 @@ let routes = [
         hidden: true
     },
    
+   
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: 'Version',
+    //     iconCls: 'fa fa-clone',
+    //     children: [
+    //         { path: '/Version', component: resolve=>require(['./views/version/Version.vue'],resolve), name: 'Version' },
+    //         // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
+    //         // { path: '/page5', component: Page5, name: '页面5' }
+    //     ]
+    // },
     {
         path: '/',
         component: Home,
-        name: '第三方管理',
+        name: 'Homepage',
         iconCls: 'fa fa-clone',
         children: [
-            { path: '/thirdParty', component: resolve=>require(['./views/thirdParty/thirdParty.vue'],resolve), name: '第三方列表' },
-            { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
+            { path: '/Homepage', component: resolve=>require(['./views/homepage/Homepage.vue'],resolve), name: 'Homepage' },
+            // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
             // { path: '/page5', component: Page5, name: '页面5' }
         ]
     },
     {
         path: '/',
         component: Home,
-        name: '交易管理',
-        iconCls: 'fa fa-handshake-o',
+        name: 'Banner',
+        iconCls: 'fa fa-clone',
         children: [
-            // { path: '/Details', component: Details, name: '交易明细' },
-            { path: '/Change', component: resolve=>require(['./views/details/Change.vue'],resolve), name: '货币变动' },
-            { path: '/Recharge', component: resolve=>require(['./views/details/Recharge.vue'],resolve), name: '订单列表' },
-            { path: '/Gas', component: resolve=>require(['./views/details/Gas.vue'],resolve), name: '邮费明细' },
-            { path: '/Error', component: resolve=>require(['./views/details/Error.vue'],resolve), name: '错误订单' },
-            { path: '/Platform', component: resolve=>require(['./views/details/Platform.vue'],resolve), name: '第三方转账' },
-            // { path: '/Withdraw', component: Withdraw, name: '提现明细' }
+            { path: '/Banner', component: resolve=>require(['./views/Banner/banner.vue'],resolve), name: 'Banner' },
+            // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
+            // { path: '/page5', component: Page5, name: '页面5' }
         ]
     },
     {
         path: '/',
         component: Home,
-        name: '用户管理',
-        iconCls: 'fa fa-address-book',
+        name: 'Windows',
+        iconCls: 'fa fa-clone',
         children: [
-            { path: '/UserList', component: resolve=>require(['./views/userAdmin/UserList.vue'],resolve), name: '用户钱包' },
-            { path: '/UserBalance', component: resolve=>require(['./views/userAdmin/UserBalance.vue'],resolve), name: '用户货币余额' },
+            { path: '/Windows', component: resolve=>require(['./views/Windows/windows.vue'],resolve), name: 'Windows' },
+            // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
+            // { path: '/page5', component: Page5, name: '页面5' }
         ]
     },
-    {
-        path: '/',
-        component: Home,
-        name: '钱包组管理',
-        iconCls: 'fa fa-credit-card',
-        children: [
-            { path: '/Wallet', component: Wallet, name: '钱包组列表' }
-        ]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: '货币管理',
-        iconCls: 'fa fa-btc',
-        children: [
-            { path: '/Currency', component: resolve=>require(['./views/Currency/Currency.vue'],resolve), name: '货币列表' },
-            // { path: '/echarts', component: echarts, name: 'echarts' }
-        ]
-    },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: 'basesetting',
+    //     iconCls: 'fa fa-clone',
+    //     children: [
+    //         { path: '/coins', component: resolve=>require(['./views/basesetting/coins.vue'],resolve), name: 'coins' },
+    //         { path: '/Language', component: resolve=>require(['./views/basesetting/Language.vue'],resolve), name: 'Language' },
+    //         // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
+    //         // { path: '/page5', component: Page5, name: '页面5' }
+    //     ]
+    // },
+   
+   
     // {
     //     path: '/',
     //     component: Home,
@@ -134,6 +138,7 @@ let routes = [
             // { path: '/echarts', component: echarts, name: 'echarts' }
         ]
     },
+    
     {
         path: '*',
         hidden: became,

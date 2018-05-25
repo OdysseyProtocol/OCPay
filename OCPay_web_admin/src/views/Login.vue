@@ -56,7 +56,10 @@
             //_this.$router.replace('/table');
             this.logining = true;
             // NProgress.start();
-            var loginParams = { name: this.ruleForm2.account, password: this.ruleForm2.checkPass };
+            var loginParams = { 
+                name: this.ruleForm2.account,
+                password: this.ruleForm2.checkPass 
+              };
             requestLogin(loginParams).then(data => {
               this.logining = false;
               console.log(data)
@@ -69,7 +72,7 @@
               } else {
                 sessionStorage.setItem('user', data.data.accessToken);
                 sessionStorage.setItem('account', this.ruleForm2.account);
-                this.$router.push({ path: '/thirdParty' });
+                this.$router.push({ path: '/Homepage' });
               }
             });
           } else {

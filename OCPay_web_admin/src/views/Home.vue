@@ -26,7 +26,7 @@
 				<!--导航菜单-->
 				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
 					 unique-opened router v-if="!collapsed">
-					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">  							
+					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">  
 						<el-submenu :index="index+''" :key="index" v-show="!item.leaf">
 							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
 							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
@@ -76,7 +76,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'货币管理',
+				sysName:'ocpay-admin',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',

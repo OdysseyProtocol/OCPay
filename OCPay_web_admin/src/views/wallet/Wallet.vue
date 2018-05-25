@@ -143,7 +143,7 @@
             <!-- <img src="../../assets/erweima.png" alt=""> -->
             <div id="qrcodeNode"></div>
             <span>钱包地址:<br/>{{ eaddress }}</span>
-</el-dialog>
+      </el-dialog>
     <el-dialog title="钱包组详情" :visible.sync="dialogVisible" class="bigWidth">
        
         <el-form ref="form" :model="form" label-width="120px">

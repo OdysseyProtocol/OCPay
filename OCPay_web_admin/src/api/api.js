@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-let base = '/api/coin/v1';
+let base ='/get'+ '/api/ocpay/v1/';
 // 登陆
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 // 创建用户
-export const addLogin = params => { return axios.post(`${base}/admin-wallet`, params).then(res => res.data); };
+export const addLogin = params => { return axios.post(`${base}/add-admin`, params).then(res => res.data); };
 // 修改密码
 export const becamePass = params => { return axios.put(`${base}/admin-pwd`, params).then(res => res.data); };
 //账户列表
@@ -13,7 +13,7 @@ export const AccountList = params => { return axios.get(`${base}/user/users`+par
 //所有平台
 export const allPlatform = params => { return axios.get(`${base}/merchant-info/list-no-page`).then(res => res.data); };
 
-
+ 
 //货币管理
 // 请求货币列表
 export const getCurrency = params => { return axios.get(`${base}/coin-info?pageNum=`+params).then(res => res.data); };
@@ -103,3 +103,36 @@ export const GasDetails = params => { return axios.get(`${base}/gas_transaction_
 // export const editUser = params => { return axios.get(`${base}/user/edit`, { params: params }); };
 
 // export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
+ 
+
+// Homepage
+// Homepage
+export const Homepage = params => { return axios.post(`${base}/get-homePage`,params).then(res => res.data); };
+// HomepageEdit
+export const HomepageEdit = params => { return axios.post(`${base}/edit-homePage`,params).then(res => res.data); };
+// HomepageDelete
+export const HomepageDelete = params => { return axios.post(`${base}/delete-homePage`,params).then(res => res.data); };
+// add
+export const HomepageAdd = params => { return axios.post(`${base}/add-homePage`,params).then(res => res.data); };
+
+// Banner
+// Banner
+export const Banner= params => { return axios.post(`${base}/get-advertisment`,params).then(res => res.data); };
+// BannerEdit
+export const BannerEdit= params => { return axios.post(`${base}/edit-advertisment`,params).then(res => res.data); };
+// BannerDelete
+export const BannerDelete= params => { return axios.post(`${base}/delete-advertisment`,params).then(res => res.data); };
+// BannerAdd
+export const BannerAdd= params => { return axios.post(`${base}/add-advertisment`,params).then(res => res.data); };
+// get-hompageid
+export const BannerGet= params => { return axios.post(`${base}/get-homePageId`,params).then(res => res.data); };
+
+
+let baseUrl='/get'+ '/api/ocpay/upload/v1/';
+// 上传图片
+export const upload= params => { return axios.post(`${baseUrl}/file`,params).then(res => res.data); };
+
+
+
+
+

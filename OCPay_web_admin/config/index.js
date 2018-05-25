@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/get': {
-        target: 'http://wallet-admin-dev.stormfives.com',
+        target: 'http://ocpay-admin-dev.stormfives.com/',
         changeOrigin: true,
         pathRewrite: {
             '^/get': ''

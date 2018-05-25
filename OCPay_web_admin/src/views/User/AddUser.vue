@@ -39,10 +39,11 @@ import { addLogin } from '../../api/api';
         this.$confirm('确认使用此密码？')
             .then(_ => {
                 var para=this.form;
+            
                 // console.log(para)
                 
                 addLogin(para).then(data =>{
-                //  console.log(data)
+                 console.log(data)
                     this.$message({
                         message: data.data.message,
                         type: 'success'

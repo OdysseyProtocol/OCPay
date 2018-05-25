@@ -73,12 +73,10 @@ export default {
         tableData: [],
         //默认每页数据量
         pagesize: 10,
-        //当前页码
+        //当前页码 
         currentPage: 1,
         //默认数据总数
         totalCount: 20,
-        
-        
 
     };
     },

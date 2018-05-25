@@ -331,7 +331,7 @@ export default {
             })
         },
          security(){
-            apiKey().then(data=>{
+            security().then(data=>{
                 this.form.security=data.data;
                 console.log(data.data)
             })
@@ -343,7 +343,7 @@ export default {
             })
         },
          securityReset(){
-            apiKey().then(data=>{
+            security().then(data=>{
                 this.formEdit.security=data.data;
                 console.log(data.data)
             })
