@@ -27,12 +27,15 @@ import { becamePass } from '../../api/api';
       submitForm() {
         this.$confirm('确认使用此密码？')
             .then(_ => {
-                var para={"name":sessionStorage.getItem('account'),"password":this.form.password,"realName":'111',"phone":sessionStorage.getItem('account')}
+                let para={
+                  "name":sessionStorage.getItem('account'),
+                  "password":this.form.password
+                }
                 console.log(para)
                 
                 becamePass(para).then(data =>{
-                  sessionStorage.removeItem('user');
-                  this.$router.push('/')
+                  // sessionStorage.removeItem('user');
+                  // this.$router.push('/')
                   console.log(data)
                 })
             })

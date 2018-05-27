@@ -110,7 +110,5 @@
 .el-dialog--small {
     width: 45%;
 }
-.el-button--primary {
-    margin-left: 250px;
-}
+
 </style>

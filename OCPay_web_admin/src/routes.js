@@ -91,17 +91,17 @@ let routes = [
             // { path: '/page5', component: Page5, name: '页面5' }
         ]
     },
-    {
-        path: '/',
-        component: Home,
-        name: 'Windows',
-        iconCls: 'fa fa-clone',
-        children: [
-            { path: '/Windows', component: resolve=>require(['./views/Windows/windows.vue'],resolve), name: 'Windows' },
-            // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
-            // { path: '/page5', component: Page5, name: '页面5' }
-        ]
-    },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: 'Windows',
+    //     iconCls: 'fa fa-clone',
+    //     children: [
+    //         { path: '/Windows', component: resolve=>require(['./views/Windows/windows.vue'],resolve), name: 'Windows' },
+    //         // { path: '/Account', component:  resolve=>require(['./views/thirdParty/Account.vue'],resolve), name: '对账列表' },
+    //         // { path: '/page5', component: Page5, name: '页面5' }
+    //     ]
+    // },
     // {
     //     path: '/',
     //     component: Home,

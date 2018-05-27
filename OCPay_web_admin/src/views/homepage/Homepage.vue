@@ -12,9 +12,10 @@
     border
     style="width: 100%">
     <el-table-column
-      prop="No"
-      label="No."
-      width="">
+      label="No.">
+      <template slot-scope="scope1">             
+					{{scope1.$index+1+10*(currentPage-1)}}
+				</template>
     </el-table-column>
     <el-table-column
       prop="id"
@@ -179,7 +180,7 @@ import { Homepage,HomepageEdit,HomepageDelete,HomepageAdd} from '../../api/api';
             Homepage(para).then(data=>{
                 console.log(data)
                 this.tableData=data.data.list;
-                this.totalCount
+                this.totalCount=data.data.count;
             })  
         },
     // 编辑数据
@@ -191,7 +192,7 @@ import { Homepage,HomepageEdit,HomepageDelete,HomepageAdd} from '../../api/api';
               content:this.form.content
             }
           HomepageEdit(para).then(data=>{
-                console.log(data)
+                // console.log(data)
                 this.getcoin(this.currentPage);
                 this.dialogVisible=false;
             })
@@ -199,11 +200,10 @@ import { Homepage,HomepageEdit,HomepageDelete,HomepageAdd} from '../../api/api';
         // 删除数据
         delete1(row){
            let para={
-             "id":row.id,
-             
+             "id":row.id,      
             }
           HomepageDelete(para).then(data=>{
-                console.log(data)
+                // console.log(data)
                 this.getcoin(this.currentPage);    
             })     
 
@@ -211,27 +211,26 @@ import { Homepage,HomepageEdit,HomepageDelete,HomepageAdd} from '../../api/api';
         look(row){
             this.dialogVisible=true;
             this.form=row;
-            console.log(row)
+            // console.log(row)
         //    this.$store.state.count=row;
         },
         // 增加数据
         add(){
           this.dialogVisible2=true;
-           
-         
-
+      
         },
         submitadd(){
           
            let para=this.form1;
              HomepageAdd(para).then(data=>{
-                console.log(data)
+                // console.log(data)
                 this.dialogVisible2=false;
                 this.getcoin(this.currentPage);    
             })
         },
          handleCurrentChange(val){
-            console.log(val)
+            // console.log(val)
+            this.currentPage=val;
             this.getcoin(val)
         },
 

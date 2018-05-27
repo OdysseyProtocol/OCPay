@@ -6,7 +6,7 @@ export const requestLogin = params => { return axios.post(`${base}/login`, param
 // 创建用户
 export const addLogin = params => { return axios.post(`${base}/add-admin`, params).then(res => res.data); };
 // 修改密码
-export const becamePass = params => { return axios.put(`${base}/admin-pwd`, params).then(res => res.data); };
+export const becamePass = params => { return axios.post(`${base}/admin-pwd`, params).then(res => res.data); };
 //账户列表
 export const AccountList = params => { return axios.get(`${base}/user/users`+params).then(res => res.data); };
 
@@ -128,9 +128,14 @@ export const BannerAdd= params => { return axios.post(`${base}/add-advertisment`
 export const BannerGet= params => { return axios.post(`${base}/get-homePageId`,params).then(res => res.data); };
 
 
+
 let baseUrl='/get'+ '/api/ocpay/upload/v1/';
 // 上传图片
 export const upload= params => { return axios.post(`${baseUrl}/file`,params).then(res => res.data); };
+
+
+
+
 
 
 

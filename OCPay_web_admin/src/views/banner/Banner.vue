@@ -28,9 +28,11 @@
     </el-table-column>
     
     <el-table-column
-      prop="showImg"
       label="Pic"
       width="">
+      	<template slot-scope="scope">
+                 <img :src="scope.row.showImg" alt="">
+				</template>
     </el-table-column>
     <el-table-column
       prop="content"
@@ -46,7 +48,7 @@
    <el-table-column  prop="showSort" label="Sequential" >
 				<template slot-scope="scope">
                  <el-button size="small" @click="Slook(scope.$index, scope.row)">EDIT</el-button>
-                  <el-button size="small" @click="delete1(scope.row)">Delete</el-button>
+                 <el-button size="small" @click="delete1(scope.row)">Delete</el-button>
 				</template>
 	</el-table-column>                  
    </el-table>
@@ -87,10 +89,10 @@
              <el-input v-model="form.directUrl"></el-input>
              </el-form-item>
            <el-form-item label="Pic">
-              <el-col :span="13">
-                <span>{{form.showImg}}</span>
+              <el-col :span="18">
+                 <el-input v-model="form.showImg" disabled=""></el-input>
              </el-col>
-             <el-col :span="11">
+             <el-col :span="6">
                <el-button type="primary" @click="upload">上传图片</el-button>
                <input class="img1" @change="uploadImg()" ref="img" type="file">
              </el-col>
@@ -134,13 +136,13 @@
            <!-- <el-form-item label="Pic">
              <el-input v-model="form1.showImg"></el-input>
            </el-form-item> -->
-           <el-form-item label="Pic">
-              <el-col :span="13">
-                <span>{{form1.showImg}}</span>
+            <el-form-item label="Pic">
+              <el-col :span="18">
+                 <el-input v-model="form1.showImg" disabled=""></el-input>
              </el-col>
-             <el-col :span="11">
+             <el-col :span="6">
                <el-button type="primary" @click="upload1">上传图片</el-button>
-               <input class="img1" @change="uploadImg1()" ref="img" type="file">
+               <input class="img1" @change="uploadImg1()" ref="img2" type="file">
              </el-col>
            </el-form-item>
             <el-form-item label="showSort">
@@ -167,6 +169,13 @@ import {Banner,BannerEdit,BannerDelete,BannerAdd,BannerGet,upload} from '../../a
          form:{
          },
          form1: { 
+           showImg:"",
+           homePageId:"",
+           title:"",
+           content:"",
+           directType:"",
+           directUrl:"",
+           showSort:""
           },
         
         //默认每页数据量
@@ -187,10 +196,11 @@ import {Banner,BannerEdit,BannerDelete,BannerAdd,BannerGet,upload} from '../../a
      methods: {
        uploadImg(){
          let para=new FormData();
-         para.append("photo",this.$refs.img.files[0])
+         para.append("file",this.$refs.img.files[0])
         //  console.log()
          upload(para).then(data=>{
-           console.log(data)
+          //  console.log(data)
+          this.form.showImg=data.data.message;
          })
        },
        upload(){
@@ -198,16 +208,18 @@ import {Banner,BannerEdit,BannerDelete,BannerAdd,BannerGet,upload} from '../../a
        },
 
 
-        uploadImg1(){
+      uploadImg1(){
          let para=new FormData();
-         para.append("photo",this.$refs.img.files[0])
+         para.append("file",this.$refs.img2.files[0])
         //  console.log()
-         upload1(para).then(data=>{
-          //  console.log(data)
+         upload(para).then(data=>{
+           console.log(data)
+           this.form1.showImg=data.data.message;
+           console.log(this.form1.showImg)
          })
        },
        upload1(){
-         this.$refs.img.click();
+         this.$refs.img2.click();
        },
       //  查询表格数据
           getcoin(num){
@@ -220,19 +232,20 @@ import {Banner,BannerEdit,BannerDelete,BannerAdd,BannerGet,upload} from '../../a
             Banner(para).then(data=>{
                 // console.log(data)
                 this.tableData=data.data.list;
+                this.totalCount=data.data.count;
             })  
         },
         // 编辑数据
         edit(){
           let para={
-              id:this.form.homePageId ,
+              id:this.form.id ,
               homePageId:this.form.homePageId,
               content:this.form.content,
               directType:this.form.directType,
               directUrl:this.form.directUrl,
               showImg:this.form.showImg,
               showSort:this.form.showSort,
-              title:"主题1"
+              title:this.form.rank
             }
           BannerEdit(para).then(data=>{
                 // console.log(data)
@@ -288,6 +301,7 @@ import {Banner,BannerEdit,BannerDelete,BannerAdd,BannerGet,upload} from '../../a
         },
         handleCurrentChange(val){
           //  console.log(val)
+          this.currentPage=val;
           this.getcoin(val)
         }
     }
@@ -302,5 +316,12 @@ import {Banner,BannerEdit,BannerDelete,BannerAdd,BannerGet,upload} from '../../a
 }
 .img1{
   display: none;
+}
+.el-table .cell{
+  text-align: center;
+}
+.el-table .cell img{
+  max-width: 100%;
+  max-height:100px ;
 }
 </style>
